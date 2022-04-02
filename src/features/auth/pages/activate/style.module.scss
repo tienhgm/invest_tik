@@ -1,0 +1,17 @@
+.title {
+  user-select: none;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.otpInput {
+  span {
+    margin: 0 0.7rem;
+  }
+  .inputStyle {
+    width: 2.5rem !important; 
+    height: 2.5rem;
+    font-size: 1.8rem;
+    border: 1px solid black;
+    border-radius: 4px;
+  }
+}
