@@ -1,5 +1,5 @@
 import Axios from 'axios';
-// import configs from '../config';
+// import configs from '../config';x
 const axiosInstance = Axios.create({
     timeout: 3 * 60 * 1000,
     // baseURL: configs.BASE_URL

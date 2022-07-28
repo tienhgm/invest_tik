@@ -1,8 +1,10 @@
 {
   "common": {
+    "language": "English",
     "home": "Home",
     "signIn": "Sign in",
     "signUp": "Sign up",
+    "email": "Email",
     "username": "User name",
     "password": "Password",
     "changePass": "Change password",

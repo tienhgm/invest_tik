@@ -6,7 +6,6 @@ const { Option } = Select;
 
 export default function SelectLanguage() {
   const { i18n } = useTranslation();
-
   const handleChange = (value: string) => {
    i18n.changeLanguage(value)
   };
@@ -16,6 +15,7 @@ export default function SelectLanguage() {
       style={{ width: 120 }}
       onChange={handleChange}
       suffixIcon={<GlobalOutlined />}
+      defaultValue={i18n.language}
     >
       <Option value="vi">Tiếng Việt</Option>
       <Option value="en">English</Option>

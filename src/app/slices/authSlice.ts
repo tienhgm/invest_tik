@@ -1,7 +1,8 @@
+import { message } from 'antd';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoginPayload } from 'common';
 import { errorMes, successMes } from 'helper/notify';
-import { handleActivate, handleLogin, handleLogout, handleRegister } from 'apis/auth';
+import { handleLogin, handleLogout, handleRegister } from 'apis/auth';
 import { RootState } from 'app/store';
 export interface AuthState {
     curUser: any;
@@ -24,7 +25,7 @@ export const registerThunk = createAsyncThunk("auth/registerThunk", async (paylo
             return res;
         }
     } catch (error: any) {
-        errorMes(error.data.email);
+        errorMes(error.data.message);
     }
 });
 export const loginThunk = createAsyncThunk("auth/loginThunk", async (payload: LoginPayload) => {
@@ -35,7 +36,7 @@ export const loginThunk = createAsyncThunk("auth/loginThunk", async (payload: Lo
             return res;
         }
     } catch (error: any) {
-        errorMes(error.data.email);
+        errorMes(error.data.message);
     }
 });
 export const logoutThunk = createAsyncThunk("auth/logoutThunk", async () => {
@@ -46,18 +47,7 @@ export const logoutThunk = createAsyncThunk("auth/logoutThunk", async () => {
             return res;
         }
     } catch (error: any) {
-        errorMes(error.data.email);
-    }
-});
-export const activateThunk = createAsyncThunk("auth/activateThunk", async (payload: string) => {
-    try {
-        const res = await handleActivate(payload);
-        if (res) {
-            successMes("Activated!")
-            return res;
-        }
-    } catch (error: any) {
-        errorMes(error.data.email);
+        errorMes(error.data.message);
     }
 });
 const authSlice = createSlice({
@@ -82,9 +72,15 @@ const authSlice = createSlice({
         },
         // @ts-ignore
         [loginThunk.fulfilled]: (state: any, action: PayloadAction<any>) => {
+            console.log('fulfilled');
+            console.log(action)
             state.loading = false;
-            state.isLoggedIn = true;
-            state.curUser = action.payload
+            // state.isLoggedIn = true;
+            // state.curUser = action.payload
+        },
+        // @ts-ignore
+        [loginThunk.rejected]: (state: any, action: PayloadAction<any>) => {
+            state.loading = false;
         },
         // @ts-ignore
         [logoutThunk.fulfilled]: (state: any, action: PayloadAction<any>) => {

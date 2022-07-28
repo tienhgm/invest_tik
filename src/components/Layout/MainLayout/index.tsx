@@ -13,7 +13,7 @@ import { lazy, useEffect, useState } from 'react';
 import { Link, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import { NotFound } from 'components/Common';
 import { useTranslation } from 'react-i18next';
-import SelectLanguage from 'features/auth/components/SelectLanguage';
+import SelectLanguage from 'components/Common/SelectLanguage';
 import { useAppDispatch } from 'app/hooks';
 import { logoutThunk } from 'app/slices/authSlice';
 const { Content, Sider } = Layout;

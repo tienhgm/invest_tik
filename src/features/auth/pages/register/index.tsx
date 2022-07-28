@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { registerThunk, selectAuthLoading } from 'app/slices/authSlice';
 import { LoginPayload } from 'common';
 import AuthLayout from 'components/Layout/AuthLayout';
-import SelectLanguage from 'features/auth/components/SelectLanguage';
+import SelectLanguage from 'components/Common/SelectLanguage';
 import { REGEX_CHECK_EMAIL } from 'helper/regex';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -14,9 +14,7 @@ export default function RegisterPage() {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(selectAuthLoading);
   const onFinish = async (values: LoginPayload) => {
-    delete values.re_password;
     const result = await dispatch(registerThunk(values));
-    console.log(result);
     if (result.meta.requestStatus === 'fulfilled') {
       form.resetFields();
       history.push('/login');
@@ -42,11 +40,20 @@ export default function RegisterPage() {
         autoComplete="off"
       >
         <Form.Item
-          label={t('common.username')}
+          label={t('common.email')}
           name="email"
           rules={[
             { required: true, message: 'Please input your email!' },
             { pattern: REGEX_CHECK_EMAIL, message: 'Email is invalid' },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label={t('common.username')}
+          name="name"
+          rules={[
+            { required: true, message: 'Please input your user name!' },
           ]}
         >
           <Input />
@@ -60,7 +67,7 @@ export default function RegisterPage() {
         </Form.Item>
         <Form.Item
           label={t('common.rePassword')}
-          name="re_password"
+          name="password_confirmation"
           rules={[
             { required: true, message: 'Please input your password!' },
             ({ getFieldValue }) => ({

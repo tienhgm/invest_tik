@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { loginThunk, selectAuthLoading } from 'app/slices/authSlice';
 import { LoginPayload } from 'common';
 import AuthLayout from 'components/Layout/AuthLayout';
-import SelectLanguage from 'features/auth/components/SelectLanguage';
+import SelectLanguage from 'components/Common/SelectLanguage';
 import { REGEX_CHECK_EMAIL } from 'helper/regex';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -15,9 +15,9 @@ export default function LoginPage() {
   const dispatch = useAppDispatch();
   const onFinish = async (values: LoginPayload) => {
     const result = await dispatch(loginThunk(values));
-    if (result.meta.requestStatus === 'fulfilled') {
-      history.push('/activate')
-    }
+    // if (result.meta.requestStatus === 'fulfilled') {
+    //   history.push('/')
+    // }
   };
 
   const onFinishFailed = (errorInfo: any) => {
