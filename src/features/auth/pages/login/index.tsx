@@ -14,7 +14,7 @@ export default function LoginPage() {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const onFinish = async (values: LoginPayload) => {
-    const result = await dispatch(loginThunk(values));
+    await dispatch(loginThunk(values));
     // if (result.meta.requestStatus === 'fulfilled') {
     //   history.push('/')
     // }

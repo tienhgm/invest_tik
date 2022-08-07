@@ -1,7 +1,7 @@
 import { Form, Input, Button } from 'antd';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { registerThunk, selectAuthLoading } from 'app/slices/authSlice';
-import { LoginPayload } from 'common';
+import { RegisterPayload } from 'common';
 import AuthLayout from 'components/Layout/AuthLayout';
 import SelectLanguage from 'components/Common/SelectLanguage';
 import { REGEX_CHECK_EMAIL } from 'helper/regex';
@@ -13,11 +13,10 @@ export default function RegisterPage() {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(selectAuthLoading);
-  const onFinish = async (values: LoginPayload) => {
+  const onFinish = async (values: RegisterPayload) => {
     const result = await dispatch(registerThunk(values));
-    if (result.meta.requestStatus === 'fulfilled') {
+    if (result) {
       form.resetFields();
-      history.push('/login');
     }
   };
   const onFinishFailed = (errorInfo: any) => {
@@ -54,6 +53,7 @@ export default function RegisterPage() {
           name="name"
           rules={[
             { required: true, message: 'Please input your user name!' },
+            { max: 60, message: 'Please input user name within 60 characters' },
           ]}
         >
           <Input />

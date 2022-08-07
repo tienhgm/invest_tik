@@ -2,10 +2,12 @@ import { configureStore, ThunkAction, Action, combineReducers } from '@reduxjs/t
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './rootSaga';
 import authReducer from './slices/authSlice';
+import globalReducer from './slices/globalSlice'
 import { persistReducer } from "redux-persist";
 import storage from 'redux-persist/lib/storage';
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  global: globalReducer
 })
 const persistConfig = {
   key: "root",

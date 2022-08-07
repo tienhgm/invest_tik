@@ -4,8 +4,13 @@ export enum PAGINATION {
   PAGE_SIZE_MIN = 10,
   PAGE_SIZE_MAX = 1000000,
 }
+export interface RegisterPayload {
+  email: string;
+  password: string;
+  name: string;
+  password_confirmation?: string;
+}
 export interface LoginPayload {
   email: string;
   password: string;
-  re_password?: string;
 }

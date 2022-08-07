@@ -42,7 +42,7 @@
     "typescript": "~4.1.5"
   },
   "scripts": {
-    "start": "craco start -p 4000",
+    "start": "craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",

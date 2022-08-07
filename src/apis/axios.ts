@@ -9,6 +9,9 @@ axiosInstance.interceptors.request.use(
         // @ts-ignore
         // config.headers.Authorization = `Bearer 123`;
         config.headers['Access-Control-Allow-Origin'] = `*`;
+        // @ts-ignore
+        config.headers['X-CSRF-TOKEN'] = "";
+        
         return config;
     },
     (error) => Promise.reject(error)
