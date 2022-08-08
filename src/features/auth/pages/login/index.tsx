@@ -1,6 +1,6 @@
 import { Form, Input, Button } from 'antd';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { loginThunk, selectAuthLoading } from 'app/slices/authSlice';
+import { authActions, selectAuthLoading } from 'app/slices/authSlice';
 import { LoginPayload } from 'common';
 import AuthLayout from 'components/Layout/AuthLayout';
 import SelectLanguage from 'components/Common/SelectLanguage';
@@ -8,16 +8,23 @@ import { REGEX_CHECK_EMAIL } from 'helper/regex';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import styles from './style.module.scss';
+import authApi from 'apis/auth';
 export default function LoginPage() {
   const [form] = Form.useForm();
   const isLoading = useAppSelector(selectAuthLoading);
   const history = useHistory();
   const dispatch = useAppDispatch();
   const onFinish = async (values: LoginPayload) => {
-    await dispatch(loginThunk(values));
-    // if (result.meta.requestStatus === 'fulfilled') {
-    //   history.push('/')
-    // }
+    try {
+      dispatch(authActions.auth);
+      const result = await authApi.login(values);
+      if (result) {
+        form.resetFields();
+        dispatch(authActions.authSuccess);
+      }
+    } catch (error) {
+      dispatch(authActions.authFailed);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {

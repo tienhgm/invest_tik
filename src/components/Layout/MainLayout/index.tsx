@@ -14,8 +14,7 @@ import { Link, Route, Switch, useLocation, useRouteMatch } from 'react-router-do
 import { NotFound } from 'components/Common';
 import { useTranslation } from 'react-i18next';
 import SelectLanguage from 'components/Common/SelectLanguage';
-import { useAppDispatch } from 'app/hooks';
-import { logoutThunk } from 'app/slices/authSlice';
+import authApi from 'apis/auth';
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 const Dashboard = lazy(() => import('features/dashboard/pages'));
@@ -23,14 +22,15 @@ const Packages = lazy(() => import('features/packages/pages'));
 const InterestTool = lazy(() => import('features/tool-interest/pages'));
 export default function MainLayout() {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch()
   const location = useLocation();
   const match = useRouteMatch();
   const [collapsed, setcollapsed] = useState(false);
   const [key, setKey] = useState<any>(null);
-  const handleLogout = () => {
-    dispatch(logoutThunk());
-  }
+  const handleLogout = async () => {
+    try {
+      await authApi.logout();
+    } catch (error) {}
+  };
   const onCollapse = () => {
     setcollapsed(!collapsed);
   };
@@ -48,7 +48,9 @@ export default function MainLayout() {
         <a href="">{t('common.setting')}</a>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="2" onClick={handleLogout}>{t('common.logout')}</Menu.Item>
+      <Menu.Item key="2" onClick={handleLogout}>
+        {t('common.logout')}
+      </Menu.Item>
     </Menu>
   );
   const notifyNavbar = (
@@ -88,7 +90,7 @@ export default function MainLayout() {
               <Menu.Item key="5">{t('common.setting')}</Menu.Item>
               <Menu.Item key="6">{t('common.changePass')}</Menu.Item>
               <Menu.Item key="7">{t('common.otp')}</Menu.Item>
-            </SubMenu>  
+            </SubMenu>
             <Menu.Item key="8" icon={<HistoryOutlined />}>
               <Link to={`${match.path}/interest-tool`}>{t('common.history_transaction')}</Link>
             </Menu.Item>

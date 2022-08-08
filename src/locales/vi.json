@@ -24,7 +24,10 @@
     "setting": "Cài đặt",
     "otp": "OTP thông minh",
     "input_otp": "Hãy nhập OTP"
-
+  },
+  "notify":{
+    "register_success": "Đăng ký thành công!",
+    "login": "Đăng nhập thành công!"
   },
   "validate": {
     "usernameRequired": "Vui lòng nhập Email",

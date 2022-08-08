@@ -3,8 +3,9 @@ import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-d
 import './App.less';
 
 import { GuardRoute, NotFound } from 'components/Common';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { getCsrfToken, selectIsLoggedIn } from 'app/slices/authSlice';
+import { useAppSelector } from 'app/hooks';
+import { selectIsLoggedIn } from 'app/slices/authSlice';
+import authApi from 'apis/auth';
 const LoginPage = lazy(() => import('features/auth/pages/login'));
 const RegisterPage = lazy(() => import('features/auth/pages/register'));
 const MainLayout = lazy(() => import('components/Layout/MainLayout'));
@@ -13,9 +14,8 @@ function App() {
   const location = useLocation();
   const history = useHistory();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  const dispatch = useAppDispatch();
   const handleGetCsrfToken = async () => {
-    await dispatch(getCsrfToken());
+    await authApi.getCsrfToken();
   };
   useEffect(() => {
     if (location.pathname === '/') {

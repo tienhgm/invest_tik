@@ -25,6 +25,10 @@
     "otp": "Smart OTP",
     "input_otp": "Please input OTP"
   },
+  "notify":{
+    "register_success": "Register success!",
+    "login": "Login success!"
+  },
   "validate": {
     "usernameRequired": "Please input Email",
     "passwordRequired": "Please input Password"

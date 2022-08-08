@@ -1,6 +1,6 @@
 import { Form, Input, Button } from 'antd';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { registerThunk, selectAuthLoading } from 'app/slices/authSlice';
+import { authActions, selectAuthLoading } from 'app/slices/authSlice';
 import { RegisterPayload } from 'common';
 import AuthLayout from 'components/Layout/AuthLayout';
 import SelectLanguage from 'components/Common/SelectLanguage';
@@ -8,15 +8,22 @@ import { REGEX_CHECK_EMAIL } from 'helper/regex';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import styles from './style.module.scss';
+import authApi from 'apis/auth';
 export default function RegisterPage() {
   const [form] = Form.useForm();
   const history = useHistory();
-  const dispatch = useAppDispatch();
   const isLoading = useAppSelector(selectAuthLoading);
+  const dispatch = useAppDispatch();
   const onFinish = async (values: RegisterPayload) => {
-    const result = await dispatch(registerThunk(values));
-    if (result) {
-      form.resetFields();
+    try {
+      dispatch(authActions.auth);
+      const result = await authApi.register(values);
+      if (result) {
+        form.resetFields();
+        dispatch(authActions.authSuccess);
+      }
+    } catch (error) {
+      dispatch(authActions.authFailed);
     }
   };
   const onFinishFailed = (errorInfo: any) => {
