@@ -27,10 +27,14 @@
   },
   "notify":{
     "register_success": "Đăng ký thành công!",
-    "login": "Đăng nhập thành công!"
+    "login_success": "Đăng nhập thành công!"
   },
   "validate": {
-    "usernameRequired": "Vui lòng nhập Email",
-    "passwordRequired": "Vui lòng nhập mật khẩu"
+    "email_invalid": "Email không hợp lệ!",
+    "email_required": "Vui lòng nhập Email!",
+    "username_required": "Vui lòng nhập tên người dùng!",
+    "password_required": "Vui lòng nhập mật khẩu!",
+    "password_not_match": "Mật khẩu xác nhận không đúng với mật khẩu!",
+    "username_maxLength": "Hãy nhập tên người dùng trong vòng 60 kí tự!"
   }
 }

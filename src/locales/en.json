@@ -27,10 +27,14 @@
   },
   "notify":{
     "register_success": "Register success!",
-    "login": "Login success!"
+    "login_success": "Login success!"
   },
   "validate": {
-    "usernameRequired": "Please input Email",
-    "passwordRequired": "Please input Password"
+    "email_invalid": "Email is invalid!",
+    "email_required": "Please input Email!",
+    "username_required": "Please input user name!",
+    "password_required": "Please input Password!",
+    "password_not_match": "The two passwords that you entered do not match!",
+    "username_maxLength": "Please input user name within 60 characters!"
   }
 }

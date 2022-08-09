@@ -1,15 +1,17 @@
 import { Form, Input, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions, selectAuthLoading } from 'app/slices/authSlice';
-import { RegisterPayload } from 'common';
+import { errorMes, successMes } from 'helper/notify';
 import AuthLayout from 'components/Layout/AuthLayout';
 import SelectLanguage from 'components/Common/SelectLanguage';
 import { REGEX_CHECK_EMAIL } from 'helper/regex';
-import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { RegisterPayload } from 'common';
 import styles from './style.module.scss';
 import authApi from 'apis/auth';
 export default function RegisterPage() {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const history = useHistory();
   const isLoading = useAppSelector(selectAuthLoading);
@@ -20,9 +22,11 @@ export default function RegisterPage() {
       const result = await authApi.register(values);
       if (result) {
         form.resetFields();
+        successMes(t('notify.register_success'));
         dispatch(authActions.authSuccess);
       }
-    } catch (error) {
+    } catch (error: any) {
+      errorMes(error?.data?.message);
       dispatch(authActions.authFailed);
     }
   };
@@ -32,7 +36,48 @@ export default function RegisterPage() {
   const handleGoToSignIn = () => {
     history.push('/login');
   };
-  const { t } = useTranslation();
+  const listFormRegister = [
+    {
+      label: t('common.email'),
+      name: 'email',
+      rules: [
+        { required: true, message: t('validate.email_required') },
+        { pattern: REGEX_CHECK_EMAIL, message: t('validate.email_invalid') },
+      ],
+      childComponent: <Input />,
+    },
+    {
+      label: t('common.username'),
+      name: 'name',
+      rules: [
+        { required: true, message: t('validate.username_required') },
+        { max: 60, message: t('validate.username_maxLength') },
+      ],
+      childComponent: <Input />,
+    },
+    {
+      label: t('common.password'),
+      name: 'password',
+      rules: [{ required: true, message: t('validate.password_required') }],
+      childComponent: <Input.Password />,
+    },
+    {
+      label: t('common.rePassword'),
+      name: 'password_confirmation',
+      rules: [
+        { required: true, message: t('validate.password_required') },
+        ({ getFieldValue }: any) => ({
+          validator(rule: any, value: any) {
+            if (!value || getFieldValue('password') === value) {
+              return Promise.resolve();
+            }
+            return Promise.reject(t('validate.password_not_match'));
+          },
+        }),
+      ],
+      childComponent: <Input.Password />,
+    },
+  ];
   return (
     <AuthLayout>
       <h4>{t('common.signUp')}</h4>
@@ -45,53 +90,11 @@ export default function RegisterPage() {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <Form.Item
-          label={t('common.email')}
-          name="email"
-          rules={[
-            { required: true, message: 'Please input your email!' },
-            { pattern: REGEX_CHECK_EMAIL, message: 'Email is invalid' },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label={t('common.username')}
-          name="name"
-          rules={[
-            { required: true, message: 'Please input your user name!' },
-            { max: 60, message: 'Please input user name within 60 characters' },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label={t('common.password')}
-          name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item
-          label={t('common.rePassword')}
-          name="password_confirmation"
-          rules={[
-            { required: true, message: 'Please input your password!' },
-            ({ getFieldValue }) => ({
-              validator(rule, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject('The two passwords that you entered do not match!');
-              },
-            }),
-          ]}
-        >
-          <Input.Password autoComplete="false" />
-        </Form.Item>
-        {/* <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item> */}
+        {listFormRegister.map((element: any) => (
+          <Form.Item label={element.label} name={element.name} rules={element.rules}>
+            {element.childComponent}
+          </Form.Item>
+        ))}
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
             {t('common.signUp')}

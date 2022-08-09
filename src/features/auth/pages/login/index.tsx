@@ -1,15 +1,18 @@
 import { Form, Input, Button } from 'antd';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { authActions, selectAuthLoading } from 'app/slices/authSlice';
-import { LoginPayload } from 'common';
-import AuthLayout from 'components/Layout/AuthLayout';
-import SelectLanguage from 'components/Common/SelectLanguage';
-import { REGEX_CHECK_EMAIL } from 'helper/regex';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { authActions, selectAuthLoading } from 'app/slices/authSlice';
+import { errorMes, successMes } from 'helper/notify';
+import AuthLayout from 'components/Layout/AuthLayout';
+import SelectLanguage from 'components/Common/SelectLanguage';
+import { LoginPayload } from 'common';
+import { REGEX_CHECK_EMAIL } from 'helper/regex';
+
 import styles from './style.module.scss';
 import authApi from 'apis/auth';
 export default function LoginPage() {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const isLoading = useAppSelector(selectAuthLoading);
   const history = useHistory();
@@ -21,8 +24,10 @@ export default function LoginPage() {
       if (result) {
         form.resetFields();
         dispatch(authActions.authSuccess);
+        successMes(t('notify.login_success'));
       }
-    } catch (error) {
+    } catch (error: any) {
+      errorMes(error?.data?.message);
       dispatch(authActions.authFailed);
     }
   };
@@ -34,7 +39,24 @@ export default function LoginPage() {
   const handleGoToSignUp = () => {
     history.push('/register');
   };
-  const { t } = useTranslation();
+  const listFormLogin = [
+    {
+      label: t('common.username'),
+      name: 'email',
+      rules: [
+        { required: true, message: t('validate.email_required') },
+        { pattern: REGEX_CHECK_EMAIL, message: t('validate.email_invalid') },
+      ],
+      childComponent: <Input />,
+    },
+    {
+      label: t('common.password'),
+      name: 'password',
+      rules: [{ required: true, message: t('validate.password_required') }],
+      childComponent: <Input.Password />,
+    },
+  ];
+
   return (
     <AuthLayout>
       <h4>{t('common.signIn')}</h4>
@@ -47,27 +69,11 @@ export default function LoginPage() {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <Form.Item
-          label={t('common.username')}
-          name="email"
-          rules={[
-            { required: true, message: t('validate.usernameRequired') },
-            { pattern: REGEX_CHECK_EMAIL, message: 'Email is invalid' },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label={t('common.password')}
-          name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
-        >
-          <Input.Password />
-        </Form.Item>
-        {/* <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item> */}
+        {listFormLogin.map((element: any) => (
+          <Form.Item label={element.label} name={element.name} rules={element.rules}>
+            {element.childComponent}
+          </Form.Item>
+        ))}
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
             {t('common.signIn')}
