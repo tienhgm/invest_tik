@@ -4,10 +4,10 @@ import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions, selectAuthLoading } from 'app/slices/authSlice';
 import { errorMes, successMes } from 'helper/notify';
+import { RegisterPayload } from 'model';
 import AuthLayout from 'components/Layout/AuthLayout';
 import SelectLanguage from 'components/Common/SelectLanguage';
 import { REGEX_CHECK_EMAIL } from 'helper/regex';
-import { RegisterPayload } from 'common';
 import styles from './style.module.scss';
 import authApi from 'apis/auth';
 export default function RegisterPage() {
@@ -80,7 +80,7 @@ export default function RegisterPage() {
   ];
   return (
     <AuthLayout>
-      <h4>{t('common.signUp')}</h4>
+      <h4>{t('common.sign_up')}</h4>
       <Form
         form={form}
         labelCol={{ span: 8 }}
@@ -97,14 +97,14 @@ export default function RegisterPage() {
         ))}
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
-            {t('common.signUp')}
+            {t('common.sign_up')}
           </Button>
         </Form.Item>
       </Form>
       <div className={styles.toSignUp}>
-        {t('common.haveAccount')}
+        {t('common.have_account')}
         <Button type="link" style={{ fontWeight: 'bold' }} onClick={handleGoToSignIn}>
-          {t('common.signIn')}
+          {t('common.sign_in')}
         </Button>
         <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
           <SelectLanguage />

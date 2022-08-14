@@ -2,16 +2,16 @@
   "common": {
     "language": "English",
     "home": "Home",
-    "signIn": "Sign in",
-    "signUp": "Sign up",
+    "sign_in": "Sign in",
+    "sign_up": "Sign up",
     "email": "Email",
     "username": "User name",
     "password": "Password",
     "changePass": "Change password",
     "rePassword": "Re password",
     "logout": "Logout",
-    "haventAccount": "Don't have an account ?",
-    "haveAccount": "Have already an account ?",
+    "havent_account": "Don't have an account ?",
+    "have_account": "Have already an account ?",
     "rememberMe": "Remember me",
     "changelanguage": "English",
     "dashboard":"Dashboard",
@@ -23,7 +23,10 @@
     "profile": "Profile",
     "setting": "Settings",
     "otp": "Smart OTP",
-    "input_otp": "Please input OTP"
+    "input_otp": "Please input OTP",
+    "forgot_password": "Forgot password",
+    "go_to_login": "Back to Sign in",
+    "send": "Send"
   },
   "notify":{
     "register_success": "Register success!",

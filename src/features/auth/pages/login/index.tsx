@@ -4,9 +4,9 @@ import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions, selectAuthLoading } from 'app/slices/authSlice';
 import { errorMes, successMes } from 'helper/notify';
+import { LoginPayload } from 'model';
 import AuthLayout from 'components/Layout/AuthLayout';
 import SelectLanguage from 'components/Common/SelectLanguage';
-import { LoginPayload } from 'common';
 import { REGEX_CHECK_EMAIL } from 'helper/regex';
 
 import styles from './style.module.scss';
@@ -36,8 +36,8 @@ export default function LoginPage() {
     console.log('Failed:', errorInfo);
   };
 
-  const handleGoToSignUp = () => {
-    history.push('/register');
+  const handleGoToPage = (route: string) => {
+    history.push(route);
   };
   const listFormLogin = [
     {
@@ -59,7 +59,7 @@ export default function LoginPage() {
 
   return (
     <AuthLayout>
-      <h4>{t('common.signIn')}</h4>
+      <h4>{t('common.sign_in')}</h4>
       <Form
         form={form}
         labelCol={{ span: 8 }}
@@ -76,14 +76,21 @@ export default function LoginPage() {
         ))}
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
-            {t('common.signIn')}
+            {t('common.sign_in')}
+          </Button>
+          <Button type="link" onClick={() => handleGoToPage('/forgot-password')}>
+            {t('common.forgot_password')}
           </Button>
         </Form.Item>
       </Form>
       <div className={styles.toSignUp}>
-        {t('common.haventAccount')}
-        <Button type="link" style={{ fontWeight: 'bold' }} onClick={handleGoToSignUp}>
-          {t('common.signUp')}
+        {t('common.havent_account')}
+        <Button
+          type="link"
+          style={{ fontWeight: 'bold' }}
+          onClick={() => handleGoToPage('/register')}
+        >
+          {t('common.sign_up')}
         </Button>
         <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
           <SelectLanguage />

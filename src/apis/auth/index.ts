@@ -1,4 +1,4 @@
-import { LoginPayload, RegisterPayload } from 'common/index';
+import { ForgotPasswordPayload, LoginPayload, RegisterPayload } from 'model/index';
 import { sendPost, sendGet } from 'apis/axios';
 // export const handleGetCsrfToken = () => sendGet('/csrf-cookie');
 // export const handleRegister = (account: LoginPayload) => sendPost('/register', account);
@@ -10,13 +10,17 @@ const authApi = {
     const url = '/csrf-cookie';
     return sendGet(url);
   },
-  register(account: RegisterPayload): Promise<any> {
+  register(payload: RegisterPayload): Promise<any> {
     const url = '/register';
-    return sendPost(url, account);
+    return sendPost(url, payload);
   },
-  login(account: LoginPayload): Promise<any> {
+  login(payload: LoginPayload): Promise<any> {
     const url = '/login';
-    return sendPost(url, account);
+    return sendPost(url, payload);
+  },
+  forgotPassword(email: ForgotPasswordPayload): Promise<any> {
+    const url = '/forgot-password';
+    return sendPost(url, email);
   },
   logout(): Promise<any> {
     const url = '/logout';
