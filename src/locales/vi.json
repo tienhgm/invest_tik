@@ -2,16 +2,16 @@
   "common": {
     "language": "Tiếng Việt",
     "home": "Trang chủ",
-    "signIn": "Đăng nhập",
-    "signUp": "Đăng ký",
+    "sign_in": "Đăng nhập",
+    "sign_up": "Đăng ký",
     "email": "Email",
     "username": "Tên người dùng",
     "password": "Mật khẩu",
     "changePass": "Đổi mật khẩu",
     "rePassword": "Nhập lại",
     "logout": "Đăng xuất",
-    "haventAccount": "Bạn chưa có tài khoản ?",
-    "haveAccount": "Bạn đã có tài khoản ?",
+    "havent_account": "Bạn chưa có tài khoản ?",
+    "have_account": "Bạn đã có tài khoản ?",
     "rememberMe": "Nhớ tài khoản",
     "changelanguage": "Tiếng Việt",
     "dashboard": "Bảng điều khiển",
@@ -24,13 +24,15 @@
     "setting": "Cài đặt",
     "otp": "OTP thông minh",
     "input_otp": "Hãy nhập OTP",
-    "forgot_password": "Forgot password",
-    "go_to_login": "Back to Sign in",
-    "send": "Send"
+    "forgot_password": "Quên mật khẩu",
+    "go_to_login": "Trở lại đăng nhập",
+    "send": "Gửi",
+    "reset_password": "Làm mới mật khẩu"
   },
   "notify": {
     "register_success": "Đăng ký thành công!",
-    "login_success": "Đăng nhập thành công!"
+    "login_success": "Đăng nhập thành công!",
+    "forgot_success": "Đã gửi tới mail của bạn!"
   },
   "validate": {
     "email_invalid": "Email không hợp lệ!",

@@ -1,20 +1,17 @@
 import React, { lazy, useEffect } from 'react';
-import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import './App.less';
-
-import { GuardRoute, NotFound } from 'components/Common';
-import { useAppSelector } from 'app/hooks';
-import { selectIsLoggedIn } from 'app/slices/authSlice';
+import { AuthRoute, GuardRoute, NotFound } from 'components/Common';
 import authApi from 'apis/auth';
 const LoginPage = lazy(() => import('features/auth/pages/login'));
 const ForgotPassword = lazy(() => import('features/auth/pages/forgot'));
+const ResetPassword = lazy(() => import('features/auth/pages/reset'));
 const RegisterPage = lazy(() => import('features/auth/pages/register'));
 const MainLayout = lazy(() => import('components/Layout/MainLayout'));
 
 function App() {
   const location = useLocation();
   const history = useHistory();
-  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const handleGetCsrfToken = async () => {
     await authApi.getCsrfToken();
   };
@@ -30,15 +27,10 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path={'/login'} exact>
-          {isLoggedIn ? <Redirect to={'/dashboard'} /> : <LoginPage />}
-        </Route>
-        <Route path={'/forgot-password'} exact>
-          {isLoggedIn ? <Redirect to={'/dashboard'} /> : <ForgotPassword />}
-        </Route>
-        <Route path={'/register'} exact>
-          {isLoggedIn ? <Redirect to={'/dashboard'} /> : <RegisterPage />}
-        </Route>
+        <AuthRoute path={'/login'} exact component={LoginPage} />
+        <AuthRoute path={'/forgot-password'} exact component={ForgotPassword} />
+        <AuthRoute path={'/reset-password'} exact component={ResetPassword} />
+        <AuthRoute path={'/register'} exact component={RegisterPage} />
         <GuardRoute path={'/dashboard'} component={MainLayout}></GuardRoute>
         <Route component={NotFound}></Route>
       </Switch>

@@ -18,16 +18,16 @@ export default function RegisterPage() {
   const dispatch = useAppDispatch();
   const onFinish = async (values: RegisterPayload) => {
     try {
-      dispatch(authActions.auth);
+      dispatch(authActions.auth());
       const result = await authApi.register(values);
       if (result) {
         form.resetFields();
         successMes(t('notify.register_success'));
-        dispatch(authActions.authSuccess);
+        dispatch(authActions.authFailed());
       }
     } catch (error: any) {
       errorMes(error?.data?.message);
-      dispatch(authActions.authFailed);
+      dispatch(authActions.authFailed());
     }
   };
   const onFinishFailed = (errorInfo: any) => {
@@ -91,7 +91,12 @@ export default function RegisterPage() {
         autoComplete="off"
       >
         {listFormRegister.map((element: any) => (
-          <Form.Item label={element.label} name={element.name} rules={element.rules}>
+          <Form.Item
+            key={element.name}
+            label={element.label}
+            name={element.name}
+            rules={element.rules}
+          >
             {element.childComponent}
           </Form.Item>
         ))}

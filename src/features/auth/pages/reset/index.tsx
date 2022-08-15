@@ -1,30 +1,36 @@
 import { Form, Input, Button } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions, selectAuthLoading } from 'app/slices/authSlice';
-import { errorMes, successMes } from 'helper/notify';
-import { LoginPayload } from 'model';
 import AuthLayout from 'components/Layout/AuthLayout';
 import SelectLanguage from 'components/Common/SelectLanguage';
-import { REGEX_CHECK_EMAIL } from 'helper/regex';
-
+import { useTranslation } from 'react-i18next';
+import { useHistory, useLocation } from 'react-router-dom';
 import styles from './style.module.scss';
 import authApi from 'apis/auth';
-export default function LoginPage() {
-  const { t } = useTranslation();
+import { errorMes, successMes } from 'helper/notify';
+import useQuery from 'hooks/queryParams';
+import { ResetPasswordPayload } from 'model';
+export default function ResetPasswordPage() {
   const [form] = Form.useForm();
   const isLoading = useAppSelector(selectAuthLoading);
   const history = useHistory();
   const dispatch = useAppDispatch();
-  const onFinish = async (values: LoginPayload) => {
+  const { search } = useLocation();
+  let query = useQuery(search);
+  const onFinish = async (values: any) => {
     try {
       dispatch(authActions.auth());
-      const result = await authApi.login(values);
+      let payloadValues: ResetPasswordPayload = {
+        ...values,
+        email: query.get('email'),
+        token: query.get('token'),
+      };
+      const result = await authApi.resetPassword(payloadValues);
       if (result) {
         form.resetFields();
-        dispatch(authActions.authSuccess());
-        successMes(t('notify.login_success'));
+        successMes(t('notify.forgot_success'));
+        history.push('/login');
+        dispatch(authActions.authFailed());
       }
     } catch (error: any) {
       errorMes(error?.data?.message);
@@ -33,32 +39,41 @@ export default function LoginPage() {
   };
 
   const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
   };
 
-  const handleGoToPage = (route: string) => {
-    history.push(route);
+  const handleGoToSignIn = () => {
+    history.push('/login');
   };
-  const listFormLogin = [
-    {
-      label: t('common.username'),
-      name: 'email',
-      rules: [
-        { required: true, message: t('validate.email_required') },
-        { pattern: REGEX_CHECK_EMAIL, message: t('validate.email_invalid') },
-      ],
-      childComponent: <Input />,
-    },
+
+  const { t } = useTranslation();
+  const listFormReset = [
     {
       label: t('common.password'),
       name: 'password',
       rules: [{ required: true, message: t('validate.password_required') }],
       childComponent: <Input.Password />,
     },
+    {
+      label: t('common.rePassword'),
+      name: 'password_confirmation',
+      rules: [
+        { required: true, message: t('validate.password_required') },
+        ({ getFieldValue }: any) => ({
+          validator(rule: any, value: any) {
+            if (!value || getFieldValue('password') === value) {
+              return Promise.resolve();
+            }
+            return Promise.reject(t('validate.password_not_match'));
+          },
+        }),
+      ],
+      childComponent: <Input.Password />,
+    },
   ];
-
   return (
     <AuthLayout>
-      <h4>{t('common.sign_in')}</h4>
+      <h4>{t('common.reset_password')}</h4>
       <Form
         form={form}
         labelCol={{ span: 8 }}
@@ -68,7 +83,7 @@ export default function LoginPage() {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        {listFormLogin.map((element: any) => (
+        {listFormReset.map((element: any) => (
           <Form.Item
             key={element.name}
             label={element.label}
@@ -80,21 +95,14 @@ export default function LoginPage() {
         ))}
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
-            {t('common.sign_in')}
-          </Button>
-          <Button type="link" onClick={() => handleGoToPage('/forgot-password')}>
-            {t('common.forgot_password')}
+            {t('common.send')}
           </Button>
         </Form.Item>
       </Form>
       <div className={styles.toSignUp}>
-        {t('common.havent_account')}
-        <Button
-          type="link"
-          style={{ fontWeight: 'bold' }}
-          onClick={() => handleGoToPage('/register')}
-        >
-          {t('common.sign_up')}
+        {t('common.go_to_login')}
+        <Button type="link" style={{ fontWeight: 'bold' }} onClick={handleGoToSignIn}>
+          {t('common.sign_in')}
         </Button>
         <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
           <SelectLanguage />

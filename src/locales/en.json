@@ -26,11 +26,13 @@
     "input_otp": "Please input OTP",
     "forgot_password": "Forgot password",
     "go_to_login": "Back to Sign in",
-    "send": "Send"
+    "send": "Send",
+    "reset_password": "Reset password"
   },
   "notify":{
     "register_success": "Register success!",
-    "login_success": "Login success!"
+    "login_success": "Login success!",
+    "forgot_success": "The email has been sent!"
   },
   "validate": {
     "email_invalid": "Email is invalid!",

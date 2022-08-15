@@ -15,6 +15,8 @@ import { NotFound } from 'components/Common';
 import { useTranslation } from 'react-i18next';
 import SelectLanguage from 'components/Common/SelectLanguage';
 import authApi from 'apis/auth';
+import { authActions } from 'app/slices/authSlice';
+import { useAppDispatch } from 'app/hooks';
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 const Dashboard = lazy(() => import('features/dashboard/pages'));
@@ -26,9 +28,11 @@ export default function MainLayout() {
   const match = useRouteMatch();
   const [collapsed, setcollapsed] = useState(false);
   const [key, setKey] = useState<any>(null);
+  const dispatch = useAppDispatch();
   const handleLogout = async () => {
     try {
       await authApi.logout();
+      dispatch(authActions.logout());
     } catch (error) {}
   };
   const onCollapse = () => {

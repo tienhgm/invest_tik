@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import styles from './style.module.scss';
 import authApi from 'apis/auth';
+import { errorMes, successMes } from 'helper/notify';
 export default function ForgotPasswordPage() {
   const [form] = Form.useForm();
   const isLoading = useAppSelector(selectAuthLoading);
@@ -16,14 +17,16 @@ export default function ForgotPasswordPage() {
   const dispatch = useAppDispatch();
   const onFinish = async (values: ForgotPasswordPayload) => {
     try {
-      dispatch(authActions.auth);
+      dispatch(authActions.auth());
       const result = await authApi.forgotPassword(values);
       if (result) {
         form.resetFields();
-        dispatch(authActions.authSuccess);
+        successMes(t('notify.forgot_success'));
+        dispatch(authActions.authFailed());
       }
-    } catch (error) {
-      dispatch(authActions.authFailed);
+    } catch (error: any) {
+      errorMes(error?.data?.message);
+      dispatch(authActions.authFailed());
     }
   };
 

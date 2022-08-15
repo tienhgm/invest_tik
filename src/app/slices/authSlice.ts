@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 // import { handleLoading } from './globalSlice';
 import { RootState } from 'app/store';
 export interface AuthState {
@@ -16,16 +16,17 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    auth(state: any, action: PayloadAction<any>) {
+    auth(state: any) {
       state.loading = true;
     },
-    authSuccess(state: any, action: PayloadAction<any>) {
+    authSuccess(state: any) {
+      state.loading = false;
+      state.isLoggedIn = true;
+    },
+    authFailed(state: any) {
       state.loading = false;
     },
-    authFailed(state: any, action: PayloadAction<any>) {
-      state.loading = false;
-    },
-    logout(state: any, action: PayloadAction<any>) {
+    logout(state: any) {
       return initialState;
     },
   },
