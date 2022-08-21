@@ -27,7 +27,9 @@
     "forgot_password": "Forgot password",
     "go_to_login": "Back to Sign in",
     "send": "Send",
-    "reset_password": "Reset password"
+    "reset_password": "Reset password",
+    "not_found": "NOT FOUND",
+    "back_home": "Back to home page"
   },
   "notify":{
     "register_success": "Register success!",
