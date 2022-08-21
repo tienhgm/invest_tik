@@ -23,3 +23,9 @@ export interface ResetPasswordPayload {
   password: string;
   password_confirmation: string;
 }
+export interface VerifyPayload {
+  id: string;
+  hash: string;
+  expires: string | string[] | null;
+  signature: string | string[] | null;
+}

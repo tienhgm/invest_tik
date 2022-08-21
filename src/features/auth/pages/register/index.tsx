@@ -21,6 +21,7 @@ export default function RegisterPage() {
       dispatch(authActions.auth());
       const result = await authApi.register(values);
       if (result) {
+        await authApi.sendEmailVerify();
         form.resetFields();
         successMes(t('notify.register_success'));
         dispatch(authActions.authFailed());

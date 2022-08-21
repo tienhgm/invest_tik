@@ -3,10 +3,8 @@ import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import './App.less';
 import { AuthRoute, GuardRoute, NotFound } from 'components/Common';
 import authApi from 'apis/auth';
-const LoginPage = lazy(() => import('features/auth/pages/login'));
-const ForgotPassword = lazy(() => import('features/auth/pages/forgot'));
-const ResetPassword = lazy(() => import('features/auth/pages/reset'));
-const RegisterPage = lazy(() => import('features/auth/pages/register'));
+import { authRoutes } from 'routes';
+import Verify from 'features/auth/pages/verify';
 const MainLayout = lazy(() => import('components/Layout/MainLayout'));
 
 function App() {
@@ -27,11 +25,16 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <AuthRoute path={'/login'} exact component={LoginPage} />
-        <AuthRoute path={'/forgot-password'} exact component={ForgotPassword} />
-        <AuthRoute path={'/reset-password'} exact component={ResetPassword} />
-        <AuthRoute path={'/register'} exact component={RegisterPage} />
+        {authRoutes.map((element: any, key: any) => (
+          <AuthRoute
+            key={key}
+            path={element.path}
+            exact={element.exact}
+            component={element.component}
+          />
+        ))}
         <GuardRoute path={'/dashboard'} component={MainLayout}></GuardRoute>
+        <Route path={'/verify/:id/:hash'} exact component={Verify}></Route>
         <Route component={NotFound}></Route>
       </Switch>
     </div>

@@ -32,7 +32,8 @@
   "notify": {
     "register_success": "Đăng ký thành công!",
     "login_success": "Đăng nhập thành công!",
-    "forgot_success": "Đã gửi tới mail của bạn!"
+    "forgot_success": "Đã gửi tới mail của bạn!",
+    "account_active": "Tài khoản đã được kích hoạt"
   },
   "validate": {
     "email_invalid": "Email không hợp lệ!",

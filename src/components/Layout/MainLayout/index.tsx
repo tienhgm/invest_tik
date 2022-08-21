@@ -89,12 +89,12 @@ export default function MainLayout() {
             <Menu.Item key="3" icon={<CalculatorOutlined />}>
               <Link to={`${match.path}/interest-tool`}>{t('common.interest_tool')}</Link>
             </Menu.Item>
-            <SubMenu key="sub1" icon={<UserOutlined />} title={t('common.user')}>
+            {/* <SubMenu key="sub1" icon={<UserOutlined />} title={t('common.user')}>
               <Menu.Item key="4">{t('common.profile')}</Menu.Item>
               <Menu.Item key="5">{t('common.setting')}</Menu.Item>
               <Menu.Item key="6">{t('common.changePass')}</Menu.Item>
               <Menu.Item key="7">{t('common.otp')}</Menu.Item>
-            </SubMenu>
+            </SubMenu> */}
             <Menu.Item key="8" icon={<HistoryOutlined />}>
               <Link to={`${match.path}/interest-tool`}>{t('common.history_transaction')}</Link>
             </Menu.Item>

@@ -3,6 +3,7 @@ import {
   LoginPayload,
   RegisterPayload,
   ResetPasswordPayload,
+  VerifyPayload,
 } from 'model/index';
 import { sendPost, sendGet } from 'apis/axios';
 // export const handleGetCsrfToken = () => sendGet('/csrf-cookie');
@@ -18,6 +19,15 @@ const authApi = {
   register(payload: RegisterPayload): Promise<any> {
     const url = '/register';
     return sendPost(url, payload);
+  },
+  sendEmailVerify(): Promise<any> {
+    const url = '/email/verification-notification';
+    return sendPost(url);
+  },
+  verifyEmailAfterRegister(payload: VerifyPayload): Promise<any> {
+    const { id, hash, expires, signature } = payload;
+    const url = `/email/verify/${id}/${hash}?expires=${expires}&signature=${signature}`;
+    return sendGet(url);
   },
   login(payload: LoginPayload): Promise<any> {
     const url = '/login';

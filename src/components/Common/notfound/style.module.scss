@@ -1,0 +1,38 @@
+.not-found {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  .child {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  .text {
+    font-size: 2.5rem;
+  }
+
+  .text1 {
+    color: gray;
+    margin-right: 0.9rem;
+  }
+  .text2 {
+    color: #34cc7f;
+  }
+  .backToHome{
+    font-weight: 400;
+    transition: all 0.5s;
+    font-size: 1.2rem;
+    color: gray;
+    cursor: pointer;
+    &:hover{
+      color: #28925d;
+    }
+  }
+}

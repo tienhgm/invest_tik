@@ -11,6 +11,7 @@ import { REGEX_CHECK_EMAIL } from 'helper/regex';
 
 import styles from './style.module.scss';
 import authApi from 'apis/auth';
+import { useEffect } from 'react';
 export default function LoginPage() {
   const { t } = useTranslation();
   const [form] = Form.useForm();
@@ -32,12 +33,18 @@ export default function LoginPage() {
     }
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-  };
+  const onFinishFailed = (errorInfo: any) => {};
 
   const handleGoToPage = (route: string) => {
     history.push(route);
   };
+  useEffect(() => {
+    if (localStorage.verify === 'true') {
+      successMes('notify.account_active');
+      localStorage.removeItem('verify')
+    }
+  }, []);
+
   const listFormLogin = [
     {
       label: t('common.username'),

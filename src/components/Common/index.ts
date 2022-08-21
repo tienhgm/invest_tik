@@ -1,4 +1,4 @@
 export * from './GuardRoute';
 export * from './AuthRoute';
-export * from './NotFound';
+export * from './notfound';
 export * from './loading/Loading';
