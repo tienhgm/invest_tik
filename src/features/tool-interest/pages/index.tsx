@@ -9,7 +9,7 @@ export default function InterestTool() {
     console.log('Failed:', errorInfo);
   };
   return (
-    <Card title="Compound interest tool" bordered={false} className={styles.tool}>
+    <Card title="Compound interest tool" bordered={false} className={styles.marginTop}>
       <Form
         name="basic"
         wrapperCol={{ span: 6 }}

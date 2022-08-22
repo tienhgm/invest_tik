@@ -17,8 +17,8 @@ import SelectLanguage from 'components/Common/SelectLanguage';
 import authApi from 'apis/auth';
 import { authActions } from 'app/slices/authSlice';
 import { useAppDispatch } from 'app/hooks';
+import { Footer } from 'antd/lib/layout/layout';
 const { Content, Sider } = Layout;
-const { SubMenu } = Menu;
 const Dashboard = lazy(() => import('features/dashboard/pages'));
 const Packages = lazy(() => import('features/packages/pages'));
 const InterestTool = lazy(() => import('features/tool-interest/pages'));
@@ -73,8 +73,14 @@ export default function MainLayout() {
     setKey(handleKey);
   }, [location.pathname.split('/')[2]]);
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} theme="light">
+    <Layout>
+      <Sider
+        className="site-layout-background"
+        collapsible
+        collapsed={collapsed}
+        onCollapse={onCollapse}
+        theme="light"
+      >
         <div className={styles.title}>
           <Link to={'/'}>INVEST</Link>
         </div>
@@ -130,6 +136,7 @@ export default function MainLayout() {
             <Route component={NotFound} />
           </Switch>
         </Content>
+        <Footer className={styles['custom-padding']} style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
       </Layout>
     </Layout>
   );
