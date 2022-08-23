@@ -27,7 +27,7 @@ export default function MainLayout() {
   const location = useLocation();
   const match = useRouteMatch();
   const [collapsed, setcollapsed] = useState(false);
-  const [key, setKey] = useState<any>(null);
+  const [key, setKey] = useState<any>(getPathKey(location.pathname.split('/')[2]));
   const dispatch = useAppDispatch();
   const handleLogout = async () => {
     try {
@@ -69,8 +69,8 @@ export default function MainLayout() {
   );
   useEffect(() => {
     let path = location.pathname.split('/')[2];
-    let handleKey = getPathKey(path);
-    setKey(handleKey);
+    let key = getPathKey(path);
+    setKey(key);
   }, [location.pathname.split('/')[2]]);
   return (
     <Layout>
@@ -95,12 +95,6 @@ export default function MainLayout() {
             <Menu.Item key="3" icon={<CalculatorOutlined />}>
               <Link to={`${match.path}/interest-tool`}>{t('common.interest_tool')}</Link>
             </Menu.Item>
-            {/* <SubMenu key="sub1" icon={<UserOutlined />} title={t('common.user')}>
-              <Menu.Item key="4">{t('common.profile')}</Menu.Item>
-              <Menu.Item key="5">{t('common.setting')}</Menu.Item>
-              <Menu.Item key="6">{t('common.changePass')}</Menu.Item>
-              <Menu.Item key="7">{t('common.otp')}</Menu.Item>
-            </SubMenu> */}
             <Menu.Item key="8" icon={<HistoryOutlined />}>
               <Link to={`${match.path}/interest-tool`}>{t('common.history_transaction')}</Link>
             </Menu.Item>
@@ -136,7 +130,9 @@ export default function MainLayout() {
             <Route component={NotFound} />
           </Switch>
         </Content>
-        <Footer className={styles['custom-padding']} style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        <Footer className={styles['custom-padding']} style={{ textAlign: 'center' }}>
+          Ant Design ©2018 Created by Ant UED
+        </Footer>
       </Layout>
     </Layout>
   );
