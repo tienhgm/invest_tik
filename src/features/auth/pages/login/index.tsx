@@ -1,8 +1,8 @@
 import { Form, Input, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { authActions, selectAuthLoading } from 'app/slices/authSlice';
+import { useAppDispatch } from 'app/hooks';
+import { authActions } from 'app/slices/authSlice';
 import { errorMes, successMes } from 'helper/notify';
 import { LoginPayload } from 'model';
 import AuthLayout from 'components/Layout/AuthLayout';
@@ -11,25 +11,26 @@ import { REGEX_CHECK_EMAIL } from 'helper/regex';
 
 import styles from './style.module.scss';
 import authApi from 'apis/auth';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 export default function LoginPage() {
+  const [loading, setLoading] = useState<any>(false);
   const { t } = useTranslation();
   const [form] = Form.useForm();
-  const isLoading = useAppSelector(selectAuthLoading);
   const history = useHistory();
   const dispatch = useAppDispatch();
   const onFinish = async (values: LoginPayload) => {
     try {
-      dispatch(authActions.auth());
+      setLoading(true);
       const result = await authApi.login(values);
       if (result) {
         form.resetFields();
         dispatch(authActions.authSuccess());
         successMes(t('notify.login_success'));
+        setLoading(false);
       }
     } catch (error: any) {
+      setLoading(false);
       errorMes(error?.data?.message);
-      dispatch(authActions.authFailed());
     }
   };
 
@@ -41,7 +42,7 @@ export default function LoginPage() {
   useEffect(() => {
     if (localStorage.verify === 'true') {
       successMes('notify.account_active');
-      localStorage.removeItem('verify')
+      localStorage.removeItem('verify');
     }
   }, []);
 
@@ -86,7 +87,7 @@ export default function LoginPage() {
           </Form.Item>
         ))}
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+          <Button type="primary" htmlType="submit" loading={loading} disabled={loading}>
             {t('common.sign_in')}
           </Button>
           <Button type="link" onClick={() => handleGoToPage('/forgot-password')}>

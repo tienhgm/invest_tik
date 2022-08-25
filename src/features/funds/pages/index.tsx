@@ -1,31 +1,33 @@
 import { Card } from 'antd';
-import packageApi from 'apis/packages';
+import fundApi from 'apis/funds';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './style.module.scss';
-export default function Packages() {
-  const onGetListPackages = async () => {
-    const result = await packageApi.getListPackages();
+export default function Funds() {
+  const onGetListFunds = async () => {
+    const result = await fundApi.getListFunds();
   };
+  const { t } = useTranslation();
   useEffect(() => {
-    onGetListPackages();
+    onGetListFunds();
   }, []);
 
   return (
-    <Card title="Packages" bordered={false} className={styles.marginTop}>
-      <div className={styles.packages}>
-        <div className={styles['packages__side']}>
-          <div className={styles['packages__side--title']}>
+    <Card title={t('common.funds')} bordered={false} className={styles.marginTop}>
+      <div className={styles.funds}>
+        <div className={styles['funds__side']}>
+          <div className={styles['funds__side--title']}>
             Hiện nay INVEST có 4 loại quỹ đầu tư cho KH lựa chọn, mỗi quỹ phù hợp với một nhu cầu
             đầu tư khác nhau.
           </div>
-          <div className={styles['packages__side--package']}>
+          <div className={styles['funds__side--fund']}>
             <div className={`${styles.child} ${styles['child--inactive']}`}>TCBF</div>
             <div className={`${styles.child} ${styles['child--inactive']}`}>TCBF</div>
             <div className={`${styles.child} ${styles['child--inactive']}`}>TCBF</div>
             <div className={`${styles.child} ${styles['child--active']}`}>TCBF</div>
           </div>
         </div>
-        <div className={styles['packages__rest']}>1234</div>
+        <div className={styles['funds__rest']}>1234</div>
       </div>
     </Card>
   );

@@ -1,6 +1,4 @@
 import { Form, Input, Button } from 'antd';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { authActions, selectAuthLoading } from 'app/slices/authSlice';
 import { ForgotPasswordPayload } from 'model';
 import AuthLayout from 'components/Layout/AuthLayout';
 import SelectLanguage from 'components/Common/SelectLanguage';
@@ -10,23 +8,24 @@ import { useHistory } from 'react-router-dom';
 import styles from './style.module.scss';
 import authApi from 'apis/auth';
 import { errorMes, successMes } from 'helper/notify';
+import { useState } from 'react';
 export default function ForgotPasswordPage() {
   const [form] = Form.useForm();
-  const isLoading = useAppSelector(selectAuthLoading);
+  const [loading, setLoading] = useState<any>(false);
+
   const history = useHistory();
-  const dispatch = useAppDispatch();
   const onFinish = async (values: ForgotPasswordPayload) => {
     try {
-      dispatch(authActions.auth());
+      setLoading(true);
       const result = await authApi.forgotPassword(values);
       if (result) {
         form.resetFields();
         successMes(t('notify.forgot_success'));
-        dispatch(authActions.authFailed());
+        setLoading(false);
       }
     } catch (error: any) {
       errorMes(error?.data?.message);
-      dispatch(authActions.authFailed());
+      setLoading(false);
     }
   };
 
@@ -61,7 +60,7 @@ export default function ForgotPasswordPage() {
           <Input />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+          <Button type="primary" htmlType="submit" loading={loading} disabled={loading}>
             {t('common.send')}
           </Button>
         </Form.Item>

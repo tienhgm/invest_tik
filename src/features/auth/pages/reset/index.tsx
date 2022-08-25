@@ -1,6 +1,4 @@
 import { Form, Input, Button } from 'antd';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { authActions, selectAuthLoading } from 'app/slices/authSlice';
 import AuthLayout from 'components/Layout/AuthLayout';
 import SelectLanguage from 'components/Common/SelectLanguage';
 import { useTranslation } from 'react-i18next';
@@ -10,16 +8,16 @@ import authApi from 'apis/auth';
 import { errorMes, successMes } from 'helper/notify';
 import useQuery from 'hooks/queryParams';
 import { ResetPasswordPayload } from 'model';
+import { useState } from 'react';
 export default function ResetPasswordPage() {
   const [form] = Form.useForm();
-  const isLoading = useAppSelector(selectAuthLoading);
+  const [loading, setLoading] = useState<any>(false);
   const history = useHistory();
-  const dispatch = useAppDispatch();
   const { search } = useLocation();
   let query = useQuery(search);
   const onFinish = async (values: any) => {
     try {
-      dispatch(authActions.auth());
+      setLoading(true);
       let payloadValues: ResetPasswordPayload = {
         ...values,
         email: query.get('email'),
@@ -30,11 +28,11 @@ export default function ResetPasswordPage() {
         form.resetFields();
         successMes(t('notify.forgot_success'));
         history.push('/login');
-        dispatch(authActions.authFailed());
+        setLoading(false);
       }
     } catch (error: any) {
+      setLoading(false);
       errorMes(error?.data?.message);
-      dispatch(authActions.authFailed());
     }
   };
 
@@ -94,7 +92,7 @@ export default function ResetPasswordPage() {
           </Form.Item>
         ))}
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+          <Button type="primary" htmlType="submit" loading={loading} disabled={loading}>
             {t('common.send')}
           </Button>
         </Form.Item>

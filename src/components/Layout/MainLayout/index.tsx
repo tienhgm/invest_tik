@@ -20,7 +20,7 @@ import { useAppDispatch } from 'app/hooks';
 import { Footer } from 'antd/lib/layout/layout';
 const { Content, Sider } = Layout;
 const Dashboard = lazy(() => import('features/dashboard/pages'));
-const Packages = lazy(() => import('features/packages/pages'));
+const Funds = lazy(() => import('features/funds/pages'));
 const InterestTool = lazy(() => import('features/tool-interest/pages'));
 export default function MainLayout() {
   const { t } = useTranslation();
@@ -57,6 +57,27 @@ export default function MainLayout() {
       </Menu.Item>
     </Menu>
   );
+  const menuSidebar = [
+    {
+      key: "1",
+      icon: <DashboardOutlined />,
+      link: match.path,
+      text: t('common.dashboard')
+    },
+    {
+      key: "2",
+      icon: <DesktopOutlined />,
+      link: `${match.path}/funds`,
+      text: t('common.funds')
+    },
+    {
+      key: "3",
+      icon: <CalculatorOutlined />,
+      link: `${match.path}/interest-tool`,
+      text: t('common.dashboard')
+    },
+
+  ];
   const notifyNavbar = (
     <Menu style={{ minWidth: '20rem' }}>
       {listNotify &&
@@ -67,13 +88,14 @@ export default function MainLayout() {
         ))}
     </Menu>
   );
+
   useEffect(() => {
     let path = location.pathname.split('/')[2];
     let key = getPathKey(path);
     setKey(key);
   }, [location.pathname.split('/')[2]]);
   return (
-    <Layout>
+    <Layout style={{ minHeight: '100vh' }}>
       <Sider
         className="site-layout-background"
         collapsible
@@ -90,7 +112,7 @@ export default function MainLayout() {
               <Link to={`${match.path}`}>{t('common.dashboard')}</Link>
             </Menu.Item>
             <Menu.Item key="2" icon={<DesktopOutlined />}>
-              <Link to={`${match.path}/packages`}>{t('common.packages')}</Link>
+              <Link to={`${match.path}/funds`}>{t('common.funds')}</Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<CalculatorOutlined />}>
               <Link to={`${match.path}/interest-tool`}>{t('common.interest_tool')}</Link>
@@ -125,7 +147,7 @@ export default function MainLayout() {
         <Content style={{ margin: '0 16px' }}>
           <Switch>
             <Route path={`/dashboard`} component={Dashboard} exact />
-            <Route path={`${match.url}/packages`} component={Packages} />
+            <Route path={`${match.url}/funds`} component={Funds} />
             <Route path={`${match.url}/interest-tool`} component={InterestTool} />
             <Route component={NotFound} />
           </Switch>

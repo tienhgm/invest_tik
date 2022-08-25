@@ -4,7 +4,7 @@ export const getPathKey = (value: any) => {
             return '1';
         case undefined:
             return '1';
-        case 'packages':
+        case 'funds':
             return '2';
         case 'interest-tool':
             return '9';

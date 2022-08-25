@@ -1,8 +1,6 @@
 import { Form, Input, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { authActions, selectAuthLoading } from 'app/slices/authSlice';
 import { errorMes, successMes } from 'helper/notify';
 import { RegisterPayload } from 'model';
 import AuthLayout from 'components/Layout/AuthLayout';
@@ -10,25 +8,26 @@ import SelectLanguage from 'components/Common/SelectLanguage';
 import { REGEX_CHECK_EMAIL } from 'helper/regex';
 import styles from './style.module.scss';
 import authApi from 'apis/auth';
+import { useState } from 'react';
 export default function RegisterPage() {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const history = useHistory();
-  const isLoading = useAppSelector(selectAuthLoading);
-  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState<any>(false);
+
   const onFinish = async (values: RegisterPayload) => {
     try {
-      dispatch(authActions.auth());
+      setLoading(true);
       const result = await authApi.register(values);
       if (result) {
         await authApi.sendEmailVerify();
         form.resetFields();
         successMes(t('notify.register_success'));
-        dispatch(authActions.authFailed());
+        setLoading(false);
       }
     } catch (error: any) {
+      setLoading(false);
       errorMes(error?.data?.message);
-      dispatch(authActions.authFailed());
     }
   };
   const onFinishFailed = (errorInfo: any) => {
@@ -102,7 +101,7 @@ export default function RegisterPage() {
           </Form.Item>
         ))}
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit" loading={isLoading} disabled={isLoading}>
+          <Button type="primary" htmlType="submit" loading={loading} disabled={loading}>
             {t('common.sign_up')}
           </Button>
         </Form.Item>
