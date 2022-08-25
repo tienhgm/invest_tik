@@ -59,24 +59,35 @@ export default function MainLayout() {
   );
   const menuSidebar = [
     {
-      key: "1",
+      key: '1',
       icon: <DashboardOutlined />,
       link: match.path,
-      text: t('common.dashboard')
+      text: t('common.dashboard'),
     },
     {
-      key: "2",
+      key: '2',
       icon: <DesktopOutlined />,
       link: `${match.path}/funds`,
-      text: t('common.funds')
+      text: t('common.funds'),
     },
     {
-      key: "3",
+      key: '3',
       icon: <CalculatorOutlined />,
       link: `${match.path}/interest-tool`,
-      text: t('common.dashboard')
+      text: t('common.interest_tool'),
     },
-
+    {
+      key: '8',
+      icon: <HistoryOutlined />,
+      link: `${match.path}/interest-tool`,
+      text: t('common.history_transaction'),
+    },
+    {
+      key: '9',
+      icon: <BellOutlined />,
+      link: `${match.path}/interest-tool`,
+      text: t('common.notify'),
+    },
   ];
   const notifyNavbar = (
     <Menu style={{ minWidth: '20rem' }}>
@@ -108,21 +119,11 @@ export default function MainLayout() {
         </div>
         {key ? (
           <Menu defaultSelectedKeys={[key]} mode="inline">
-            <Menu.Item key="1" icon={<DashboardOutlined />}>
-              <Link to={`${match.path}`}>{t('common.dashboard')}</Link>
-            </Menu.Item>
-            <Menu.Item key="2" icon={<DesktopOutlined />}>
-              <Link to={`${match.path}/funds`}>{t('common.funds')}</Link>
-            </Menu.Item>
-            <Menu.Item key="3" icon={<CalculatorOutlined />}>
-              <Link to={`${match.path}/interest-tool`}>{t('common.interest_tool')}</Link>
-            </Menu.Item>
-            <Menu.Item key="8" icon={<HistoryOutlined />}>
-              <Link to={`${match.path}/interest-tool`}>{t('common.history_transaction')}</Link>
-            </Menu.Item>
-            <Menu.Item key="9" icon={<BellOutlined />}>
-              <Link to={`${match.path}/interest-tool`}>{t('common.notify')}</Link>
-            </Menu.Item>
+            {menuSidebar.map((item: any) => (
+              <Menu.Item key={`${item.key}`} icon={item.icon}>
+                <Link to={item.link}>{item.text}</Link>
+              </Menu.Item>
+            ))}
           </Menu>
         ) : (
           <Menu mode="inline">
