@@ -45,5 +45,9 @@ const authApi = {
     const url = '/logout';
     return sendPost(url);
   },
+  getMe(): Promise<any> {
+    const url = '/me';
+    return sendGet(url);
+  },
 };
 export default authApi;

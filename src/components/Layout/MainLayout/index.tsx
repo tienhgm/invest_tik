@@ -6,9 +6,11 @@ import {
   BellOutlined,
   CalculatorOutlined,
   HistoryOutlined,
+  ProfileOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
 import styles from './style.module.scss';
-import { getPathKey } from 'helper/enum';
+import { getPathKey } from 'helper/generate';
 import { lazy, useEffect, useState } from 'react';
 import { Link, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import { NotFound } from 'components/Common';
@@ -22,6 +24,7 @@ const { Content, Sider } = Layout;
 const Dashboard = lazy(() => import('features/dashboard/pages'));
 const Funds = lazy(() => import('features/funds/pages'));
 const InterestTool = lazy(() => import('features/tool-interest/pages'));
+const Settings = lazy(() => import('features/settings/pages'));
 export default function MainLayout() {
   const { t } = useTranslation();
   const location = useLocation();
@@ -38,6 +41,14 @@ export default function MainLayout() {
   const onCollapse = () => {
     setcollapsed(!collapsed);
   };
+  const onGetListFunds = async () => {
+    const result = await authApi.getMe();
+    console.log(result);
+  };
+  useEffect(() => {
+    onGetListFunds();
+  }, []);
+
   const listNotify = [
     { key: '0', name: 'Noti 1' },
     { key: '1', name: 'Noti 2' },
@@ -45,14 +56,14 @@ export default function MainLayout() {
   ];
   const menuNavbar = (
     <Menu style={{ minWidth: '10rem' }}>
-      <Menu.Item key="0">
-        <a href="">{t('common.profile')}</a>
+      <Menu.Item key="10">
+        <Link to={`${match.path}/profile`}>{t('common.profile')}</Link>
       </Menu.Item>
-      <Menu.Item key="1">
-        <a href="">{t('common.setting')}</a>
+      <Menu.Item key="11">
+        <Link to={`${match.path}/profile`}>{t('common.setting')}</Link>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="2" onClick={handleLogout}>
+      <Menu.Item key="111" onClick={handleLogout}>
         {t('common.logout')}
       </Menu.Item>
     </Menu>
@@ -88,6 +99,18 @@ export default function MainLayout() {
       link: `${match.path}/interest-tool`,
       text: t('common.notify'),
     },
+    {
+      key: '10',
+      icon: <ProfileOutlined />,
+      link: `${match.path}/profile`,
+      text: t('common.profile'),
+    },
+    {
+      key: '11',
+      icon: <SettingOutlined />,
+      link: `${match.path}/settings`,
+      text: t('common.setting'),
+    },
   ];
   const notifyNavbar = (
     <Menu style={{ minWidth: '20rem' }}>
@@ -115,7 +138,7 @@ export default function MainLayout() {
         theme="light"
       >
         <div className={styles.title}>
-          <Link to={'/'}>INVEST</Link>
+          <Link to={'/'}>KLTN</Link>
         </div>
         {key ? (
           <Menu defaultSelectedKeys={[key]} mode="inline">
@@ -145,11 +168,13 @@ export default function MainLayout() {
           </Dropdown>
           <SelectLanguage />
         </div>
-        <Content style={{ margin: '0 16px' }}>
+        <Content style={{ margin: '1rem' }}>
           <Switch>
             <Route path={`/dashboard`} component={Dashboard} exact />
             <Route path={`${match.url}/funds`} component={Funds} />
             <Route path={`${match.url}/interest-tool`} component={InterestTool} />
+            <Route path={`${match.url}/profile`} component={InterestTool} />
+            <Route path={`${match.url}/settings`} component={Settings} />
             <Route component={NotFound} />
           </Switch>
         </Content>

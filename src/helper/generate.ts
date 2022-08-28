@@ -8,5 +8,9 @@ export const getPathKey = (value: any) => {
             return '2';
         case 'interest-tool':
             return '9';
+        case 'profile':
+            return '10';
+        case 'settings':
+            return '11';
     }
 }

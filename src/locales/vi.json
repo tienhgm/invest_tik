@@ -29,7 +29,8 @@
     "send": "Gửi",
     "reset_password": "Làm mới mật khẩu",
     "not_found": "KHÔNG TÌM THẤY",
-    "back_home": "Trở về trang chủ"
+    "back_home": "Trở về trang chủ",
+    "gg_authenticator": "Google authenticator"
   },
   "notify": {
     "register_success": "Đăng ký thành công!",

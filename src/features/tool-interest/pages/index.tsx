@@ -9,7 +9,7 @@ export default function InterestTool() {
     console.log('Failed:', errorInfo);
   };
   return (
-    <Card title="Compound interest tool" bordered={false} className={styles.marginTop}>
+    <Card title="Compound interest tool" bordered={false}>
       <Form
         name="basic"
         wrapperCol={{ span: 6 }}
@@ -34,7 +34,7 @@ export default function InterestTool() {
           <Input />
         </Form.Item>
 
-        <Form.Item style={{marginTop: '2rem'}}>
+        <Form.Item style={{ marginTop: '2rem' }}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>

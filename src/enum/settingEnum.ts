@@ -1,0 +1,4 @@
+export const TWO_FA_SETTING = {
+  PASSWORD: 1,
+  GG_AUTHENTICATOR: 2,
+};

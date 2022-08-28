@@ -41,7 +41,7 @@ export default function LoginPage() {
   };
   useEffect(() => {
     if (localStorage.verify === 'true') {
-      successMes('notify.account_active');
+      successMes(t('notify.account_active'));
       localStorage.removeItem('verify');
     }
   }, []);

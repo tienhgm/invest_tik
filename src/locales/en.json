@@ -14,8 +14,8 @@
     "have_account": "Have already an account ?",
     "rememberMe": "Remember me",
     "changelanguage": "English",
-    "dashboard":"Dashboard",
-    "funds":"Investment Funds",
+    "dashboard": "Dashboard",
+    "funds": "Investment Funds",
     "interest_tool": "Interest tool",
     "history_transaction": "Transaction history",
     "notify": "Notification",
@@ -29,9 +29,10 @@
     "send": "Send",
     "reset_password": "Reset password",
     "not_found": "NOT FOUND",
-    "back_home": "Back to home page"
+    "back_home": "Back to home page",
+    "gg_authenticator": "Google authenticator"
   },
-  "notify":{
+  "notify": {
     "register_success": "Register success!",
     "login_success": "Login success!",
     "forgot_success": "The email has been sent!",

@@ -13,7 +13,7 @@ export default function Funds() {
   }, []);
 
   return (
-    <Card title={t('common.funds')} bordered={false} className={styles.marginTop}>
+    <Card title={t('common.funds')} bordered={false}>
       <div className={styles.funds}>
         <div className={styles['funds__side']}>
           <div className={styles['funds__side--title']}>
