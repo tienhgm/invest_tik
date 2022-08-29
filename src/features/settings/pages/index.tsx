@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form, Input, RadioChangeEvent } from 'antd';
+import { Input, RadioChangeEvent } from 'antd';
 import { Card, Radio, Space } from 'antd';
 import { TWO_FA_SETTING } from 'enum';
 import Modal from 'components/Common/modal';
@@ -10,22 +10,12 @@ import { errorMes } from 'helper/notify';
 import authApi from 'apis/auth';
 function Settings() {
   const { t } = useTranslation();
-  const [form] = Form.useForm();
   const [password, setPassword] = useState<any>(null);
   const [step, setStep] = useState<number>(1);
   const [twofa, setTwofa] = useState<any>(1);
   const [otp, setOtp] = useState<any>(null);
   const [open, setOpen] = useState<any>(false);
   const [loading, setLoading] = useState<any>(false);
-
-  const listFormPassword = [
-    {
-      label: t('common.password'),
-      name: 'password',
-      rules: [{ required: true, message: t('validate.password_required') }],
-      childComponent: <Input.Password />,
-    },
-  ];
 
   const onChange = (e: RadioChangeEvent) => {
     setOpen(true);
