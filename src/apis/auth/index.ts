@@ -49,5 +49,13 @@ const authApi = {
     const url = '/me';
     return sendGet(url);
   },
+  confirmPassword(payload: any): Promise<any> {
+    const url = '/user/confirm-password';
+    return sendPost(url, payload);
+  },
+  getTwoFactorQrCode(): Promise<any> {
+    const url = '/user/two-factor-qr-code';
+    return sendGet(url);
+  },
 };
 export default authApi;

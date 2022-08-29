@@ -2,13 +2,14 @@ import { Modal } from 'antd';
 import React from 'react';
 interface IModal {
   open: boolean;
+  confirmLoading: boolean;
   cancelModal: (value: boolean) => void;
   confirmModal: () => any;
   title: string;
   children: React.ReactChild;
 }
 
-export default function ModalCommon({ open, title, confirmModal, cancelModal, children }: IModal) {
+export default function ModalCommon({ open, title, confirmModal, cancelModal, children, confirmLoading }: IModal) {
   const handleOk = () => {
     confirmModal();
   };
@@ -18,7 +19,7 @@ export default function ModalCommon({ open, title, confirmModal, cancelModal, ch
   };
 
   return (
-    <Modal title={title} visible={open} onOk={handleOk} onCancel={handleCancel}>
+    <Modal title={title} visible={open} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
       {children}
     </Modal>
   );

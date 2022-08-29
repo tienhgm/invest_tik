@@ -11,7 +11,7 @@ import {
 } from '@ant-design/icons';
 import styles from './style.module.scss';
 import { getPathKey } from 'helper/generate';
-import { lazy, useEffect, useState } from 'react';
+import { lazy, useEffect, useRef, useState } from 'react';
 import { Link, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import { NotFound } from 'components/Common';
 import { useTranslation } from 'react-i18next';
@@ -48,6 +48,17 @@ export default function MainLayout() {
   useEffect(() => {
     onGetListFunds();
   }, []);
+
+  let isLogout = useRef(localStorage.getItem('logoutSuccess'));
+  useEffect(() => {
+    if (isLogout.current === 'true') {
+      dispatch(authActions.logout());
+      localStorage.removeItem('logoutSuccess');
+    }
+    return () => {
+      isLogout.current = null;
+    };
+  }, [isLogout]);
 
   const listNotify = [
     { key: '0', name: 'Noti 1' },

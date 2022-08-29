@@ -5,20 +5,22 @@ import App from './App';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import { PersistGate } from 'redux-persist/integration/react';
 import persistStore from 'redux-persist/es/persistStore';
 import 'helper/i18n';
 import { Loading } from 'components/Common';
 const persistor = persistStore(store);
+export const history = createBrowserHistory();
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter>
+      <Router history={history}>
         <Suspense fallback={<Loading />}>
           <App />
         </Suspense>
-      </BrowserRouter>
+      </Router>
     </PersistGate>
   </Provider>,
   document.getElementById('root')
