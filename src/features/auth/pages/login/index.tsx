@@ -21,11 +21,14 @@ export default function LoginPage() {
   const onFinish = async (values: LoginPayload) => {
     try {
       setLoading(true);
-      const result = await authApi.login(values);
-      if (result) {
+      const { data } = await authApi.login(values);
+      if (data && !data?.two_factor) {
         form.resetFields();
         dispatch(authActions.authSuccess());
         successMes(t('notify.login_success'));
+        setLoading(false);
+      } else {
+        dispatch(authActions.authTwoFa());
         setLoading(false);
       }
     } catch (error: any) {
@@ -44,6 +47,9 @@ export default function LoginPage() {
       successMes(t('notify.account_active'));
       localStorage.removeItem('verify');
     }
+    return () => {
+      localStorage.removeItem('verify');
+    };
   }, []);
 
   const listFormLogin = [

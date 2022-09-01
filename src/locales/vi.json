@@ -30,7 +30,8 @@
     "reset_password": "Làm mới mật khẩu",
     "not_found": "KHÔNG TÌM THẤY",
     "back_home": "Trở về trang chủ",
-    "gg_authenticator": "Google authenticator"
+    "gg_authenticator": "Google authenticator",
+    "two_fa_title": "Bảo mật 2 lớp"
   },
   "notify": {
     "register_success": "Đăng ký thành công!",

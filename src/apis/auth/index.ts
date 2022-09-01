@@ -53,8 +53,20 @@ const authApi = {
     const url = '/user/confirm-password';
     return sendPost(url, payload);
   },
+  settingTwoFactor(): Promise<any> {
+    const url = '/user/two-factor-authentication';
+    return sendPost(url);
+  },
   getTwoFactorQrCode(): Promise<any> {
     const url = '/user/two-factor-qr-code';
+    return sendGet(url);
+  },
+  confirmToTurnOnTwoFa(code: string): Promise<any> {
+    const url = '/user/confirmed-two-factor-authentication';
+    return sendPost(url, { code });
+  },
+  getSettings(): Promise<any> {
+    const url = '/user/settings';
     return sendGet(url);
   },
 };

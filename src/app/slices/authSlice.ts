@@ -4,11 +4,13 @@ import { RootState } from 'app/store';
 export interface AuthState {
   curUser: any;
   isLoggedIn: boolean;
+  twoFa: boolean;
 }
 
 const initialState: AuthState = {
   curUser: undefined,
   isLoggedIn: false,
+  twoFa: false,
 };
 const authSlice = createSlice({
   name: 'auth',
@@ -19,6 +21,11 @@ const authSlice = createSlice({
     // },
     authSuccess(state: any) {
       state.isLoggedIn = true;
+      state.twoFa = false;
+    },
+    authTwoFa(state: any) {
+      state.isLoggedIn = false;
+      state.twoFa = true;
     },
     logout() {
       return initialState;
