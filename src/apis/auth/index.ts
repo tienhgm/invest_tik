@@ -5,7 +5,7 @@ import {
   ResetPasswordPayload,
   VerifyPayload,
 } from 'model/index';
-import { sendPost, sendGet } from 'apis/axios';
+import { sendPost, sendGet, sendDelete } from 'apis/axios';
 // export const handleGetCsrfToken = () => sendGet('/csrf-cookie');
 // export const handleRegister = (account: LoginPayload) => sendPost('/register', account);
 // export const handleLogin = (account: LoginPayload) => sendPost('/login', account);
@@ -65,9 +65,17 @@ const authApi = {
     const url = '/user/confirmed-two-factor-authentication';
     return sendPost(url, { code });
   },
+  confirmToTwoFaLogin(code: string): Promise<any> {
+    const url = '/two-factor-challenge';
+    return sendPost(url, { code });
+  },
   getSettings(): Promise<any> {
-    const url = '/user/settings';
+    const url = '/settings';
     return sendGet(url);
+  },
+  removeTwoFa(): Promise<any> {
+    const url = '/user/two-factor-authentication';
+    return sendDelete(url);
   },
 };
 export default authApi;

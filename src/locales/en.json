@@ -31,7 +31,10 @@
     "not_found": "NOT FOUND",
     "back_home": "Back to home page",
     "gg_authenticator": "Google authenticator",
-    "two_fa_title": "Two factor authenticator"
+    "two_fa_title": "Two factor authenticator",
+    "success_two_fa": "Turned on two factor authentication",
+    "delete_two_fa": "Turn off two factor authentication",
+    "confirm": "Confirm"
   },
   "notify": {
     "register_success": "Register success!",

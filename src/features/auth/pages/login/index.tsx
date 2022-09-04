@@ -29,6 +29,7 @@ export default function LoginPage() {
         setLoading(false);
       } else {
         dispatch(authActions.authTwoFa());
+        history.push('/confirm-2fa')
         setLoading(false);
       }
     } catch (error: any) {

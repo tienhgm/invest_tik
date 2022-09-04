@@ -31,7 +31,10 @@
     "not_found": "KHÔNG TÌM THẤY",
     "back_home": "Trở về trang chủ",
     "gg_authenticator": "Google authenticator",
-    "two_fa_title": "Bảo mật 2 lớp"
+    "two_fa_title": "Bảo mật 2 lớp",
+    "success_two_fa": "Đã bật xác thực 2 lớp",
+    "delete_two_fa": "Đã tắt xác thực 2 lớp",
+    "confirm": "Xác nhận"
   },
   "notify": {
     "register_success": "Đăng ký thành công!",
