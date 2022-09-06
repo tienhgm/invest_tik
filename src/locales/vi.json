@@ -34,7 +34,8 @@
     "two_fa_title": "Bảo mật 2 lớp",
     "success_two_fa": "Đã bật xác thực 2 lớp",
     "delete_two_fa": "Đã tắt xác thực 2 lớp",
-    "confirm": "Xác nhận"
+    "confirm": "Xác nhận",
+    "intro_funds": "Hiện nay KLTN có 4 loại quỹ đầu tư cho KH lựa chọn, mỗi quỹ phù hợp với một nhu cầu đầu tư khác nhau."
   },
   "notify": {
     "register_success": "Đăng ký thành công!",

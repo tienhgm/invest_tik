@@ -1,14 +1,15 @@
 .funds {
   box-sizing: border-box;
-  padding: 1rem;
+  padding: 0.5rem;
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   &__side {
     padding: 1rem;
-    height: 80vh;
-    max-height: 80vh;
+    height: 85vh;
+    max-height: 85vh;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    min-width: 20rem;
     width: 20rem;
     &--title {
       font-weight: 500;
@@ -40,10 +41,19 @@
     }
   }
   &__rest {
-    height: 80vh;
-    max-height: 80vh;
+    box-sizing: border-box;
+    height: 85vh;
+    max-height: 85vh;
     padding: 1rem;
     flex-grow: 1;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    &--title {
+      font-weight: 600;
+      font-size: 1.2rem;
+      border-bottom: 1px solid #ddd;
+    }
+    &--description{
+      margin-top: 0.4rem;
+    }
   }
 }

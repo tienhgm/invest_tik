@@ -48,9 +48,6 @@ export default function LoginPage() {
       successMes(t('notify.account_active'));
       localStorage.removeItem('verify');
     }
-    return () => {
-      localStorage.removeItem('verify');
-    };
   }, []);
 
   const listFormLogin = [

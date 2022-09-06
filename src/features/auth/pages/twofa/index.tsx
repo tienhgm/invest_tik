@@ -23,13 +23,11 @@ export default function TwoFaPage() {
   const onConfirm = async () => {
     try {
       setLoading(true);
-      const result = await authApi.confirmToTwoFaLogin(otp);
-      if (result) {
-        setLoading(false);
-        setOtp(null);
-        dispatch(authActions.authSuccess());
-        successMes(t('notify.login_success'));
-      }
+      await authApi.confirmToTwoFaLogin(otp);
+      setLoading(false);
+      setOtp(null);
+      dispatch(authActions.authSuccess());
+      successMes(t('notify.login_success'));
     } catch (error: any) {
       setOtp(null);
       setLoading(false);

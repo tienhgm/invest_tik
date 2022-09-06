@@ -34,7 +34,8 @@
     "two_fa_title": "Two factor authenticator",
     "success_two_fa": "Turned on two factor authentication",
     "delete_two_fa": "Turn off two factor authentication",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "intro_funds": "Currently, KLTN has 4 types of investment funds for customers to choose from, each suitable for a different investment need."
   },
   "notify": {
     "register_success": "Register success!",
