@@ -20,6 +20,7 @@ function LineChart({ data }: ILineChart) {
     yField: 'percent',
     smooth: true,
     autoFit: 'height',
+    color: '#2b906d',
     xAxis: {
       // type: 'timeCat',
       tickCount: 10,
