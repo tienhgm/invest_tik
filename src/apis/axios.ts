@@ -57,8 +57,8 @@ export const sendUpload = (url: string, file: any) => {
 };
 export const sendUploadAvt = (url: string, file: any) => {
   let formData = new FormData();
-  formData.append('avatar', file);
-  return axiosInstance.put(url, formData).then((res) => res.data);
+  formData.append('image', file);
+  return axiosInstance.post(url, formData).then((res) => res.data);
 };
 export const sendUploadLogo = (url: string, file: any) => {
   let formData = new FormData();

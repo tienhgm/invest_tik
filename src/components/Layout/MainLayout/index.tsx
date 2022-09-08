@@ -20,11 +20,13 @@ import authApi from 'apis/auth';
 import { authActions } from 'app/slices/authSlice';
 import { useAppDispatch } from 'app/hooks';
 import { Footer } from 'antd/lib/layout/layout';
+import { setUserInfo } from 'app/slices/userSlice';
 const { Content, Sider } = Layout;
 const Dashboard = lazy(() => import('features/dashboard/pages'));
 const Funds = lazy(() => import('features/funds/pages'));
 const InterestTool = lazy(() => import('features/tool-interest/pages'));
 const Settings = lazy(() => import('features/settings/pages'));
+const Profile = lazy(() => import('features/profile/pages'));
 export default function MainLayout() {
   const { t } = useTranslation();
   const location = useLocation();
@@ -41,12 +43,16 @@ export default function MainLayout() {
   const onCollapse = () => {
     setcollapsed(!collapsed);
   };
-  const onGetListFunds = async () => {
-    const result = await authApi.getMe();
-    console.log(result);
+  const onGetMe = async () => {
+    try {
+      const { data } = await authApi.getMe();
+      if (data) {
+        dispatch(setUserInfo(data));
+      }
+    } catch (error) {}
   };
   useEffect(() => {
-    onGetListFunds();
+    onGetMe();
   }, []);
 
   let isLogout = useRef(localStorage.getItem('logoutSuccess'));
@@ -184,7 +190,7 @@ export default function MainLayout() {
             <Route path={`/dashboard`} component={Dashboard} exact />
             <Route path={`${match.url}/funds`} component={Funds} />
             <Route path={`${match.url}/interest-tool`} component={InterestTool} />
-            <Route path={`${match.url}/profile`} component={InterestTool} />
+            <Route path={`${match.url}/profile`} component={Profile} />
             <Route path={`${match.url}/settings`} component={Settings} />
             <Route component={NotFound} />
           </Switch>

@@ -5,9 +5,11 @@ import authReducer from './slices/authSlice';
 import globalReducer from './slices/globalSlice'
 import { persistReducer } from "redux-persist";
 import storage from 'redux-persist/lib/storage';
+import userReducer from './slices/userSlice';
 const rootReducer = combineReducers({
   auth: authReducer,
-  global: globalReducer
+  global: globalReducer,
+  user: userReducer
 })
 const persistConfig = {
   key: "root",

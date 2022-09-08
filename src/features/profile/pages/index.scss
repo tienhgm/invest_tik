@@ -1,0 +1,17 @@
+.profile {
+  width: 50%;
+  &__block {
+    &--title {
+      font-size: 1.2rem;
+      border-bottom: 1px solid #ddd;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    &--content {
+      
+      display: flex;
+      margin-top: 2rem;
+      gap: 2rem;
+    }
+  }
+}

@@ -1,6 +1,5 @@
-import { Datum } from '@ant-design/charts';
 import { Line } from '@ant-design/plots';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface ILineChart {
   data: any;
@@ -20,6 +19,7 @@ function LineChart({ data }: ILineChart) {
     yField: 'percent',
     smooth: true,
     autoFit: 'height',
+    height: 400,
     color: '#2b906d',
     xAxis: {
       // type: 'timeCat',

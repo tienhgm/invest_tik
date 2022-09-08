@@ -92,13 +92,22 @@ export default function Funds() {
               {detailFund.name} ({detailFund.code})
             </div>
             <div className={styles['funds__rest--description']}>{detailFund.description}</div>
-            <Tabs defaultActiveKey={keyTime} onChange={onChangeKey}>
+            <Tabs defaultActiveKey={keyTime} onChange={onChangeKey} style={{ marginTop: '1rem' }}>
               {listTabTime.map((item: any) => (
                 <TabPane tab={item.name} key={item.key}></TabPane>
               ))}
             </Tabs>
             {detailHistoryFund && (
-              <div style={{ height: 300 }}>
+              <div
+                style={{
+                  flexGrow: 1,
+                  height: 440,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  overflow: 'scroll'
+                }}
+              >
                 <LineChart data={detailHistoryFund} />
               </div>
             )}
