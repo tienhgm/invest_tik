@@ -22,7 +22,7 @@ export default function LoginPage() {
     try {
       setLoading(true);
       const { data } = await authApi.login(values);
-      if (data && !data?.two_factor) {
+      if (data && !data.two_factor) {
         form.resetFields();
         dispatch(authActions.authSuccess());
         successMes(t('notify.login_success'));

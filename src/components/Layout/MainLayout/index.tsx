@@ -1,7 +1,6 @@
-import { Avatar, Badge, Dropdown, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
   DesktopOutlined,
-  UserOutlined,
   DashboardOutlined,
   BellOutlined,
   CalculatorOutlined,
@@ -15,12 +14,12 @@ import { lazy, useEffect, useRef, useState } from 'react';
 import { Link, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import { NotFound } from 'components/Common';
 import { useTranslation } from 'react-i18next';
-import SelectLanguage from 'components/Common/SelectLanguage';
 import authApi from 'apis/auth';
 import { authActions } from 'app/slices/authSlice';
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { Footer } from 'antd/lib/layout/layout';
-import { setUserInfo } from 'app/slices/userSlice';
+import { setUserInfo, setIsGetMe } from 'app/slices/userSlice';
+import Header from './Header';
 const { Content, Sider } = Layout;
 const Dashboard = lazy(() => import('features/dashboard/pages'));
 const Funds = lazy(() => import('features/funds/pages'));
@@ -34,12 +33,8 @@ export default function MainLayout() {
   const [collapsed, setcollapsed] = useState(false);
   const [key, setKey] = useState<any>(getPathKey(location.pathname.split('/')[2]));
   const dispatch = useAppDispatch();
-  const handleLogout = async () => {
-    try {
-      await authApi.logout();
-      dispatch(authActions.logout());
-    } catch (error) {}
-  };
+  let userInfo = useAppSelector((state) => state.user.userInfo);
+  let isGetMe = useAppSelector((state) => state.user.isGetMe);
   const onCollapse = () => {
     setcollapsed(!collapsed);
   };
@@ -47,6 +42,7 @@ export default function MainLayout() {
     try {
       const { data } = await authApi.getMe();
       if (data) {
+        dispatch(setIsGetMe(false));
         dispatch(setUserInfo(data));
       }
     } catch (error) {}
@@ -54,6 +50,11 @@ export default function MainLayout() {
   useEffect(() => {
     onGetMe();
   }, []);
+  useEffect(() => {
+    if (!isGetMe) return;
+    onGetMe();
+    
+  }, [isGetMe]);
 
   let isLogout = useRef(localStorage.getItem('logoutSuccess'));
   useEffect(() => {
@@ -66,25 +67,6 @@ export default function MainLayout() {
     };
   }, [isLogout]);
 
-  const listNotify = [
-    { key: '0', name: 'Noti 1' },
-    { key: '1', name: 'Noti 2' },
-    { key: '2', name: 'Noti 3' },
-  ];
-  const menuNavbar = (
-    <Menu style={{ minWidth: '10rem' }}>
-      <Menu.Item key="10">
-        <Link to={`${match.path}/profile`}>{t('common.profile')}</Link>
-      </Menu.Item>
-      <Menu.Item key="11">
-        <Link to={`${match.path}/profile`}>{t('common.setting')}</Link>
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="111" onClick={handleLogout}>
-        {t('common.logout')}
-      </Menu.Item>
-    </Menu>
-  );
   const menuSidebar = [
     {
       key: '1',
@@ -129,16 +111,6 @@ export default function MainLayout() {
       text: t('common.setting'),
     },
   ];
-  const notifyNavbar = (
-    <Menu style={{ minWidth: '20rem' }}>
-      {listNotify &&
-        listNotify.map((item: any) => (
-          <Menu.Item key={item.key} style={{ padding: '1.3rem 0.4rem' }}>
-            {item.name}
-          </Menu.Item>
-        ))}
-    </Menu>
-  );
 
   useEffect(() => {
     let path = location.pathname.split('/')[2];
@@ -146,59 +118,51 @@ export default function MainLayout() {
     setKey(key);
   }, [location.pathname.split('/')[2]]);
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider
-        className="site-layout-background"
-        collapsible
-        collapsed={collapsed}
-        onCollapse={onCollapse}
-        theme="light"
-      >
-        <div className={styles.title}>
-          <Link to={'/'}>KLTN</Link>
-        </div>
-        {key ? (
-          <Menu defaultSelectedKeys={[key]} mode="inline">
-            {menuSidebar.map((item: any) => (
-              <Menu.Item key={`${item.key}`} icon={item.icon}>
-                <Link to={item.link}>{item.text}</Link>
+    userInfo && (
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider
+          className="site-layout-background"
+          collapsible
+          collapsed={collapsed}
+          onCollapse={onCollapse}
+          theme="light"
+        >
+          <div className={styles.title}>
+            <Link to={'/'}>KLTN</Link>
+          </div>
+          {key ? (
+            <Menu defaultSelectedKeys={[key]} mode="inline">
+              {menuSidebar.map((item: any) => (
+                <Menu.Item key={`${item.key}`} icon={item.icon}>
+                  <Link to={item.link}>{item.text}</Link>
+                </Menu.Item>
+              ))}
+            </Menu>
+          ) : (
+            <Menu mode="inline">
+              <Menu.Item key="99" icon={<CalculatorOutlined />}>
+                <Link to={`${match.path}/interest-tool`}>{t('common.home')}</Link>
               </Menu.Item>
-            ))}
-          </Menu>
-        ) : (
-          <Menu mode="inline">
-            <Menu.Item key="99" icon={<CalculatorOutlined />}>
-              <Link to={`${match.path}/interest-tool`}>{t('common.home')}</Link>
-            </Menu.Item>
-          </Menu>
-        )}
-      </Sider>
-      <Layout className="site-layout">
-        <div className={styles.headerPage}>
-          <Dropdown overlay={notifyNavbar} trigger={['click']}>
-            <Badge count={2}>
-              <BellOutlined className={styles.notify} />
-            </Badge>
-          </Dropdown>
-          <Dropdown overlay={menuNavbar} trigger={['click']}>
-            <Avatar size={40} icon={<UserOutlined />} className={styles.dropAvt} />
-          </Dropdown>
-          <SelectLanguage />
-        </div>
-        <Content style={{ margin: '1rem' }}>
-          <Switch>
-            <Route path={`/dashboard`} component={Dashboard} exact />
-            <Route path={`${match.url}/funds`} component={Funds} />
-            <Route path={`${match.url}/interest-tool`} component={InterestTool} />
-            <Route path={`${match.url}/profile`} component={Profile} />
-            <Route path={`${match.url}/settings`} component={Settings} />
-            <Route component={NotFound} />
-          </Switch>
-        </Content>
-        <Footer className={styles['custom-padding']} style={{ textAlign: 'center' }}>
-          Ant Design ©2018 Created by Ant UED
-        </Footer>
+            </Menu>
+          )}
+        </Sider>
+        <Layout className="site-layout">
+          <Header avatar={userInfo.avatar} />
+          <Content style={{ margin: '1rem' }}>
+            <Switch>
+              <Route path={`/dashboard`} component={Dashboard} exact />
+              <Route path={`${match.url}/funds`} component={Funds} />
+              <Route path={`${match.url}/interest-tool`} component={InterestTool} />
+              <Route path={`${match.url}/profile`} component={Profile} />
+              <Route path={`${match.url}/settings`} component={Settings} />
+              <Route component={NotFound} />
+            </Switch>
+          </Content>
+          <Footer className={styles['custom-padding']} style={{ textAlign: 'center' }}>
+            Ant Design ©2018 Created by Ant UED
+          </Footer>
+        </Layout>
       </Layout>
-    </Layout>
+    )
   );
 }

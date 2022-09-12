@@ -9,7 +9,7 @@ export default function AuthLayout({ children }: any) {
     if (twoFa) {
       history.push('/confirm-2fa');
     }
-  }, []);
+  }, [twoFa]);
 
   return (
     <div className={styles.layout}>

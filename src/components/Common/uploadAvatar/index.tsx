@@ -50,7 +50,7 @@ export default function UploadAvatar({
         disabled={disabled}
       >
         {imageUrl ? (
-          <img src={`http://${imageUrl}`} alt="avatar" style={{ width: '100%' }} />
+          <img src={`${imageUrl}`} alt="avatar" style={{ width: '100%' }} />
         ) : (
           uploadButton
         )}
