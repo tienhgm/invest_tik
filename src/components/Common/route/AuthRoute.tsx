@@ -5,7 +5,7 @@ import { Redirect, Route, RouteProps } from 'react-router-dom';
 export function AuthRoute(props: RouteProps): ReactElement {
   let isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   if (isLoggedIn) {
-    return <Redirect to={'/dashboard'} />;
+    return <Redirect to={'/'} />;
   }
   return <Route {...props} />;
 }

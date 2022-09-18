@@ -35,13 +35,16 @@
     "success_two_fa": "Turned on two factor authentication",
     "delete_two_fa": "Turn off two factor authentication",
     "confirm": "Confirm",
-    "intro_funds": "Currently, KLTN has 4 types of investment funds for customers to choose from, each suitable for a different investment need."
+    "intro_funds": "Currently, KLTN has 4 types of investment funds for customers to choose from, each suitable for a different investment need.",
+    "title_custom_packages": "Custome packages",
+    "title_default_packages": "Default packages"
   },
   "notify": {
     "register_success": "Register success!",
     "login_success": "Login success!",
     "forgot_success": "The email has been sent!",
-    "account_active": "The account has been activated"
+    "account_active": "The account has been activated",
+    "update_success": "Updated!"
   },
   "validate": {
     "email_invalid": "Email is invalid!",

@@ -22,14 +22,15 @@ export default function LoginPage() {
     try {
       setLoading(true);
       const { data } = await authApi.login(values);
-      if (data && !data.two_factor) {
-        form.resetFields();
-        dispatch(authActions.authSuccess());
-        successMes(t('notify.login_success'));
-        setLoading(false);
-      } else {
-        dispatch(authActions.authTwoFa());
-        history.push('/confirm-2fa')
+      if (data) {
+        if (!data.two_factor) {
+          form.resetFields();
+          dispatch(authActions.authSuccess());
+          successMes(t('notify.login_success'));
+        } else {
+          dispatch(authActions.authTwoFa());
+          history.push('/confirm-2fa');
+        }
         setLoading(false);
       }
     } catch (error: any) {

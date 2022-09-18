@@ -53,7 +53,6 @@ export default function MainLayout() {
   useEffect(() => {
     if (!isGetMe) return;
     onGetMe();
-    
   }, [isGetMe]);
 
   let isLogout = useRef(localStorage.getItem('logoutSuccess'));
@@ -77,37 +76,37 @@ export default function MainLayout() {
     {
       key: '2',
       icon: <DesktopOutlined />,
-      link: `${match.path}/funds`,
+      link: `/funds`,
       text: t('common.funds'),
     },
     {
       key: '3',
       icon: <CalculatorOutlined />,
-      link: `${match.path}/interest-tool`,
+      link: `/interest-tool`,
       text: t('common.interest_tool'),
     },
     {
       key: '8',
       icon: <HistoryOutlined />,
-      link: `${match.path}/interest-tool`,
+      link: `/interest-tool`,
       text: t('common.history_transaction'),
     },
     {
       key: '9',
       icon: <BellOutlined />,
-      link: `${match.path}/interest-tool`,
+      link: `/interest-tool`,
       text: t('common.notify'),
     },
     {
       key: '10',
       icon: <ProfileOutlined />,
-      link: `${match.path}/profile`,
+      link: `/profile`,
       text: t('common.profile'),
     },
     {
       key: '11',
       icon: <SettingOutlined />,
-      link: `${match.path}/settings`,
+      link: `/settings`,
       text: t('common.setting'),
     },
   ];
@@ -150,11 +149,11 @@ export default function MainLayout() {
           <Header avatar={userInfo.avatar} />
           <Content style={{ margin: '1rem' }}>
             <Switch>
-              <Route path={`/dashboard`} component={Dashboard} exact />
-              <Route path={`${match.url}/funds`} component={Funds} />
-              <Route path={`${match.url}/interest-tool`} component={InterestTool} />
-              <Route path={`${match.url}/profile`} component={Profile} />
-              <Route path={`${match.url}/settings`} component={Settings} />
+              <Route path={`/dashboard`} component={Dashboard}  />
+              <Route path={`/funds`} component={Funds} exact />
+              <Route path={`/interest-tool`} component={InterestTool} exact />
+              <Route path={`/profile`} component={Profile} exact />
+              <Route path={`/settings`} component={Settings} exact />
               <Route component={NotFound} />
             </Switch>
           </Content>

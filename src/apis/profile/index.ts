@@ -1,5 +1,4 @@
-import { sendPost } from './../axios';
-import { sendGet, sendUploadAvt } from 'apis/axios';
+import { sendUploadAvt, sendPut } from 'apis/axios';
 const profileApi = {
   uploadAvt(file: any): Promise<any> {
     const url = '/me/change-avatar';
@@ -7,7 +6,7 @@ const profileApi = {
   },
   updateProfile(payload: any): Promise<any> {
     const url = '/api/user/profile-information';
-    return sendPost(url, payload);
+    return sendPut(url, payload);
   },
 };
 export default profileApi;

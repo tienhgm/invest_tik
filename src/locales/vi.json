@@ -35,13 +35,16 @@
     "success_two_fa": "Đã bật xác thực 2 lớp",
     "delete_two_fa": "Đã tắt xác thực 2 lớp",
     "confirm": "Xác nhận",
-    "intro_funds": "Hiện nay KLTN có 4 loại quỹ đầu tư cho KH lựa chọn, mỗi quỹ phù hợp với một nhu cầu đầu tư khác nhau."
+    "intro_funds": "Hiện nay KLTN có 4 loại quỹ đầu tư cho KH lựa chọn, mỗi quỹ phù hợp với một nhu cầu đầu tư khác nhau.",
+    "title_custom_packages": "Gói linh hoạt",
+    "title_default_packages": "Các gói gói gợi ý"
   },
   "notify": {
     "register_success": "Đăng ký thành công!",
     "login_success": "Đăng nhập thành công!",
     "forgot_success": "Đã gửi tới mail của bạn!",
-    "account_active": "Tài khoản đã được kích hoạt"
+    "account_active": "Tài khoản đã được kích hoạt",
+    "update_success": "Đã cập nhật!"
   },
   "validate": {
     "email_invalid": "Email không hợp lệ!",

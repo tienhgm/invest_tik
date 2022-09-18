@@ -33,7 +33,7 @@ function App() {
             component={element.component}
           />
         ))}
-        <GuardRoute path={'/dashboard'} component={MainLayout}></GuardRoute>
+        <GuardRoute path={'/'} component={MainLayout}></GuardRoute>
         <Route path={'/verify/:id/:hash'} exact component={Verify}></Route>
         <Route component={NotFound}></Route>
       </Switch>
