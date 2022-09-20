@@ -4,7 +4,7 @@ const packageApi = {
     const url = '/packages/default';
     return sendGet(url);
   },
-  getDetailPackageById(id: number): Promise<any> {
+  getDetailPackageById(id: string): Promise<any> {
     const url = '/packages/' + id;
     return sendGet(url);
   },

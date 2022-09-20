@@ -1,0 +1,7 @@
+.link {
+    cursor: pointer;
+    transition: all 0.25s;
+    &:hover {
+      color: #4caf50;
+    }
+  }
