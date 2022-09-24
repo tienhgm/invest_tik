@@ -7,6 +7,7 @@ import {
   HistoryOutlined,
   ProfileOutlined,
   SettingOutlined,
+  StockOutlined,
 } from '@ant-design/icons';
 import styles from './style.module.scss';
 import { getPathKey } from 'helper/generate';
@@ -20,8 +21,10 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { Footer } from 'antd/lib/layout/layout';
 import { setUserInfo, setIsGetMe } from 'app/slices/userSlice';
 import Header from './Header';
+import { KEY_SIDE_BAR } from 'enum';
 const { Content, Sider } = Layout;
 const Dashboard = lazy(() => import('features/dashboard/pages'));
+const Invest = lazy(() => import('features/invest/pages'));
 const Funds = lazy(() => import('features/funds/pages'));
 const InterestTool = lazy(() => import('features/tool-interest/pages'));
 const Settings = lazy(() => import('features/settings/pages'));
@@ -31,7 +34,7 @@ export default function MainLayout() {
   const location = useLocation();
   const match = useRouteMatch();
   const [collapsed, setcollapsed] = useState(false);
-  const [key, setKey] = useState<any>(getPathKey(location.pathname.split('/')[2]));
+  const [key, setKey] = useState<any>(getPathKey(location.pathname.split('/')[1]));
   const dispatch = useAppDispatch();
   let userInfo = useAppSelector((state) => state.user.userInfo);
   let isGetMe = useAppSelector((state) => state.user.isGetMe);
@@ -68,43 +71,49 @@ export default function MainLayout() {
 
   const menuSidebar = [
     {
-      key: '1',
+      key: KEY_SIDE_BAR.DASHBOARD,
       icon: <DashboardOutlined />,
       link: match.path,
       text: t('common.dashboard'),
     },
     {
-      key: '2',
+      key: KEY_SIDE_BAR.INVEST,
+      icon: <StockOutlined />,
+      link: '/invest',
+      text: t('common.invest'),
+    },
+    {
+      key: KEY_SIDE_BAR.FUNDS,
       icon: <DesktopOutlined />,
       link: `/funds`,
       text: t('common.funds'),
     },
     {
-      key: '3',
+      key: KEY_SIDE_BAR.INTEREST_TOOL,
       icon: <CalculatorOutlined />,
       link: `/interest-tool`,
       text: t('common.interest_tool'),
     },
     {
-      key: '8',
+      key: KEY_SIDE_BAR.HISTORY_TRANSACTION,
       icon: <HistoryOutlined />,
       link: `/interest-tool`,
       text: t('common.history_transaction'),
     },
     {
-      key: '9',
+      key: KEY_SIDE_BAR.NOTIFY,
       icon: <BellOutlined />,
       link: `/interest-tool`,
       text: t('common.notify'),
     },
     {
-      key: '10',
+      key: KEY_SIDE_BAR.PROFILE,
       icon: <ProfileOutlined />,
       link: `/profile`,
       text: t('common.profile'),
     },
     {
-      key: '11',
+      key: KEY_SIDE_BAR.SETTING,
       icon: <SettingOutlined />,
       link: `/settings`,
       text: t('common.setting'),
@@ -112,10 +121,10 @@ export default function MainLayout() {
   ];
 
   useEffect(() => {
-    let path = location.pathname.split('/')[2];
+    let path = location.pathname.split('/')[1];
     let key = getPathKey(path);
     setKey(key);
-  }, [location.pathname.split('/')[2]]);
+  }, [location.pathname.split('/')[1]]);
   return (
     userInfo && (
       <Layout style={{ minHeight: '100vh' }}>
@@ -149,7 +158,8 @@ export default function MainLayout() {
           <Header avatar={userInfo.avatar} />
           <Content style={{ margin: '1rem' }}>
             <Switch>
-              <Route path={`/dashboard`} component={Dashboard}  />
+              <Route path={`/dashboard`} component={Dashboard} exact/>
+              <Route path={`/invest`} component={Invest} />
               <Route path={`/funds`} component={Funds} exact />
               <Route path={`/interest-tool`} component={InterestTool} exact />
               <Route path={`/profile`} component={Profile} exact />

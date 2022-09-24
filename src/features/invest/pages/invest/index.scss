@@ -5,9 +5,22 @@
     color: #4caf50;
   }
 }
-.package {
+.text-medium {
+  font-weight: 600;
+}
+.invest {
+  user-select: none;
+  &__currency{
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  &__btn {
+    transition: all 0.3s;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
   width: 50%;
-
   &__title-img {
     width: 50px;
     height: 50px;
@@ -33,9 +46,18 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    &__method {
+      display: flex;
+      gap: 1.5rem;
+      &--payment {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
     &--title {
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-size: 1.3rem;
+      font-weight: 400;
     }
     &--img {
       width: 60px;

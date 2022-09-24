@@ -8,11 +8,11 @@ function DefaultPackagePage() {
   const { t } = useTranslation();
   const history = useHistory();
   const [listPackageDefault, setListPackageDefault] = useState<any>([]);
-  const onGoBack = () => {
-    history.push(`/invest`);
+  const onGoBack = (link: string) => {
+    history.push(link);
   };
   const onGoToDetailPackage = (id: number) => {
-    history.push(`/invest/default/${id}`);
+    history.push(`/invest/payment/default/${id}`);
   };
   const getDefaultPackage = async () => {
     try {
@@ -34,8 +34,13 @@ function DefaultPackagePage() {
     <div>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <span className="link" onClick={onGoBack}>
-            Dashboard
+          <span className="link" onClick={() => onGoBack('/invest')}>
+            Invest
+          </span>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <span className="link" onClick={() => onGoBack('/invest/payment')}>
+            Payment
           </span>
         </Breadcrumb.Item>
         <Breadcrumb.Item>Default</Breadcrumb.Item>

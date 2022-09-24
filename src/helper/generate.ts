@@ -1,21 +1,24 @@
+import { KEY_SIDE_BAR } from './../enum/index';
 import { GENDER, STATUS_ACCOUNT } from 'enum';
 
 export const getPathKey = (value: any) => {
   switch (value) {
     case 'dashboard':
-      return '1';
+      return KEY_SIDE_BAR.DASHBOARD;
     case undefined:
-      return '1';
+      return KEY_SIDE_BAR.DASHBOARD;
     case 'default':
-      return '1';
+      return KEY_SIDE_BAR.DASHBOARD;
+    case 'invest':
+      return KEY_SIDE_BAR.INVEST;
     case 'funds':
-      return '2';
+      return KEY_SIDE_BAR.FUNDS;
     case 'interest-tool':
-      return '9';
+      return KEY_SIDE_BAR.INTEREST_TOOL;
     case 'profile':
-      return '10';
+      return KEY_SIDE_BAR.PROFILE;
     case 'settings':
-      return '11';
+      return KEY_SIDE_BAR.SETTING;
   }
 };
 

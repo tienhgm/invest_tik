@@ -37,7 +37,8 @@
     "confirm": "Confirm",
     "intro_funds": "Currently, KLTN has 4 types of investment funds for customers to choose from, each suitable for a different investment need.",
     "title_custom_packages": "Custome packages",
-    "title_default_packages": "Default packages"
+    "title_default_packages": "Default packages",
+    "invest": "Invest"
   },
   "notify": {
     "register_success": "Register success!",

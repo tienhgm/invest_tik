@@ -2,12 +2,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Breadcrumb } from 'antd';
 import packageApi from 'apis/packages';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import PieChartPackage from '../../components/PieChartPackage';
+import PieChartPackage from '../../../components/PieChartPackage';
 import './index.scss';
 function DefaultPackageId() {
   const match = useRouteMatch<any>();
   const history = useHistory();
-  const [isDetail, setIsDetail] = useState<boolean>(false)
+  const [isDetail, setIsDetail] = useState<boolean>(false);
   const [packageDetail, setPackageDetail] = useState<any>(null);
   const onGetDefaultById = async (id: string) => {
     try {
@@ -45,11 +45,16 @@ function DefaultPackageId() {
       <Breadcrumb>
         <Breadcrumb.Item>
           <span className="link" onClick={() => onGoBack('/invest')}>
-            Dashboard
+            Invest
           </span>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <span className="link" onClick={() => onGoBack('/invest/default')}>
+          <span className="link" onClick={() => onGoBack('/invest/payment')}>
+            Payment
+          </span>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <span className="link" onClick={() => onGoBack('/invest/payment/default')}>
             Default
           </span>
         </Breadcrumb.Item>
@@ -76,9 +81,7 @@ function DefaultPackageId() {
             </div>
             <div className="package__block">
               <div className="package__block--title">Chi tiết phân bổ</div>
-              {
-                dataPieChart &&  <PieChartPackage data={dataPieChart} />
-              }
+              {dataPieChart && <PieChartPackage data={dataPieChart} />}
             </div>
           </div>
         </>
@@ -103,9 +106,7 @@ function DefaultPackageId() {
             </div>
             <div className="package__block">
               <div className="package__block--title">Chi tiết phân bổ</div>
-              {
-                dataPieChart &&  <PieChartPackage data={dataPieChart} />
-              }
+              {dataPieChart && <PieChartPackage data={dataPieChart} />}
             </div>
           </div>
         </>

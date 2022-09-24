@@ -5,6 +5,7 @@ import { AuthRoute, GuardRoute, NotFound } from 'components/Common';
 import authApi from 'apis/auth';
 import { authRoutes } from 'routes';
 import Verify from 'features/auth/pages/verify';
+import { useAppSelector } from 'app/hooks';
 const MainLayout = lazy(() => import('components/Layout/MainLayout'));
 
 function App() {
@@ -13,8 +14,9 @@ function App() {
   const handleGetCsrfToken = async () => {
     await authApi.getCsrfToken();
   };
+  let isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   useEffect(() => {
-    if (location.pathname === '/') {
+    if (location.pathname === '/' && isLoggedIn) {
       history.push('/dashboard');
     }
   }, [history, location.pathname]);
@@ -25,6 +27,7 @@ function App() {
   return (
     <div className="App">
       <Switch>
+        <Route path={'/verify/:id/:hash'} exact component={Verify}></Route>
         {authRoutes.map((element: any, key: any) => (
           <AuthRoute
             key={key}
@@ -34,7 +37,6 @@ function App() {
           />
         ))}
         <GuardRoute path={'/'} component={MainLayout}></GuardRoute>
-        <Route path={'/verify/:id/:hash'} exact component={Verify}></Route>
         <Route component={NotFound}></Route>
       </Switch>
     </div>
