@@ -1,0 +1,32 @@
+.create_customize {
+  width: 50%;
+  &__title {
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    margin: 0.7rem;
+    border-radius: 4px;
+    padding: 1rem;
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .name {
+      font-weight: 500;
+      text-decoration: underline;
+      color: #1890ff;
+    }
+    .btn {
+      padding: 0.1rem 0.4rem;
+      font-size: 0.8rem;
+      color: #fff;
+      background-color: #238f4b;
+      cursor: pointer;
+    }
+  }
+}

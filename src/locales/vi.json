@@ -38,7 +38,10 @@
     "intro_funds": "Hiện nay KLTN có 4 loại quỹ đầu tư cho KH lựa chọn, mỗi quỹ phù hợp với một nhu cầu đầu tư khác nhau.",
     "title_custom_packages": "Gói linh hoạt",
     "title_default_packages": "Các gói gói gợi ý",
-    "invest": "Đầu tư"
+    "invest": "Đầu tư",
+    "recharge": "Nạp tiền",
+    "default": "Các gói cơ bản",
+    "customize": "Các gói linh hoạt"
   },
   "notify": {
     "register_success": "Đăng ký thành công!",

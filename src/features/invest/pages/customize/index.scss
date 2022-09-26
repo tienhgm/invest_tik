@@ -1,0 +1,39 @@
+.link {
+  cursor: pointer;
+  transition: all 0.25s;
+  &:hover {
+    color: #4caf50;
+  }
+}
+.customize {
+  width: 50%;
+  &--text {
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  &__info {
+    display: flex;
+    align-items: center;
+    .invest {
+      color: rgba(102, 102, 102, 0.803);
+      max-width: 5rem;
+    }
+    .currency {
+      color: #4caf50;
+    }
+  }
+  &__detail {
+    font-weight: 600;
+    color: #32c610;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

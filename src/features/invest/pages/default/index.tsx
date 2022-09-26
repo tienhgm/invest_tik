@@ -12,7 +12,7 @@ function DefaultPackagePage() {
     history.push(link);
   };
   const onGoToDetailPackage = (id: number) => {
-    history.push(`/invest/payment/default/${id}`);
+    history.push(`/invest/recharge/default/${id}`);
   };
   const getDefaultPackage = async () => {
     try {
@@ -35,15 +35,15 @@ function DefaultPackagePage() {
       <Breadcrumb>
         <Breadcrumb.Item>
           <span className="link" onClick={() => onGoBack('/invest')}>
-            Invest
+            {t('common.invest')}
           </span>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <span className="link" onClick={() => onGoBack('/invest/payment')}>
-            Payment
+          <span className="link" onClick={() => onGoBack('/invest/recharge')}>
+            {t('common.recharge')}
           </span>
         </Breadcrumb.Item>
-        <Breadcrumb.Item>Default</Breadcrumb.Item>
+        <Breadcrumb.Item>{t('common.default')}</Breadcrumb.Item>
       </Breadcrumb>
       <br />
       <div className="package">

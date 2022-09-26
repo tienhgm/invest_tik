@@ -1,5 +1,4 @@
 import { Form, Input, Button, Card } from 'antd';
-import styles from './style.module.scss';
 export default function InterestTool() {
   const onFinish = (values: any) => {
     console.log('Success:', values);

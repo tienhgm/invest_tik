@@ -16,8 +16,8 @@ function InvestPage() {
         <br />
         <div className="invest__currency">89.123d</div>
         <div className="invest__block__method">
-          <div className="invest__block__method--payment">
-            <div className="invest__btn" onClick={() => onGoToLink('/invest/payment')}>
+          <div className="invest__block__method--recharge">
+            <div className="invest__btn" onClick={() => onGoToLink('/invest/recharge')}>
               <PlusOutlined
                 className="invest__btn"
                 style={{
@@ -33,7 +33,7 @@ function InvestPage() {
             </div>
             <div className="text-medium">Nạp tiền</div>
           </div>
-          <div className="invest__block__method--payment">
+          <div className="invest__block__method--recharge">
             <div className="invest__btn">
               <ArrowDownOutlined
                 style={{

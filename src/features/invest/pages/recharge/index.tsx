@@ -15,33 +15,33 @@ function PaymentPage() {
     history.push(`/invest`);
   };
   return (
-    <div className="payment">
+    <div className="recharge">
       <Breadcrumb>
         <Breadcrumb.Item>
           <span className="link" onClick={onGoBack}>
-            Invest
+            {t('common.invest')}
           </span>
         </Breadcrumb.Item>
-        <Breadcrumb.Item>Payment</Breadcrumb.Item>
+        <Breadcrumb.Item> {t('common.recharge')}</Breadcrumb.Item>
       </Breadcrumb>
       <br />
       <Card
-        className="payment__item"
+        className="recharge__item"
         title={t('common.title_custom_packages')}
-        extra={<img src={custom_package} className="payment__title-img" />}
+        extra={<img src={custom_package} className="recharge__title-img"  alt='title_recharge'/>}
       >
         <p>Xây dựng danh mục đầu tư riêng của bạn</p>
-        <div className="payment__detail" onClick={() => onGoToDetail('payment/default')}>
+        <div className="recharge__detail" onClick={() => onGoToDetail('recharge/customize')}>
           Xem chi tiết {'>'}
         </div>
       </Card>
       <Card
-        className="payment__item"
+        className="recharge__item"
         title={t('common.title_default_packages')}
-        extra={<img src={default_package} className="payment__title-img" />}
+        extra={<img src={default_package} className="recharge__title-img" alt='title_recharge' />}
       >
         <p>Danh sách các gói đầu tư KLTN gợi ý cho bạn</p>
-        <div className="payment__detail" onClick={() => onGoToDetail('payment/default')}>
+        <div className="recharge__detail" onClick={() => onGoToDetail('recharge/default')}>
           Xem chi tiết {'>'}
         </div>
       </Card>

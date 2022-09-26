@@ -3,8 +3,10 @@ import { Breadcrumb } from 'antd';
 import packageApi from 'apis/packages';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import PieChartPackage from '../../../components/PieChartPackage';
+import { useTranslation } from 'react-i18next';
 import './index.scss';
 function DefaultPackageId() {
+  const { t } = useTranslation();
   const match = useRouteMatch<any>();
   const history = useHistory();
   const [isDetail, setIsDetail] = useState<boolean>(false);
@@ -45,17 +47,17 @@ function DefaultPackageId() {
       <Breadcrumb>
         <Breadcrumb.Item>
           <span className="link" onClick={() => onGoBack('/invest')}>
-            Invest
+            {t('common.invest')}
           </span>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <span className="link" onClick={() => onGoBack('/invest/payment')}>
-            Payment
+          <span className="link" onClick={() => onGoBack('/invest/recharge')}>
+            {t('common.recharge')}
           </span>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <span className="link" onClick={() => onGoBack('/invest/payment/default')}>
-            Default
+          <span className="link" onClick={() => onGoBack('/invest/recharge/default')}>
+            {t('common.default')}
           </span>
         </Breadcrumb.Item>
         <Breadcrumb.Item>{match.params.id}</Breadcrumb.Item>

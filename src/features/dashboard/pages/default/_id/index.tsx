@@ -23,6 +23,7 @@ function DefaultPackageId() {
     history.push(link);
   };
   const computedDataPieChart = (data: any) => {
+    if(!data) return
     if (data) {
       return data.map((item: any) => {
         return { ...item, value: item.percentage, type: item.code };
