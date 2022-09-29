@@ -41,7 +41,8 @@
     "invest": "Đầu tư",
     "recharge": "Nạp tiền",
     "default": "Các gói cơ bản",
-    "customize": "Các gói linh hoạt"
+    "customize": "Các gói linh hoạt",
+    "create": "Tạo mới"
   },
   "notify": {
     "register_success": "Đăng ký thành công!",

@@ -41,7 +41,8 @@
     "invest": "Invest",
     "recharge": "Recharge",
     "default": "Default packages",
-    "customize": "Customize packages"
+    "customize": "Customize packages",
+    "create": "Create"
   },
   "notify": {
     "register_success": "Register success!",

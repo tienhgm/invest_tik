@@ -17,32 +17,32 @@ const authApi = {
     return sendGet(url);
   },
   register(payload: RegisterPayload): Promise<any> {
-    const url = '/register';
+    const url = '/auth/register';
     return sendPost(url, payload);
   },
   sendEmailVerify(): Promise<any> {
-    const url = '/email/verification-notification';
+    const url = '/auth/email/verification-notification';
     return sendPost(url);
   },
   verifyEmailAfterRegister(payload: VerifyPayload): Promise<any> {
     const { id, hash, expires, signature } = payload;
-    const url = `/email/verify/${id}/${hash}?expires=${expires}&signature=${signature}`;
+    const url = `/auth/email/verify/${id}/${hash}?expires=${expires}&signature=${signature}`;
     return sendGet(url);
   },
   login(payload: LoginPayload): Promise<any> {
-    const url = '/login';
+    const url = '/auth/login';
     return sendPost(url, payload);
   },
   forgotPassword(email: ForgotPasswordPayload): Promise<any> {
-    const url = '/forgot-password';
+    const url = '/auth/forgot-password';
     return sendPost(url, email);
   },
   resetPassword(payload: ResetPasswordPayload): Promise<any> {
-    const url = '/reset-password';
+    const url = '/auth/reset-password';
     return sendPost(url, payload);
   },
   logout(): Promise<any> {
-    const url = '/logout';
+    const url = '/auth/logout';
     return sendPost(url);
   },
   getMe(): Promise<any> {
@@ -50,31 +50,31 @@ const authApi = {
     return sendGet(url);
   },
   confirmPassword(payload: any): Promise<any> {
-    const url = '/user/confirm-password';
+    const url = '/auth/user/confirm-password';
     return sendPost(url, payload);
   },
   settingTwoFactor(): Promise<any> {
-    const url = '/user/two-factor-authentication';
+    const url = '/auth/user/two-factor-authentication';
     return sendPost(url);
   },
   getTwoFactorQrCode(): Promise<any> {
-    const url = '/user/two-factor-qr-code';
+    const url = '/auth/user/two-factor-qr-code';
     return sendGet(url);
   },
   confirmToTurnOnTwoFa(code: string): Promise<any> {
-    const url = '/user/confirmed-two-factor-authentication';
+    const url = '/auth/user/confirmed-two-factor-authentication';
     return sendPost(url, { code });
   },
   confirmToTwoFaLogin(code: string): Promise<any> {
-    const url = '/two-factor-challenge';
+    const url = '/auth/two-factor-challenge';
     return sendPost(url, { code });
   },
   getSettings(): Promise<any> {
-    const url = '/settings';
+    const url = '/me/settings';
     return sendGet(url);
   },
   removeTwoFa(): Promise<any> {
-    const url = '/user/two-factor-authentication';
+    const url = '/auth/user/two-factor-authentication';
     return sendDelete(url);
   },
 };
