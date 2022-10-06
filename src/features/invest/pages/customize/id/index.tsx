@@ -45,6 +45,7 @@ function CustomizeId() {
     setStep(1);
   };
   const confirmModal = () => {
+    if (!amount) return;
     if (step === 1) {
       setStep(2);
     }
@@ -132,7 +133,15 @@ function CustomizeId() {
         confirmModal={confirmModal}
         confirmLoading={loading}
       >
-        <>{step === 1 && <Input placeholder='Input amount' value={amount} onChange={(e) => setAmount(e.target.value)} />}</>
+        <>
+          {step === 1 && (
+            <Input
+              placeholder="Input amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+          )}
+        </>
       </ModalPayment>
     </>
   );

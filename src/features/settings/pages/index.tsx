@@ -70,14 +70,18 @@ function Settings() {
     }
   };
   const confirmModalRemove = async () => {
+    if (!password) return;
     try {
       setLoading(true);
-      const result = await authApi.removeTwoFa();
+      const result = await authApi.confirmPassword({ password });
       if (result) {
-        setLoading(false);
-        cancelModalRemove(false);
-        getSettings();
-        successMes(t('common.delete_two_fa'));
+        const result = await authApi.removeTwoFa();
+        if (result) {
+          setLoading(false);
+          cancelModalRemove(false);
+          getSettings();
+          successMes(t('common.delete_two_fa'));
+        }
       }
     } catch (error: any) {
       setLoading(false);
@@ -200,7 +204,17 @@ function Settings() {
           confirmModal={confirmModalRemove}
           confirmLoading={loading}
         >
-          Do you want to turn off two factor authentication?
+          <>
+            Do you want to turn off two factor authentication? Please enter your password.
+            <br />
+            <br />
+            <Input
+              placeholder="password"
+              type={'Password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </>
         </ModalRemoveTwoFa>
       </Card>
     </div>
