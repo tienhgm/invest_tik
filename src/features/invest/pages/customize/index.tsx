@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Card } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import './index.scss';
 import { PlusCircleOutlined } from '@ant-design/icons';
+import packageApi from 'apis/packages';
 function CustomPackage() {
   const { t } = useTranslation();
+  const [listPackages, setListPackages] = useState<any>([]);
   const history = useHistory();
   const onNavigate = (link: string) => {
     history.push(link);
@@ -13,6 +15,16 @@ function CustomPackage() {
   const onGoToDetailPackage = (id: number) => {
     history.push(`/invest/recharge/customize/${id}`);
   };
+  const getListCustomizePackage = async () => {
+    const { data } = await packageApi.getListCustomizePackage();
+    if (data) {
+      setListPackages(data);
+    }
+  };
+  useEffect(() => {
+    getListCustomizePackage();
+  }, []);
+
   return (
     <div>
       <Breadcrumb>
@@ -48,16 +60,24 @@ function CustomPackage() {
         <br />
         <div className="customize--text">Các gói đã tạo</div>
         <br />
-        <Card title={'Gói của Tiến'}>
-          <div className="customize__info">
-            <span className="invest">Đã đầu tư:</span>
-            <span className="currency">100.000đ</span>
-          </div>
-          <br />
-          <div className="customize__detail" onClick={() => onGoToDetailPackage(1)}>
-            Nạp tiền {'>'}
-          </div>
-        </Card>
+        {listPackages &&
+          listPackages.map((item: any) => (
+            <Card
+              className="my-package"
+              key={item.id}
+              title={item.name}
+              extra={<img src={item.avatar} className="customize__title-img" alt="title_recharge" />}
+            >
+              <div className="customize__info">
+                <span className="invest">Đã đầu tư:</span>
+                <span className="currency">100.000đ</span>
+              </div>
+              <br />
+              <div className="customize__detail" onClick={() => onGoToDetailPackage(item.id)}>
+                Nạp tiền {'>'}
+              </div>
+            </Card>
+          ))}
       </div>
     </div>
   );

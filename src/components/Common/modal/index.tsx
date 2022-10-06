@@ -4,7 +4,7 @@ interface IModal {
   open: boolean;
   confirmLoading: boolean;
   cancelModal: (value: boolean) => void;
-  confirmModal: () => any;
+  confirmModal: (value?: any) => any;
   title: string;
   children: React.ReactChild;
 }

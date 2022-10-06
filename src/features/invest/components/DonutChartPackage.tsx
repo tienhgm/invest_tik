@@ -2,8 +2,10 @@ import React from 'react';
 import { Pie, measureTextWidth } from '@ant-design/plots';
 interface IDonutChartPackage {
   data: any;
+  isNoLegend?: boolean;
+  isSpiderLabel?: boolean;
 }
-function DonutChartPackage({ data }: IDonutChartPackage) {
+function DonutChartPackage({ data, isNoLegend = false }: IDonutChartPackage) {
   function renderStatistic(containerWidth: any, text: string, style: any) {
     const { width: textWidth, height: textHeight } = measureTextWidth(text, style);
     const R = containerWidth / 2; // r^2 = (w / 2)^2 + (h - offsetY)^2
@@ -24,7 +26,7 @@ function DonutChartPackage({ data }: IDonutChartPackage) {
       scale < 1 ? 1 : 'inherit'
     };">${text}</div>`;
   }
-  const config = {
+  let config = {
     appendPadding: 10,
     data,
     angleField: 'value',
@@ -83,7 +85,12 @@ function DonutChartPackage({ data }: IDonutChartPackage) {
       },
     ],
   };
+  if (isNoLegend) {
+    // @ts-ignore
+    config = { ...config, legend: false };
+  }
+  // @ts-ignore
   return <Pie {...config} />;
 }
 
-export default DonutChartPackage;
+export default React.memo(DonutChartPackage);

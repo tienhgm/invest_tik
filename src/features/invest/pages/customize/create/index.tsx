@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Button, Card, Checkbox, InputNumber } from 'antd';
+import { Breadcrumb, Button, Card, Checkbox, Input, InputNumber } from 'antd';
 import fundApi from 'apis/funds';
 import DonutChartPackage from 'features/invest/components/DonutChartPackage';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
 import './index.scss';
+import packageApi from 'apis/packages';
+import { errorMes, successMes } from 'helper/notify';
 function CreateCustomizePackage() {
   const { t } = useTranslation();
   const history = useHistory();
   const onNavigate = (link: string) => {
     history.push(link);
   };
+  const [name, setName] = useState<string>('');
   const [listFunds, setListFunds] = useState<any>([]);
   const [dataDonutChart, setDataDonutChart] = useState<any>([]);
   const [maxPercentAble, setMaxPercentAble] = useState<number>(100);
@@ -54,6 +57,28 @@ function CreateCustomizePackage() {
       sum += item.value;
     });
     return sum === 100;
+  };
+  const onCreatePackage = async () => {
+    let listAllocation = listFunds.map((item: any) => {
+      return {
+        fund_id: item.id,
+        percentage: item.value,
+      };
+    });
+    listAllocation = listAllocation.filter((item: any) => item.percentage !== 0);
+    const dataApi = {
+      name: name,
+      allocation: [...listAllocation],
+    };
+    try {
+      const { data } = await packageApi.createPackage(dataApi);
+      if (data) {
+        successMes('created');
+        history.push('/invest/recharge/customize')
+      }
+    } catch (error) {
+      errorMes('Failed');
+    }
   };
   useEffect(() => {
     if (!listFunds) return;
@@ -101,6 +126,16 @@ function CreateCustomizePackage() {
       <br />
 
       <Card>
+        <div className="create_customize__title">Tên gói</div>
+        <br />
+        <Input
+          size="large"
+          placeholder="Tên gói"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <br />
+        <br />
         <div className="create_customize__title">Điều chỉnh phân bổ</div>
         {listFunds && <DonutChartPackage data={dataDonutChart} />}
         <br />
@@ -140,7 +175,13 @@ function CreateCustomizePackage() {
             </div>
           ))}
         <br />
-        <Button block type="primary" size="large" disabled={!isMaxPercentValue(listFunds)}>
+        <Button
+          block
+          type="primary"
+          size="large"
+          disabled={!isMaxPercentValue(listFunds) || !name}
+          onClick={onCreatePackage}
+        >
           {t('common.create')}
         </Button>
       </Card>
