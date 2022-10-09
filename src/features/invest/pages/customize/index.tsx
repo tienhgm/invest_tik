@@ -70,7 +70,7 @@ function CustomPackage() {
             >
               <div className="customize__info">
                 <span className="invest">Đã đầu tư:</span>
-                <span className="currency">100.000đ</span>
+                <span className="currency">{item.investment_amount} đ</span>
               </div>
               <br />
               <div className="customize__detail" onClick={() => onGoToDetailPackage(item.id)}>

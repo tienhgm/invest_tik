@@ -24,7 +24,7 @@ function Profile() {
       setLoading(true);
       const { data } = await profileApi.updateProfile(values);
       if (data) {
-        successMes(t('notify.update_success'))
+        successMes(t('notify.update_success'));
       }
     } catch (error: any) {
       setLoading(false);
@@ -57,7 +57,7 @@ function Profile() {
   return (
     <Card className="profile">
       <div className="profile__block">
-        <div className="profile__block--title">Avatar</div>
+        <div className="profile__block--title">Ảnh đại diện</div>
         <UploadAvatar
           disabled={false}
           loading={loadingAvatar}
@@ -66,7 +66,7 @@ function Profile() {
         />
       </div>
       <div className="profile__block">
-        <div className="profile__block--title">Status</div>
+        <div className="profile__block--title">Trạng thái tài khoản</div>
         <Tag color={getColorStatusAccount(userInfo?.is_activated)}>
           {getNameStatusAccount(userInfo?.is_activated)}
         </Tag>
@@ -81,15 +81,15 @@ function Profile() {
         autoComplete="off"
       >
         <div className="profile__block">
-          <div className="profile__block--title">Personal info</div>
+          <div className="profile__block--title">Thông tin cá nhân</div>
 
           <div className="profile__block--content">
             <div style={{ width: '100%' }}>
-              User name
+              Họ và tên
               <Input disabled placeholder="User name" value={userInfo?.name} />
             </div>{' '}
             <div style={{ width: '100%' }}>
-              Phone number
+              Số điện thoại
               <Input disabled placeholder="Phone number" value={userInfo?.phone_number} />
             </div>
           </div>
@@ -109,19 +109,17 @@ function Profile() {
               </Form.Item>
             </div>
             <div style={{ width: '100%' }}>
-              Gender
+              Giới tính
               <Input disabled placeholder="Gender" value={getNameGender(userInfo?.gender)} />
             </div>
           </div>
           <div className="profile__block--content">
             <div style={{ width: '100%' }}>
-              Address
+              Địa chỉ
               <Form.Item
                 style={{ width: '100%' }}
                 name={'address'}
-                rules={[
-                  { max: 255, message: t('validate.max_length_address') },
-                ]}
+                rules={[{ max: 255, message: t('validate.max_length_address') }]}
               >
                 <Input placeholder="Address" />
               </Form.Item>
@@ -132,39 +130,39 @@ function Profile() {
           <div className="profile__block--title">Info ID Card</div>
           <div className="profile__block--content">
             <div style={{ width: '100%' }}>
-              ID number
+              Số CCCD
               <Input disabled placeholder="User name" value={userInfo?.name} />
             </div>
           </div>
           <div className="profile__block--content">
             <div style={{ width: '100%' }}>
-              Start date
+              Ngày bắt đầu
               <Input disabled value={userInfo?.name} />
             </div>
             <div style={{ width: '100%' }}>
-              End date
+              Ngày hết hajn
               <Input disabled value={userInfo?.name} />
             </div>
           </div>
           <div className="profile__block--content">
             <div style={{ width: '100%' }}>
-              Place
+              Địa điểm
               <Input disabled placeholder="User name" value={userInfo?.name} />
             </div>
           </div>
           <div className="profile__block--content">
             <div style={{ width: '100%' }}>
-              Front
+              Mặt trước
               <Input disabled value={userInfo?.name} />
             </div>
             <div style={{ width: '100%' }}>
-              Back
+              Mặt sau
               <Input disabled value={userInfo?.name} />
             </div>
           </div>
         </div>
         <Button style={{ marginTop: '2rem' }} loading={loading} type="primary" htmlType="submit">
-          Change
+          Thay đổi
         </Button>
       </Form>
     </Card>

@@ -141,7 +141,7 @@ function Settings() {
 
   return (
     <div>
-      <Card title="Settings for Important Operations" bordered={false}>
+      <Card title="Cài đặt bảo mật 2 lớp" bordered={false}>
         <Radio.Group onChange={onChange} value={twofa} size="large">
           <Space direction="vertical">
             <Radio style={radioStyle} value={TWO_FA_SETTING.PASSWORD}>

@@ -5,7 +5,11 @@ interface IDonutChartPackage {
   isNoLegend?: boolean;
   isSpiderLabel?: boolean;
 }
-function DonutChartPackage({ data, isNoLegend = false }: IDonutChartPackage) {
+function DonutChartPackage({
+  data,
+  isNoLegend = false,
+  isSpiderLabel = false,
+}: IDonutChartPackage) {
   function renderStatistic(containerWidth: any, text: string, style: any) {
     const { width: textWidth, height: textHeight } = measureTextWidth(text, style);
     const R = containerWidth / 2; // r^2 = (w / 2)^2 + (h - offsetY)^2
@@ -89,8 +93,20 @@ function DonutChartPackage({ data, isNoLegend = false }: IDonutChartPackage) {
     // @ts-ignore
     config = { ...config, legend: false };
   }
-  // @ts-ignore
-  return <Pie {...config} />;
+  if (isSpiderLabel) {
+    config = {
+      ...config,
+      appendPadding: 20,
+      label: {
+        type: 'spider',
+        // @ts-ignore
+        labelHeight: 28,
+        content: '{name}\n{percentage}',
+        autoHide: false
+      },
+    };
+  }
+  return <Pie {...config} style={{ width: '100%', height: '100%' }} />;
 }
 
 export default React.memo(DonutChartPackage);

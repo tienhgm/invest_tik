@@ -11,7 +11,7 @@ import {
 } from '@ant-design/icons';
 import styles from './style.module.scss';
 import { getPathKey } from 'helper/generate';
-import { lazy, useEffect, useRef, useState } from 'react';
+import { lazy, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import { NotFound } from 'components/Common';
 import { useTranslation } from 'react-i18next';
@@ -34,7 +34,7 @@ export default function MainLayout() {
   const location = useLocation();
   const match = useRouteMatch();
   const [collapsed, setcollapsed] = useState(false);
-  const [key, setKey] = useState<any>(getPathKey(location.pathname.split('/')[1]));
+  const [key, setKey] = useState<any>(getPathKey(location.pathname.split('/')[1]) ? location.pathname.split('/')[1] : "1");
   const dispatch = useAppDispatch();
   let userInfo = useAppSelector((state) => state.user.userInfo);
   let isGetMe = useAppSelector((state) => state.user.isGetMe);
@@ -120,7 +120,7 @@ export default function MainLayout() {
     },
   ];
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let path = location.pathname.split('/')[1];
     let key = getPathKey(path);
     setKey(key);

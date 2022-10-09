@@ -66,7 +66,7 @@ function Header({ avatar }: IHeader) {
           <img src={avatar} className={styles.imgAvatar} />
         )}
       </Dropdown>
-      <SelectLanguage />
+      {/* <SelectLanguage /> */}
     </div>
   );
 }
