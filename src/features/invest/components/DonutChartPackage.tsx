@@ -45,6 +45,8 @@ function DonutChartPackage({
     label: {
       type: 'inner',
       offset: '-50%',
+      legend: false,
+
       style: {
         textAlign: 'center',
       },
@@ -59,7 +61,7 @@ function DonutChartPackage({
           const d = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2));
           const text = datum ? datum.type : 'Đã chọn';
           return renderStatistic(d, text, {
-            fontSize: 24,
+            fontSize: 20,
           });
         },
       },
@@ -72,7 +74,7 @@ function DonutChartPackage({
           const { width } = container.getBoundingClientRect();
           const text = datum ? `${datum.value}%` : `${data.length} Quỹ`;
           return renderStatistic(width, text, {
-            fontSize: 32,
+            fontSize: 26,
           });
         },
       },
@@ -102,7 +104,7 @@ function DonutChartPackage({
         // @ts-ignore
         labelHeight: 28,
         content: '{name}\n{percentage}',
-        autoHide: false
+        autoHide: false,
       },
     };
   }

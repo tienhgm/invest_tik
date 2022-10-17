@@ -20,5 +20,9 @@ const packageApi = {
     const url = `/packages/create`;
     return sendPost(url, payload);
   },
+  investPackage(payload: any): Promise<any> {
+    const url = `/packages/${payload.id}/invest`;
+    return sendPost(url, {amount: payload.amount});
+  },
 };
 export default packageApi;

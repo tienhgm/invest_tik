@@ -26,7 +26,7 @@ export default function TwoFaPage() {
       await authApi.confirmToTwoFaLogin(otp);
       setLoading(false);
       setOtp(null);
-      dispatch(authActions.authSuccess());
+      dispatch(authActions.authSuccess(true));
       successMes(t('notify.login_success'));
     } catch (error: any) {
       setOtp(null);

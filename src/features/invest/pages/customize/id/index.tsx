@@ -1,5 +1,5 @@
 import { ArrowDownOutlined, PlusOutlined } from '@ant-design/icons';
-import { Breadcrumb, Input } from 'antd';
+import { Breadcrumb, Button, Form, InputNumber } from 'antd';
 import packageApi from 'apis/packages';
 import DonutChartPackage from 'features/invest/components/DonutChartPackage';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -7,13 +7,15 @@ import { useTranslation } from 'react-i18next';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import ModalPayment from 'components/Common/modal';
 import './index.scss';
+import BlockInfoBank from 'components/Common/block_info_bank';
 function CustomizeId() {
   const [detailCustomize, setDetailCustomize] = useState<any>(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState<any>(false);
   const [amount, setAmount] = useState<any>(null);
-
+  const [infoBank, setInfoBank] = useState<any>(null);
+  const [form] = Form.useForm<any>();
   const match = useRouteMatch<any>();
   const { t } = useTranslation();
   const history = useHistory();
@@ -43,17 +45,33 @@ function CustomizeId() {
     setOpenModal(value);
     setAmount(null);
     setStep(1);
+    setInfoBank(null);
+    form.resetFields();
   };
   const confirmModal = () => {
     if (!amount) return;
     if (step === 1) {
       setStep(2);
     }
-    console.log('ok');
   };
+  const onFinish = async (values: any) => {
+    try {
+      setAmount(values.amount);
+      let payload = {
+        id: match.params.id,
+        amount: values.amount,
+      };
+      const { data } = await packageApi.investPackage(payload);
+      setInfoBank(data);
+    } catch (error) {}
+  };
+  const onFinishFailed = (errorInfo: any) => {};
   useEffect(() => {
     getListCustomizePackage();
   }, []);
+  useEffect(() => {
+    getListCustomizePackage();
+  }, [step]);
   return (
     <>
       <Breadcrumb>
@@ -128,19 +146,49 @@ function CustomizeId() {
       )}
       <ModalPayment
         open={openModal}
-        title={'Deposit money'}
+        width={700}
+        title={'Nạp tiền đầu tư'}
         cancelModal={cancelModaPayment}
         confirmModal={confirmModal}
         confirmLoading={loading}
+        getContainer={false}
+        footer={[
+          <Button key={'closePayment'} onClick={() => cancelModaPayment(false)} form="deposit">
+            Hủy
+          </Button>,
+          <Button
+            onClick={confirmModal}
+            form="deposit"
+            key="submit"
+            type="primary"
+            htmlType="submit"
+          >
+            {step === 1 ? 'Nạp' : 'Xác nhận'}
+          </Button>,
+        ]}
       >
         <>
-          {step === 1 && (
-            <Input
-              placeholder="Input amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-            />
-          )}
+          <Form
+            style={{ display: step === 1 ? 'block' : 'none' }}
+            name="deposit"
+            wrapperCol={{ span: 24 }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+            layout="vertical"
+          >
+            <Form.Item
+              name="amount"
+              rules={[{ required: true, message: 'Hãy nhập số tiền nạp (vnd)' }]}
+            >
+              <InputNumber
+                style={{ width: '100%' }}
+                placeholder="Nhập số tiền muốn nạp (vnd)"
+                formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              />
+            </Form.Item>
+          </Form>
+          {step === 2 && infoBank && <BlockInfoBank info={infoBank} />}
         </>
       </ModalPayment>
     </>

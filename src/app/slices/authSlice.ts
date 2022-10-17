@@ -19,13 +19,13 @@ const authSlice = createSlice({
     // auth(state: any) {
     //   state.loading = true;
     // },
-    authSuccess(state: any) {
-      state.isLoggedIn = true;
+    authSuccess(state: any, action: any) {
+      state.isLoggedIn = action.payload;
       state.twoFa = false;
     },
-    authTwoFa(state: any) {
+    authTwoFa(state: any, action: any) {
       state.isLoggedIn = false;
-      state.twoFa = true;
+      state.twoFa = action.payload;
     },
     logout() {
       return initialState;

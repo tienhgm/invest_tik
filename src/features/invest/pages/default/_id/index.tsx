@@ -5,6 +5,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 import PieChartPackage from '../../../components/PieChartPackage';
 import { useTranslation } from 'react-i18next';
 import './index.scss';
+import DonutChartPackage from 'features/invest/components/DonutChartPackage';
 function DefaultPackageId() {
   const { t } = useTranslation();
   const match = useRouteMatch<any>();
@@ -83,7 +84,7 @@ function DefaultPackageId() {
             </div>
             <div className="package__block">
               <div className="package__block--title">Chi tiết phân bổ</div>
-              {dataPieChart && <PieChartPackage data={dataPieChart} />}
+              {dataPieChart && <DonutChartPackage data={dataPieChart} />}
             </div>
           </div>
         </>

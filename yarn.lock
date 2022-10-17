@@ -3050,6 +3050,11 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
+"@tawk.to/tawk-messenger-react@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@tawk.to/tawk-messenger-react/-/tawk-messenger-react-2.0.1.tgz#2e9bbfef47f81578aa49a7cd4d72191a0c3276a4"
+  integrity sha512-jMWbeOCMwqcjLCR7a9+mh0Ce/Cl9aPyfZAvzkNKCFKBYaV9n8eAE7U/XKKFqCKfp5AehDMUCB5saG2cFSSP0Xw==
+
 "@testing-library/dom@*":
   version "8.10.1"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.10.1.tgz#e24fed92ad51c619cf304c6f1410b4c76b1000c0"

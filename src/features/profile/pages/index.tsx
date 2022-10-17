@@ -161,7 +161,13 @@ function Profile() {
             </div>
           </div>
         </div>
-        <Button style={{ marginTop: '2rem' }} loading={loading} type="primary" htmlType="submit">
+        <Button
+          style={{ marginTop: '2rem', width: '100%' }}
+          loading={loading}
+          size='large'
+          type="primary"
+          htmlType="submit"
+        >
           Thay đổi
         </Button>
       </Form>

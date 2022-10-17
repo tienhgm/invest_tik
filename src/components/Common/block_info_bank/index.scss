@@ -1,0 +1,15 @@
+.info-bank {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__block {
+    display: flex;
+    gap: 0.3rem;
+  }
+}

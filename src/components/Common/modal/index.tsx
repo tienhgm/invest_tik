@@ -7,9 +7,22 @@ interface IModal {
   confirmModal: (value?: any) => any;
   title: string;
   children: React.ReactChild;
+  width?: number;
+  footer?: any;
+  getContainer?: boolean | string;
 }
 
-export default function ModalCommon({ open, title, confirmModal, cancelModal, children, confirmLoading }: IModal) {
+export default function ModalCommon({
+  open,
+  title,
+  confirmModal,
+  cancelModal,
+  children,
+  confirmLoading,
+  width = 520,
+  footer,
+  getContainer,
+}: IModal) {
   const handleOk = () => {
     confirmModal();
   };
@@ -19,7 +32,18 @@ export default function ModalCommon({ open, title, confirmModal, cancelModal, ch
   };
 
   return (
-    <Modal title={title} visible={open} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
+    <Modal
+      title={title}
+      width={width}
+      maskClosable={false}
+      visible={open}
+      onOk={handleOk}
+      confirmLoading={confirmLoading}
+      onCancel={handleCancel}
+      footer={footer}
+      // @ts-ignore
+      getContainer={getContainer}
+    >
       {children}
     </Modal>
   );

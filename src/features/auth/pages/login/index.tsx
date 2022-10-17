@@ -1,7 +1,7 @@
 import { Form, Input, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions } from 'app/slices/authSlice';
 import { errorMes, successMes } from 'helper/notify';
 import { LoginPayload } from 'model';
@@ -25,10 +25,10 @@ export default function LoginPage() {
       if (data) {
         if (!data.two_factor) {
           form.resetFields();
-          dispatch(authActions.authSuccess());
+          dispatch(authActions.authSuccess(true));
           successMes(t('notify.login_success'));
         } else {
-          dispatch(authActions.authTwoFa());
+          dispatch(authActions.authTwoFa(true));
           history.push('/confirm-2fa');
         }
         setLoading(false);

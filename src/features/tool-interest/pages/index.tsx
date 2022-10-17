@@ -1,5 +1,4 @@
-import { P } from '@antv/g2plot';
-import { Form, Input, Button, Card, InputNumber } from 'antd';
+import { Form, Button, Card, InputNumber } from 'antd';
 import { useState } from 'react';
 export default function InterestTool() {
   const [isComputed, setIsComputed] = useState(false);

@@ -34,7 +34,10 @@ export default function MainLayout() {
   const location = useLocation();
   const match = useRouteMatch();
   const [collapsed, setcollapsed] = useState(false);
-  const [key, setKey] = useState<any>(getPathKey(location.pathname.split('/')[1]) ? location.pathname.split('/')[1] : "1");
+  const [key, setKey] = useState<any>(
+    getPathKey(location.pathname.split('/')[1]) ? location.pathname.split('/')[1] : '1'
+  );
+  const [collapsible, setCollapsible] = useState(true);
   const dispatch = useAppDispatch();
   let userInfo = useAppSelector((state) => state.user.userInfo);
   let isGetMe = useAppSelector((state) => state.user.isGetMe);
@@ -120,17 +123,27 @@ export default function MainLayout() {
     },
   ];
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     let path = location.pathname.split('/')[1];
     let key = getPathKey(path);
     setKey(key);
   }, [location.pathname.split('/')[1]]);
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setCollapsible(false);
+      setcollapsed(true);
+    } else {
+      setCollapsible(true);
+      setcollapsed(false);
+    }
+  }, [window.innerWidth]);
+
   return (
     userInfo && (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider
           className="site-layout-background"
-          collapsible
+          collapsible={collapsible}
           collapsed={collapsed}
           onCollapse={onCollapse}
           theme="light"
@@ -158,7 +171,7 @@ export default function MainLayout() {
           <Header avatar={userInfo.avatar} />
           <Content style={{ margin: '1rem' }}>
             <Switch>
-              <Route path={`/dashboard`} component={Dashboard} exact/>
+              <Route path={`/dashboard`} component={Dashboard} exact />
               <Route path={`/invest`} component={Invest} />
               <Route path={`/funds`} component={Funds} exact />
               <Route path={`/interest-tool`} component={InterestTool} exact />

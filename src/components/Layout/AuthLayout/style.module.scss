@@ -1,13 +1,11 @@
 .layout {
     min-height: 100vh;
-    min-width: 100vw;
+    width: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    //   background-image: url('/assets/images/auth_bgr.jpg');
-    //   background-size: cover;
-    //   background-position: center;
+    flex-grow: 1;
     background: #4e8530;
     background: linear-gradient(to left, #76b852, #8DC26F);
     .loginBox {
@@ -16,6 +14,9 @@
       padding: 20px;
       background-color: #fff;
       width: 26rem;
+      @media screen and (max-width: 578px ){
+        width: 100%;
+      }
       border-radius: 5px;
       > h4 {
         text-align: center;
