@@ -21,7 +21,7 @@ axiosInstance.interceptors.request.use(
 
 const logout = async () => {
   await authApi.logout();
-  localStorage.setItem('logoutSuccess', 'true')
+  localStorage.setItem('logoutSuccess', 'true');
   history.push('/login');
 };
 axiosInstance.interceptors.response.use(

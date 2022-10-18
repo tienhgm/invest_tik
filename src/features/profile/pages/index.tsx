@@ -9,7 +9,7 @@ import { getColorStatusAccount, getNameGender, getNameStatusAccount } from 'help
 import { errorMes, successMes } from 'helper/notify';
 import './index.scss';
 import { REGEX_CHECK_EMAIL } from 'helper/regex';
-
+import { isEqual } from 'lodash';
 function Profile() {
   const [form] = Form.useForm();
   const { t } = useTranslation();
@@ -18,8 +18,10 @@ function Profile() {
   const [loadingAvatar, setLoadingAvatar] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [previewImg, setPreviewImg] = useState<any>(userInfo?.avatar ? userInfo?.avatar : '');
+  const [initFormData, setInitFormData] = useState<any>({});
   const onFinishFailed = (errorInfo: any) => {};
   const onFinish = async (values: any) => {
+    if (isEqual(initFormData, form.getFieldsValue())) return;
     try {
       setLoading(true);
       const { data } = await profileApi.updateProfile(values);
@@ -33,6 +35,10 @@ function Profile() {
   };
   const setInitForm = (userInfo: any) => {
     form.setFieldsValue({
+      email: userInfo?.email,
+      address: userInfo?.address,
+    });
+    setInitFormData({
       email: userInfo?.email,
       address: userInfo?.address,
     });
@@ -127,7 +133,7 @@ function Profile() {
           </div>
         </div>
         <div className="profile__block">
-          <div className="profile__block--title">Info ID Card</div>
+          <div className="profile__block--title">Thông tin CCCD</div>
           <div className="profile__block--content">
             <div style={{ width: '100%' }}>
               Số CCCD
@@ -164,7 +170,7 @@ function Profile() {
         <Button
           style={{ marginTop: '2rem', width: '100%' }}
           loading={loading}
-          size='large'
+          size="large"
           type="primary"
           htmlType="submit"
         >

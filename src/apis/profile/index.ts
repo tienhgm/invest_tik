@@ -5,7 +5,7 @@ const profileApi = {
     return sendUploadAvt(url, file);
   },
   updateProfile(payload: any): Promise<any> {
-    const url = '/api/user/profile-information';
+    const url = '/api/auth/user/profile-information';
     return sendPut(url, payload);
   },
 };

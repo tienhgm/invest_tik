@@ -55,15 +55,21 @@ function CustomizeId() {
     }
   };
   const onFinish = async (values: any) => {
-    try {
-      setAmount(values.amount);
-      let payload = {
-        id: match.params.id,
-        amount: values.amount,
-      };
-      const { data } = await packageApi.investPackage(payload);
-      setInfoBank(data);
-    } catch (error) {}
+    switch (step) {
+      case 1:
+        try {
+          setAmount(values.amount);
+          let payload = {
+            id: match.params.id,
+            amount: values.amount,
+          };
+          const { data } = await packageApi.investPackage(payload);
+          setInfoBank(data);
+        } catch (error) {}
+        break;
+      case 2:
+        cancelModaPayment(false);
+    }
   };
   const onFinishFailed = (errorInfo: any) => {};
   useEffect(() => {
