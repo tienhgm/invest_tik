@@ -27,8 +27,8 @@ const authSlice = createSlice({
       state.isLoggedIn = false;
       state.twoFa = action.payload;
     },
-    logout() {
-      return initialState;
+    logout(state: any) {
+      state.isLoggedIn = false;
     },
   },
 });

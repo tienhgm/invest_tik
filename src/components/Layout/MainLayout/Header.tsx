@@ -36,7 +36,7 @@ function Header({ avatar }: IHeader) {
         <Link to={`${match.path}/profile`}>{t('common.setting')}</Link>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="111" onClick={handleLogout}>
+      <Menu.Item key="111" onClick={() => handleLogout()}>
         {t('common.logout')}
       </Menu.Item>
     </Menu>

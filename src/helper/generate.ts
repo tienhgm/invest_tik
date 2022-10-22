@@ -15,6 +15,8 @@ export const getPathKey = (value: any) => {
       return KEY_SIDE_BAR.FUNDS;
     case 'interest-tool':
       return KEY_SIDE_BAR.INTEREST_TOOL;
+    case 'transactions':
+      return KEY_SIDE_BAR.HISTORY_TRANSACTION;
     case 'profile':
       return KEY_SIDE_BAR.PROFILE;
     case 'settings':

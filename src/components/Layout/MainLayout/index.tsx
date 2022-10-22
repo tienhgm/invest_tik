@@ -29,6 +29,7 @@ const Funds = lazy(() => import('features/funds/pages'));
 const InterestTool = lazy(() => import('features/tool-interest/pages'));
 const Settings = lazy(() => import('features/settings/pages'));
 const Profile = lazy(() => import('features/profile/pages'));
+const Transactions = lazy(() => import('features/transactions/pages'));
 export default function MainLayout() {
   const { t } = useTranslation();
   const location = useLocation();
@@ -100,7 +101,7 @@ export default function MainLayout() {
     {
       key: KEY_SIDE_BAR.HISTORY_TRANSACTION,
       icon: <HistoryOutlined />,
-      link: `/interest-tool`,
+      link: `/transactions`,
       text: t('common.history_transaction'),
     },
     {
@@ -175,6 +176,7 @@ export default function MainLayout() {
               <Route path={`/invest`} component={Invest} />
               <Route path={`/funds`} component={Funds} exact />
               <Route path={`/interest-tool`} component={InterestTool} exact />
+              <Route path={`/transactions`} component={Transactions} exact />
               <Route path={`/profile`} component={Profile} exact />
               <Route path={`/settings`} component={Settings} exact />
               <Route component={NotFound} />
