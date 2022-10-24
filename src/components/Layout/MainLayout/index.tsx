@@ -11,7 +11,7 @@ import {
 } from '@ant-design/icons';
 import styles from './style.module.scss';
 import { getPathKey } from 'helper/generate';
-import { lazy, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { lazy, useEffect, useRef, useState } from 'react';
 import { Link, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import { NotFound } from 'components/Common';
 import { useTranslation } from 'react-i18next';

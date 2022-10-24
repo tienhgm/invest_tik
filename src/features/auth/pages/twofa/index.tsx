@@ -8,14 +8,12 @@ import { errorMes, successMes } from 'helper/notify';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import OtpInput from 'react-otp-input';
-import { useHistory } from 'react-router-dom';
 import styles from './style.module.scss';
 export default function TwoFaPage() {
   const { t } = useTranslation();
   const [otp, setOtp] = useState<any>(null);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState<any>(false);
-  const history = useHistory();
   const dispatch = useAppDispatch();
   const onChangeOtp = (otp: string) => {
     setOtp(otp);

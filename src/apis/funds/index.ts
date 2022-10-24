@@ -9,7 +9,7 @@ const fundApi = {
     return sendGet(url);
   },
   getDetailFundHistoryById(id: number, month: string = "12"): Promise<any> {
-    const url = `/funds/history/${id}?month=${month}`;
+    const url = `/funds/${id}/history?month=${month}`;
     return sendGet(url);
   },
 };

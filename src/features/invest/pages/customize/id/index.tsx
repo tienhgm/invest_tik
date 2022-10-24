@@ -51,12 +51,14 @@ function CustomizeId() {
   const confirmModal = () => {
     if (!amount) return;
     if (step === 1) {
+
       setStep(2);
     }
   };
   const onFinish = async (values: any) => {
     switch (step) {
       case 1:
+
         try {
           setAmount(values.amount);
           let payload = {
@@ -64,11 +66,15 @@ function CustomizeId() {
             amount: values.amount,
           };
           const { data } = await packageApi.investPackage(payload);
-          setInfoBank(data);
+          if (data) {
+            setInfoBank(data);
+            setStep(2);
+          }
         } catch (error) {}
         break;
       case 2:
         cancelModaPayment(false);
+        break;
     }
   };
   const onFinishFailed = (errorInfo: any) => {};

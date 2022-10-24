@@ -23,15 +23,28 @@ function LineChart({ data }: ILineChart) {
     color: '#2b906d',
     xAxis: {
       // type: 'timeCat',
-      tickCount: 10,
+      tickCount: 8,
     },
+    // tooltip: {
+    //   fields: ['navCurrent', 'percent'],
+    // },
     tooltip: {
-        fields: ['navCurrent', 'percent'],
+      customContent: (title: any, data: any) => {
+        console.log(data, 'data');
+        console.log(title, 'title');
+
+        return `<div style="background: '#fff'; padding: 0.5rem; font-size: 0.9rem">
+            <div style="font-weight: 600;">${title}</div><br/>
+            <div>Giá hiện tại: <span style="font-weight: 600;">${data[0]?.data.navCurrent}</span></div>
+            <br/>
+            <div>Giá hiện tại: <span style="font-weight: 600;">${data[0]?.data.percent}%</span></div>
+          </div>`;
+      },
     },
     yAxis: {
       // type: 'timeCat',
       label: {
-        formatter: (v:any) => `${v}%`,
+        formatter: (v: any) => `${v}%`,
       },
       tickCount: 5,
       max: Math.ceil(maxPercent),

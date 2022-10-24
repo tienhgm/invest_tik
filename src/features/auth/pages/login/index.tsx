@@ -1,7 +1,7 @@
 import { Form, Input, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useAppDispatch } from 'app/hooks';
 import { authActions } from 'app/slices/authSlice';
 import { errorMes, successMes } from 'helper/notify';
 import { LoginPayload } from 'model';

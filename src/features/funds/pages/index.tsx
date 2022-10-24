@@ -101,7 +101,7 @@ export default function Funds() {
               <div
                 style={{
                   flexGrow: 1,
-                  height: 440,
+                  height: 400,
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'flex-end',
