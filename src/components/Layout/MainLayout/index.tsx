@@ -11,7 +11,7 @@ import {
 } from '@ant-design/icons';
 import styles from './style.module.scss';
 import { getPathKey } from 'helper/generate';
-import { lazy, useEffect, useRef, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { Link, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import { NotFound } from 'components/Common';
 import { useTranslation } from 'react-i18next';
@@ -35,6 +35,9 @@ export default function MainLayout() {
   const location = useLocation();
   const match = useRouteMatch();
   const [collapsed, setcollapsed] = useState(false);
+  const [isLogout, setIsLogout] = useState(
+    localStorage.getItem('logoutSuccess') ? localStorage.getItem('logoutSuccess') : 'false'
+  );
   const [key, setKey] = useState<any>(
     getPathKey(location.pathname.split('/')[1]) ? location.pathname.split('/')[1] : '1'
   );
@@ -62,14 +65,14 @@ export default function MainLayout() {
     onGetMe();
   }, [isGetMe]);
 
-  let isLogout = useRef(localStorage.getItem('logoutSuccess'));
   useEffect(() => {
-    if (isLogout.current === 'true') {
+    if (isLogout === 'true') {
+      console.log('zo');
       dispatch(authActions.logout());
       localStorage.removeItem('logoutSuccess');
     }
     return () => {
-      isLogout.current = null;
+      setIsLogout('false');
     };
   }, [isLogout]);
 

@@ -37,7 +37,7 @@ function LineChart({ data }: ILineChart) {
             <div style="font-weight: 600;">${title}</div><br/>
             <div>Giá hiện tại: <span style="font-weight: 600;">${data[0]?.data.navCurrent}</span></div>
             <br/>
-            <div>Giá hiện tại: <span style="font-weight: 600;">${data[0]?.data.percent}%</span></div>
+            <div>Tỉ lệ tăng trưởng: <span style="font-weight: 600;">${data[0]?.data.percent}%</span></div>
           </div>`;
       },
     },
