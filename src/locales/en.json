@@ -49,7 +49,8 @@
     "login_success": "Login success!",
     "forgot_success": "The email has been sent!",
     "account_active": "The account has been activated",
-    "update_success": "Updated!"
+    "update_success": "Updated!",
+    "change_pass_success": "Changed!"
   },
   "validate": {
     "email_invalid": "Email is invalid!",

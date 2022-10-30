@@ -30,14 +30,12 @@ const InterestTool = lazy(() => import('features/tool-interest/pages'));
 const Settings = lazy(() => import('features/settings/pages'));
 const Profile = lazy(() => import('features/profile/pages'));
 const Transactions = lazy(() => import('features/transactions/pages'));
+const TransactionDetail = lazy(() => import('features/transactions/pages/id'));
 export default function MainLayout() {
   const { t } = useTranslation();
   const location = useLocation();
   const match = useRouteMatch();
   const [collapsed, setcollapsed] = useState(false);
-  const [isLogout, setIsLogout] = useState(
-    localStorage.getItem('logoutSuccess') ? localStorage.getItem('logoutSuccess') : 'false'
-  );
   const [key, setKey] = useState<any>(
     getPathKey(location.pathname.split('/')[1]) ? location.pathname.split('/')[1] : '1'
   );
@@ -66,15 +64,13 @@ export default function MainLayout() {
   }, [isGetMe]);
 
   useEffect(() => {
-    if (isLogout === 'true') {
-      console.log('zo');
+    if (localStorage.logoutSuccess === 'true') {
       dispatch(authActions.logout());
-      localStorage.removeItem('logoutSuccess');
     }
     return () => {
-      setIsLogout('false');
+      localStorage.removeItem('logoutSuccess');
     };
-  }, [isLogout]);
+  }, []);
 
   const menuSidebar = [
     {
@@ -180,6 +176,7 @@ export default function MainLayout() {
               <Route path={`/funds`} component={Funds} exact />
               <Route path={`/interest-tool`} component={InterestTool} exact />
               <Route path={`/transactions`} component={Transactions} exact />
+              <Route path={`/transactions/:id`} component={TransactionDetail} exact />
               <Route path={`/profile`} component={Profile} exact />
               <Route path={`/settings`} component={Settings} exact />
               <Route component={NotFound} />

@@ -26,7 +26,7 @@ export default function ResetPasswordPage() {
       const result = await authApi.resetPassword(payloadValues);
       if (result) {
         form.resetFields();
-        successMes(t('notify.forgot_success'));
+        successMes(t('notify.change_pass_success'));
         history.push('/login');
         setLoading(false);
       }

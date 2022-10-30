@@ -1,7 +1,6 @@
 import React from 'react';
 import { Avatar, Badge, Dropdown, Menu } from 'antd';
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
-import SelectLanguage from 'components/Common/SelectLanguage';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { useAppDispatch } from 'app/hooks';
 import authApi from 'apis/auth';
@@ -63,7 +62,7 @@ function Header({ avatar }: IHeader) {
         {!avatar ? (
           <Avatar size={40} icon={<UserOutlined />} className={styles.dropAvt} />
         ) : (
-          <img src={avatar} className={styles.imgAvatar} />
+          <img src={avatar} className={styles.imgAvatar} alt="avt" />
         )}
       </Dropdown>
       {/* <SelectLanguage /> */}

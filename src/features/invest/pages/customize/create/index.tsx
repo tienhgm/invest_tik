@@ -73,7 +73,7 @@ function CreateCustomizePackage() {
     try {
       const { data } = await packageApi.createPackage(dataApi);
       if (data) {
-        successMes('created');
+        successMes('Tạo gói thành công!');
         history.push('/invest/recharge/customize')
       }
     } catch (error) {

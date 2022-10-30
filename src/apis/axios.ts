@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import authApi from './auth';
 // import configs from '../config';x
-import { history } from '../index';
+// import { history } from '../index';
 const axiosInstance = Axios.create({
   timeout: 3 * 60 * 1000,
   // baseURL: configs.BASE_URL
@@ -22,7 +22,7 @@ axiosInstance.interceptors.request.use(
 const logout = async () => {
   await authApi.logout();
   localStorage.setItem('logoutSuccess', 'true');
-  history.push('/login');
+  window.location.reload();
 };
 axiosInstance.interceptors.response.use(
   (response) => response,

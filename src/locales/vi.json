@@ -49,7 +49,8 @@
     "login_success": "Đăng nhập thành công!",
     "forgot_success": "Đã gửi tới mail của bạn!",
     "account_active": "Tài khoản đã được kích hoạt",
-    "update_success": "Đã cập nhật!"
+    "update_success": "Đã cập nhật!",
+    "change_pass_success": "Đổi mật khẩu thành công!"
   },
   "validate": {
     "email_invalid": "Email không hợp lệ!",

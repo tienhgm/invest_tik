@@ -1,5 +1,5 @@
 import { ArrowDownOutlined, PlusOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Form, InputNumber } from 'antd';
+import { Breadcrumb, Button, Form, InputNumber, Skeleton } from 'antd';
 import packageApi from 'apis/packages';
 import DonutChartPackage from 'features/invest/components/DonutChartPackage';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -8,6 +8,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom';
 import ModalPayment from 'components/Common/modal';
 import './index.scss';
 import BlockInfoBank from 'components/Common/block_info_bank';
+import { formatCurrency } from 'helper/common';
 function CustomizeId() {
   const [detailCustomize, setDetailCustomize] = useState<any>(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -51,14 +52,12 @@ function CustomizeId() {
   const confirmModal = () => {
     if (!amount) return;
     if (step === 1) {
-
       setStep(2);
     }
   };
   const onFinish = async (values: any) => {
     switch (step) {
       case 1:
-
         try {
           setAmount(values.amount);
           let payload = {
@@ -105,14 +104,16 @@ function CustomizeId() {
         <Breadcrumb.Item>{match.params.id}</Breadcrumb.Item>
       </Breadcrumb>
       <br />
-      {detailCustomize && (
+      {detailCustomize ? (
         <div className="customize-detail">
           <div className="customize-detail__block">
             <div className="customize-detail__block--title">{detailCustomize.name}</div>
             <br />
             <img src={detailCustomize.avatar} className="customize-detail__title-img" alt="" />
             <br />
-            <div className="customize-detail__currency">{detailCustomize.investment_amount} đ</div>
+            <div className="customize-detail__currency">
+              {formatCurrency(detailCustomize.investment_amount)} đ
+            </div>
             <div className="customize-detail__block__method">
               <div className="customize-detail__block__method--recharge">
                 <div className="customize-detail__btn" onClick={() => setOpenModal(true)}>
@@ -155,6 +156,11 @@ function CustomizeId() {
             {!!dataChart && <DonutChartPackage data={dataChart} isNoLegend isSpiderLabel />}
           </div>
         </div>
+      ) : (
+        <>
+          <Skeleton active />
+          <Skeleton active />
+        </>
       )}
       <ModalPayment
         open={openModal}

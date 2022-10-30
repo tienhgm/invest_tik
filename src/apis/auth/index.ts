@@ -77,5 +77,9 @@ const authApi = {
     const url = '/auth/user/two-factor-authentication';
     return sendDelete(url);
   },
+  getAssetInvest(): Promise<any> {
+    const url = '/me/assets';
+    return sendGet(url);
+  },
 };
 export default authApi;

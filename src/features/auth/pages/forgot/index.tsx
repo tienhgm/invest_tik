@@ -53,8 +53,8 @@ export default function ForgotPasswordPage() {
           label={t('common.email')}
           name="email"
           rules={[
-            { required: true, message: 'Please input your email!' },
-            { pattern: REGEX_CHECK_EMAIL, message: 'Email is invalid' },
+            { required: true, message: 'Hãy nhập email!' },
+            { pattern: REGEX_CHECK_EMAIL, message: 'Email không đúng định dạng' },
           ]}
         >
           <Input />

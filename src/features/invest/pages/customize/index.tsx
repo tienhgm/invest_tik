@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Card } from 'antd';
+import { Breadcrumb, Card, Skeleton } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import './index.scss';
@@ -23,6 +23,9 @@ function CustomPackage() {
   };
   useEffect(() => {
     getListCustomizePackage();
+    return () => {
+      setListPackages([]);
+    };
   }, []);
 
   return (
@@ -59,14 +62,15 @@ function CustomPackage() {
         </Card>
         <br />
         <div className="customize--text">Các gói đã tạo</div>
-        <br />
         {listPackages &&
           listPackages.map((item: any) => (
             <Card
               className="my-package"
               key={item.id}
               title={item.name}
-              extra={<img src={item.avatar} className="customize__title-img" alt="title_recharge" />}
+              extra={
+                <img src={item.avatar} className="customize__title-img" alt="title_recharge" />
+              }
             >
               <div className="customize__info">
                 <span className="invest">Đã đầu tư:</span>

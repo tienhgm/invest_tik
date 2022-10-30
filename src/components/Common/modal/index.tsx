@@ -43,6 +43,8 @@ export default function ModalCommon({
       footer={footer}
       // @ts-ignore
       getContainer={getContainer}
+      okText="Xác nhận"
+      cancelText="Hủy"
     >
       {children}
     </Modal>

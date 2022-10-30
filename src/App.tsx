@@ -20,7 +20,7 @@ function App() {
     if (location.pathname === '/' && isLoggedIn) {
       history.push('/dashboard');
     }
-  }, [history, location.pathname]);
+  }, [history, location.pathname, isLoggedIn]);
   useEffect(() => {
     handleGetCsrfToken();
   }, []);

@@ -1,0 +1,37 @@
+.link {
+  cursor: pointer;
+  transition: all 0.25s;
+  &:hover {
+    color: #4caf50;
+  }
+}
+
+.transaction_detail {
+  width: 100%;
+  &__info {
+    text-align: center;
+  }
+  .icon-success {
+    color: #4caf50;
+    font-size: 2.5rem;
+    margin-bottom: 0.7rem;
+  }
+  .icon-failed {
+    color: #f50;
+    font-size: 2.5rem;
+    margin-bottom: 0.7rem;
+  }
+  .payment-success {
+    color: #4caf50;
+    font-weight: 500;
+  }
+  .payment-failed {
+    color: #f50;
+    font-weight: 500;
+  }
+  &__child {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+  }
+}

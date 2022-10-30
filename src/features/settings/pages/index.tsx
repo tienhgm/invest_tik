@@ -161,7 +161,7 @@ function Settings() {
         </div> */}
         <Modal
           open={open}
-          title={'Two factor authentication setting'}
+          title={'Cài đặt bảo mật 2 lớp'}
           cancelModal={cancelModal}
           confirmModal={confirmModal}
           confirmLoading={loading}
@@ -169,17 +169,17 @@ function Settings() {
           <>
             {step === 1 && (
               <>
-                <div>You are changing the two-step authentication method.</div>
-                <div>Please enter your password to change two factor authentication.</div>
+                <div>Bạn đang thay đổi phương thức xác thực hai bước.</div>
+                <div>Vui lòng nhập mật khẩu của bạn để thay đổi xác thực hai bước.</div>
                 <br />
                 <Input type="password" value={password} onChange={onChangePassword} />
               </>
             )}
             {step === 2 && qr && (
               <div className={styles.step2Box}>
-                <div>From the downloaded app, scan the QR code.</div>
+                <div>Từ ứng dụng đã tải xuống, hãy quét mã QR.</div>
                 <div dangerouslySetInnerHTML={{ __html: qr }}></div>
-                <div>Enter the 6-digit code displayed in Google Authenticator and click "Ok".</div>
+                <div>Nhập mã gồm 6 chữ số được hiển thị trong Google Authenticator và ấn "Ok".</div>
                 <OtpInput
                   shouldAutoFocus
                   className={styles.otpInput}
@@ -199,13 +199,13 @@ function Settings() {
         </Modal>
         <ModalRemoveTwoFa
           open={openRemove}
-          title={'Two factor authentication setting'}
+          title={'Cài đặt bảo mật 2 lớp'}
           cancelModal={cancelModalRemove}
           confirmModal={confirmModalRemove}
           confirmLoading={loading}
         >
           <>
-            Do you want to turn off two factor authentication? Please enter your password.
+            Bạn có muốn tắt xác thực hai yếu tố không? Vui lòng nhập mật khẩu của bạn.
             <br />
             <br />
             <Input
