@@ -20,7 +20,6 @@ export default function Funds() {
     }
   };
   const onChangeKey = (key: string) => {
-    console.log(key);
     setKeyTime(key);
   };
   const onChooseSelectFund = (id: number) => {

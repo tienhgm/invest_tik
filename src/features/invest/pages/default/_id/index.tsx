@@ -6,6 +6,7 @@ import PieChartPackage from '../../../components/PieChartPackage';
 import { useTranslation } from 'react-i18next';
 import './index.scss';
 import DonutChartPackage from 'features/invest/components/DonutChartPackage';
+import { PlusOutlined } from '@ant-design/icons';
 function DefaultPackageId() {
   const { t } = useTranslation();
   const match = useRouteMatch<any>();
@@ -24,6 +25,14 @@ function DefaultPackageId() {
   };
   const onGoBack = (link: string) => {
     history.push(link);
+  };
+  const onCreatePackage = async () => {
+    try {
+      const { data } = await packageApi.cloneDefaultToCustomize(match.params.id);
+      if (data) {
+        history.push(`/invest/recharge/customize/${match.params.id}`);
+      }
+    } catch (error) {}
   };
   const computedDataPieChart = (data: any) => {
     if (data) {
@@ -81,10 +90,25 @@ function DefaultPackageId() {
                 Phù hợp với những nhà đầu tư muốn thêm kênh sinh lời ổn định, với mức độ rủi ro thấp
                 nhất.
               </div>
+              <div className="package__btn" onClick={onCreatePackage}>
+                <PlusOutlined
+                  className="package__btn"
+                  style={{
+                    padding: '0.8rem',
+                    fontSize: '1.2rem',
+                    borderRadius: '50%',
+                    backgroundColor: '#32c610',
+                    border: '1.5px solid #32c610',
+                    color: '#fff',
+                    cursor: 'pointer',
+                  }}
+                />
+              </div>
+              <div className="text-medium">Tạo gói</div>
             </div>
             <div className="package__block">
               <div className="package__block--title">Chi tiết phân bổ</div>
-              {dataPieChart && <DonutChartPackage data={dataPieChart} />}
+              {dataPieChart && <DonutChartPackage isNoLegend data={dataPieChart} />}
             </div>
           </div>
         </>

@@ -30,8 +30,6 @@ function LineChart({ data }: ILineChart) {
     // },
     tooltip: {
       customContent: (title: any, data: any) => {
-        console.log(data, 'data');
-        console.log(title, 'title');
 
         return `<div style="background: '#fff'; padding: 0.5rem; font-size: 0.9rem">
             <div style="font-weight: 600;">${title}</div><br/>

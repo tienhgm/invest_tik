@@ -22,7 +22,11 @@ const packageApi = {
   },
   investPackage(payload: any): Promise<any> {
     const url = `/packages/${payload.id}/invest`;
-    return sendPost(url, {amount: payload.amount});
+    return sendPost(url, { amount: payload.amount });
+  },
+  cloneDefaultToCustomize(id: any): Promise<any> {
+    const url = `/packages/${id}/clone`;
+    return sendPost(url);
   },
 };
 export default packageApi;

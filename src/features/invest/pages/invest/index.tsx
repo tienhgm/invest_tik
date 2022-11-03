@@ -15,7 +15,6 @@ function InvestPage() {
   const getAssetInvest = async () => {
     try {
       const { data } = await authApi.getAssetInvest();
-      console.log(data);
       if (data) {
         setAssetInvest(data);
       }

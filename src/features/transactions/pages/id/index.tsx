@@ -16,7 +16,6 @@ function TransactionDetail() {
   const getDetailTransaction = async (id: string) => {
     try {
       const { data } = await transactionApi.getDetailTransaction(id);
-      console.log(data);
       if (data) {
         setDetail(data);
       }

@@ -49,6 +49,13 @@
     }
     &--content {
       font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+  &__btn {
+    transition: all 0.3s;
+    &:hover {
+      opacity: 0.8;
     }
   }
 }
