@@ -53,7 +53,7 @@ function DefaultPackagePage() {
               key={item.id}
               className="package__item"
               title={item.name}
-              extra={<img src={item.avatar} className="package__title-img" />}
+              extra={<img src={item.avatar} className="package__title-img" alt='package-title' />}
             >
               <p>Xây dựng danh mục đầu tư riêng của bạn</p>
               <div className="package__detail" onClick={() => onGoToDetailPackage(item.id)}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Avatar, Badge, Dropdown, Menu } from 'antd';
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -7,7 +7,7 @@ import authApi from 'apis/auth';
 import { authActions } from 'app/slices/authSlice';
 import styles from './style.module.scss';
 import { useTranslation } from 'react-i18next';
-
+import socketClient from 'helper/socketClient';
 interface IHeader {
   avatar: string;
 }
@@ -50,6 +50,17 @@ function Header({ avatar }: IHeader) {
         ))}
     </Menu>
   );
+  useEffect(() => {
+    console.log('zo use effect');
+    
+    const channel = socketClient.private(`notification.${2}`);
+    console.log(channel);
+    
+    channel.listen('.notification.new', (e: any) => {
+      console.log(e);
+    });
+    return () => {};
+  }, []);
 
   return (
     <div className={styles.headerPage}>

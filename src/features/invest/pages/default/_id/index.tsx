@@ -11,7 +11,7 @@ function DefaultPackageId() {
   const { t } = useTranslation();
   const match = useRouteMatch<any>();
   const history = useHistory();
-  const [isDetail, setIsDetail] = useState<boolean>(false);
+  const [isDetail] = useState<boolean>(false);
   const [packageDetail, setPackageDetail] = useState<any>(null);
   const onGetDefaultById = async (id: string) => {
     try {

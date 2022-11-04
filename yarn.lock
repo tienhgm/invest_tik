@@ -9561,6 +9561,11 @@ language-tags@^1.0.5:
   dependencies:
     language-subtag-registry "~0.3.2"
 
+laravel-echo@^1.14.1:
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/laravel-echo/-/laravel-echo-1.14.1.tgz#934250f53ccad638ccd76e4ff01890c0b88e8a9c"
+  integrity sha512-elCwcgBy0QxWUJN6b+hF5bqBZrQb1AdwGx7puv+eh3cBN3UHkJ+Jvjy1cHjaOBkkuPNA+GLJl13rp2QG/HsSfQ==
+
 last-call-webpack-plugin@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/last-call-webpack-plugin/-/last-call-webpack-plugin-3.0.0.tgz#9742df0e10e3cf46e5c0381c2de90d3a7a2d7555"
