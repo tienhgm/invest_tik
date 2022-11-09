@@ -149,7 +149,7 @@ export default function MainLayout() {
           theme="light"
         >
           <div className={styles.title}>
-            <Link to={'/'}>KLTN</Link>
+            <Link to={'/'}>Ticop</Link>
           </div>
           {key ? (
             <Menu defaultSelectedKeys={[key]} mode="inline">

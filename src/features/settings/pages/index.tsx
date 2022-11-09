@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Input, RadioChangeEvent } from 'antd';
-import { Card, Radio, Space } from 'antd';
+import { Card, Radio, Space, Input, RadioChangeEvent, Form, Button } from 'antd';
 import { TWO_FA_SETTING } from 'enum';
 import Modal from 'components/Common/modal';
 import ModalRemoveTwoFa from 'components/Common/modal';
@@ -24,7 +23,37 @@ function Settings() {
   const [open, setOpen] = useState<any>(false);
   const [openRemove, setOpenRemove] = useState<any>(false);
   const [loading, setLoading] = useState<any>(false);
-
+  const [form] = Form.useForm();
+  const listFormReset = [
+    {
+      label: 'Mật khẩu hiện tại',
+      name: 'current_password',
+      rules: [{ required: true, message: 'Hãy nhập mật khẩu hiện tại' }],
+      childComponent: <Input.Password />,
+    },
+    {
+      label: 'Mật khẩu mới',
+      name: 'new_password',
+      rules: [{ required: true, message: 'Hãy nhập mật khẩu mới' }],
+      childComponent: <Input.Password />,
+    },
+    {
+      label: 'Xác nhận mật khẩu',
+      name: 'confirm_new_password',
+      rules: [
+        { required: true, message: 'Hãy nhập xác nhận mật khẩu' },
+        ({ getFieldValue }: any) => ({
+          validator(rule: any, value: any) {
+            if (!value || getFieldValue('new_password') === value) {
+              return Promise.resolve();
+            }
+            return Promise.reject(t('validate.password_not_match'));
+          },
+        }),
+      ],
+      childComponent: <Input.Password />,
+    },
+  ];
   const onChange = (e: RadioChangeEvent) => {
     switch (twofa) {
       case TWO_FA_SETTING.PASSWORD:
@@ -123,6 +152,30 @@ function Settings() {
       errorMes(error?.data?.message);
     }
   };
+  const onFinish = async (values: any) => {
+    console.log(values);
+    let payload = {
+      current_password: values.current_password,
+      password: values.password,
+    };
+    try {
+      setLoading(true);
+      const result = await authApi.changePassword(payload);
+      if (result) {
+        form.resetFields();
+        successMes('Bạn đã thay đổi mật khẩu thành công!');
+        setLoading(false);
+      }
+    } catch (error: any) {
+      form.resetFields();
+      errorMes('Đổi mật khẩu thất bại');
+      setLoading(false);
+    }
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
   useEffect(() => {
     if (step === 2) {
       getTwoFactorQrCode();
@@ -216,6 +269,34 @@ function Settings() {
             />
           </>
         </ModalRemoveTwoFa>
+      </Card>
+      <br />
+      <Card title="Đổi mật khẩu" bordered={false}>
+        <Form
+          form={form}
+          labelCol={{ span: 3 }}
+          wrapperCol={{ span: 8 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          {listFormReset.map((element: any) => (
+            <Form.Item
+              key={element.name}
+              label={element.label}
+              name={element.name}
+              rules={element.rules}
+            >
+              {element.childComponent}
+            </Form.Item>
+          ))}
+          <Form.Item wrapperCol={{ offset: 3, span: 16 }}>
+            <Button type="primary" htmlType="submit" loading={loading} disabled={loading}>
+              Đổi mật khẩu
+            </Button>
+          </Form.Item>
+        </Form>
       </Card>
     </div>
   );

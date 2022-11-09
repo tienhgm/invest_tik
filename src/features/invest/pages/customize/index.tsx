@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Card } from 'antd';
+import { Breadcrumb, Card, Skeleton } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import './index.scss';
@@ -82,6 +82,7 @@ function CustomPackage() {
               </div>
             </Card>
           ))}
+        {listPackages && !listPackages.length && <Skeleton active />}
       </div>
     </div>
   );

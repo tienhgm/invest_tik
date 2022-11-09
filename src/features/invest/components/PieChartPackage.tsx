@@ -28,4 +28,4 @@ function PieChartPackage({ data }: IPieChartPackage) {
   return <Pie {...config} />;
 }
 
-export default PieChartPackage;
+export default React.memo(PieChartPackage);

@@ -48,7 +48,7 @@ export default function InterestTool() {
           autoComplete="off"
           layout="vertical"
         >
-          <div style={{ display: 'flex', width: '70%' }}>
+          <div style={{ display: 'flex', width: '100%' }}>
             <Form.Item
               label="Số tiền vốn ban đầu"
               name="p"
@@ -70,7 +70,7 @@ export default function InterestTool() {
               <InputNumber max={999} min={0} style={{ width: '100%' }} />
             </Form.Item>
           </div>
-          <div style={{ display: 'flex', width: '70%' }}>
+          <div style={{ display: 'flex', width: '100%' }}>
             <Form.Item
               label="Lãi suất (%)"
               name="i"

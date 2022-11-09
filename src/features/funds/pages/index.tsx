@@ -1,4 +1,4 @@
-import { Card, Tabs } from 'antd';
+import { Card, Skeleton, Tabs } from 'antd';
 import fundApi from 'apis/funds';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,11 +12,18 @@ export default function Funds() {
   const [detailFund, setDetailFund] = useState<any>(null);
   const [detailHistoryFund, setDetailHistoryFund] = useState<any>(null);
   const [keyTime, setKeyTime] = useState<any>('1');
+  const [loading, setLoading] = useState(true);
   const onGetListFunds = async () => {
-    const { data } = await fundApi.getListFunds();
-    if (data) {
-      setListFunds(data);
-      setSelectFund(data[0].id);
+    try {
+      setLoading(true);
+      const { data } = await fundApi.getListFunds();
+      if (data) {
+        setLoading(false);
+        setListFunds(data);
+        setSelectFund(data[0].id);
+      }
+    } catch (error) {
+      setLoading(false);
     }
   };
   const onChangeKey = (key: string) => {
@@ -66,53 +73,57 @@ export default function Funds() {
   ];
   return (
     <Card title={t('common.funds')} bordered={false}>
-      <div className={styles.funds}>
-        <div className={styles['funds__side']}>
-          <div className={styles['funds__side--title']}>{t('common.intro_funds')}</div>
-          {listFunds && (
-            <div className={styles['funds__side--fund']}>
-              {listFunds.map((item: any) => (
-                <div
-                  className={`${styles.child} ${
-                    styles[`child--${selectFund === item.id ? 'active' : 'inactive'}`]
-                  }`}
-                  key={item.id}
-                  onClick={() => onChooseSelectFund(item.id)}
-                >
-                  {item.code}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-        {detailFund && (
-          <div className={styles['funds__rest']}>
-            <div className={styles['funds__rest--title']}>
-              {detailFund.name} ({detailFund.code})
-            </div>
-            <div className={styles['funds__rest--description']}>{detailFund.description}</div>
-            <Tabs defaultActiveKey={keyTime} onChange={onChangeKey} style={{ marginTop: '1rem' }}>
-              {listTabTime.map((item: any) => (
-                <TabPane tab={item.name} key={item.key}></TabPane>
-              ))}
-            </Tabs>
-            {detailHistoryFund && (
-              <div
-                style={{
-                  flexGrow: 1,
-                  height: 400,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-end',
-                  overflow: 'scroll'
-                }}
-              >
-                <LineChart data={detailHistoryFund} />
+      {!loading ? (
+        <div className={styles.funds}>
+          <div className={styles['funds__side']}>
+            <div className={styles['funds__side--title']}>{t('common.intro_funds')}</div>
+            {listFunds && (
+              <div className={styles['funds__side--fund']}>
+                {listFunds.map((item: any) => (
+                  <div
+                    className={`${styles.child} ${
+                      styles[`child--${selectFund === item.id ? 'active' : 'inactive'}`]
+                    }`}
+                    key={item.id}
+                    onClick={() => onChooseSelectFund(item.id)}
+                  >
+                    {item.code}
+                  </div>
+                ))}
               </div>
             )}
           </div>
-        )}
-      </div>
+          {detailFund && (
+            <div className={styles['funds__rest']}>
+              <div className={styles['funds__rest--title']}>
+                {detailFund.name} ({detailFund.code})
+              </div>
+              <div className={styles['funds__rest--description']}>{detailFund.description}</div>
+              <Tabs defaultActiveKey={keyTime} onChange={onChangeKey} style={{ marginTop: '1rem' }}>
+                {listTabTime.map((item: any) => (
+                  <TabPane tab={item.name} key={item.key}></TabPane>
+                ))}
+              </Tabs>
+              {detailHistoryFund && (
+                <div
+                  style={{
+                    flexGrow: 1,
+                    height: 400,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end',
+                    overflow: 'scroll',
+                  }}
+                >
+                  <LineChart data={detailHistoryFund} />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      ) : (
+        <Skeleton active />
+      )}
     </Card>
   );
 }

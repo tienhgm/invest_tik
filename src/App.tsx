@@ -8,6 +8,7 @@ import authApi from 'apis/auth';
 import { authRoutes } from 'routes';
 import Verify from 'features/auth/pages/verify';
 import { useAppSelector } from 'app/hooks';
+import Ekyc from 'components/Common/ekyc';
 const MainLayout = lazy(() => import('components/Layout/MainLayout'));
 function App() {
   const location = useLocation();
@@ -30,6 +31,7 @@ function App() {
       <TawkMessengerReact propertyId="634a8c08d85aaa131820c796" widgetId="1gfdj611h" />
       <Switch>
         <Route path={'/verify/:id/:hash'} exact component={Verify}></Route>
+        <Route path={'/ekyc'} exact component={Ekyc}></Route>
         {authRoutes.map((element: any, key: any) => (
           <AuthRoute
             key={key}

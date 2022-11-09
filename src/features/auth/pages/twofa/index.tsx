@@ -2,7 +2,6 @@ import { Button } from 'antd';
 import authApi from 'apis/auth';
 import { useAppDispatch } from 'app/hooks';
 import { authActions } from 'app/slices/authSlice';
-import SelectLanguage from 'components/Common/SelectLanguage';
 import AuthLayout from 'components/Layout/AuthLayout';
 import { errorMes, successMes } from 'helper/notify';
 import React, { useEffect, useState } from 'react';
@@ -55,7 +54,6 @@ export default function TwoFaPage() {
         <Button onClick={onConfirm} loading={loading} disabled={disabled} type="primary">
           {t('common.confirm')}
         </Button>
-        <SelectLanguage />
       </div>
     </AuthLayout>
   );

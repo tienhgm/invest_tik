@@ -7,7 +7,7 @@ import authApi from 'apis/auth';
 import { authActions } from 'app/slices/authSlice';
 import styles from './style.module.scss';
 import { useTranslation } from 'react-i18next';
-import socketClient from 'helper/socketClient';
+// import socketClient from 'helper/socketClient';
 interface IHeader {
   avatar: string;
 }
@@ -50,17 +50,18 @@ function Header({ avatar }: IHeader) {
         ))}
     </Menu>
   );
-  useEffect(() => {
-    console.log('zo use effect');
-    
-    const channel = socketClient.private(`notification.${2}`);
-    console.log(channel);
-    
-    channel.listen('.notification.new', (e: any) => {
-      console.log(e);
-    });
-    return () => {};
-  }, []);
+  // const getBroadcastingAuth = async () => {
+  //   await authApi.broadcastingAuth();
+  // };
+  // useEffect(() => {
+  //   const channel = socketClient.private(`notification.${2}`);
+  //   console.log(channel);
+
+  //   channel.listen('.notification.new', (e: any) => {
+  //     console.log(e);
+  //   });
+  //   return () => {};
+  // }, []);
 
   return (
     <div className={styles.headerPage}>
@@ -76,7 +77,6 @@ function Header({ avatar }: IHeader) {
           <img src={avatar} className={styles.imgAvatar} alt="avt" />
         )}
       </Dropdown>
-      {/* <SelectLanguage /> */}
     </div>
   );
 }

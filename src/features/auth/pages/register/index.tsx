@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { errorMes, successMes } from 'helper/notify';
 import { RegisterPayload } from 'model';
 import AuthLayout from 'components/Layout/AuthLayout';
-import SelectLanguage from 'components/Common/SelectLanguage';
 import { REGEX_CHECK_EMAIL } from 'helper/regex';
 import styles from './style.module.scss';
 import authApi from 'apis/auth';
@@ -111,9 +110,6 @@ export default function RegisterPage() {
         <Button type="link" style={{ fontWeight: 'bold' }} onClick={handleGoToSignIn}>
           {t('common.sign_in')}
         </Button>
-        <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-          <SelectLanguage />
-        </div>
       </div>
     </AuthLayout>
   );

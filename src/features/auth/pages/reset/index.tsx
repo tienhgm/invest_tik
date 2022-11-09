@@ -1,6 +1,5 @@
 import { Form, Input, Button } from 'antd';
 import AuthLayout from 'components/Layout/AuthLayout';
-import SelectLanguage from 'components/Common/SelectLanguage';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 import styles from './style.module.scss';
@@ -102,9 +101,6 @@ export default function ResetPasswordPage() {
         <Button type="link" style={{ fontWeight: 'bold' }} onClick={handleGoToSignIn}>
           {t('common.sign_in')}
         </Button>
-        <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-          <SelectLanguage />
-        </div>
       </div>
     </AuthLayout>
   );

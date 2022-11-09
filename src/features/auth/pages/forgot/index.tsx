@@ -1,7 +1,6 @@
 import { Form, Input, Button } from 'antd';
 import { ForgotPasswordPayload } from 'model';
 import AuthLayout from 'components/Layout/AuthLayout';
-import SelectLanguage from 'components/Common/SelectLanguage';
 import { REGEX_CHECK_EMAIL } from 'helper/regex';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -70,9 +69,6 @@ export default function ForgotPasswordPage() {
         <Button type="link" style={{ fontWeight: 'bold' }} onClick={handleGoToSignIn}>
           {t('common.sign_in')}
         </Button>
-        <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-          <SelectLanguage />
-        </div>
       </div>
     </AuthLayout>
   );
