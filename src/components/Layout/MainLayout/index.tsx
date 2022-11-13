@@ -55,9 +55,9 @@ export default function MainLayout() {
       if (data) {
         dispatch(setIsGetMe(false));
         dispatch(setUserInfo(data));
-        // if (!data.is_verify) {
-        //   history.push('/ekyc');
-        // }
+        if (!data.is_verify) {
+          history.push('/ekyc');
+        }
       }
     } catch (error) {}
   };
@@ -144,7 +144,7 @@ export default function MainLayout() {
     }
   }, []);
 
-  return userInfo ? (
+  return userInfo && userInfo.is_verify ? (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
         className="site-layout-background"
