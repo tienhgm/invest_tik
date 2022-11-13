@@ -27,6 +27,7 @@ export default function LoginPage() {
           dispatch(authActions.authSuccess(true));
           successMes(t('notify.login_success'));
         } else {
+          localStorage.setItem('twoFa', 'true');
           dispatch(authActions.authTwoFa(true));
           history.push('/confirm-2fa');
         }
@@ -48,12 +49,12 @@ export default function LoginPage() {
       successMes(t('notify.account_active'));
       localStorage.removeItem('verify');
     }
-    return () => {}
+    return () => {};
   }, []);
 
   const listFormLogin = [
     {
-      label: t('common.username'),
+      label: t('common.email'),
       name: 'email',
       rules: [
         { required: true, message: t('validate.email_required') },

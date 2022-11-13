@@ -8,6 +8,7 @@ import OtpInput from 'react-otp-input';
 import styles from './style.module.scss';
 import { errorMes, successMes } from 'helper/notify';
 import authApi from 'apis/auth';
+import { REGEX_PASSWORD } from 'helper/regex';
 function Settings() {
   const radioStyle = {
     display: 'block',
@@ -28,13 +29,25 @@ function Settings() {
     {
       label: 'Mật khẩu hiện tại',
       name: 'current_password',
-      rules: [{ required: true, message: 'Hãy nhập mật khẩu hiện tại' }],
+      rules: [
+        { required: true, message: 'Hãy nhập mật khẩu hiện tại' },
+        {
+          pattern: REGEX_PASSWORD,
+          message: 'Hãy nhập mật khẩu ít nhất 8 kí tự và bao gồm kí tự đặc biệt sau @$!%*#?&',
+        },
+      ],
       childComponent: <Input.Password />,
     },
     {
       label: 'Mật khẩu mới',
       name: 'new_password',
-      rules: [{ required: true, message: 'Hãy nhập mật khẩu mới' }],
+      rules: [
+        { required: true, message: 'Hãy nhập mật khẩu mới' },
+        {
+          pattern: REGEX_PASSWORD,
+          message: 'Hãy nhập mật khẩu ít nhất 8 kí tự và bao gồm kí tự đặc biệt sau @$!%*#?&',
+        },
+      ],
       childComponent: <Input.Password />,
     },
     {
@@ -156,7 +169,7 @@ function Settings() {
     console.log(values);
     let payload = {
       current_password: values.current_password,
-      password: values.password,
+      password: values.new_password,
     };
     try {
       setLoading(true);
@@ -187,6 +200,7 @@ function Settings() {
       setTwofa(data.enabled_2fa ? TWO_FA_SETTING.GG_AUTHENTICATOR : TWO_FA_SETTING.PASSWORD);
     }
   };
+
   useEffect(() => {
     getSettings();
     return () => {};

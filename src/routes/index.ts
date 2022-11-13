@@ -4,6 +4,7 @@ const ForgotPassword = lazy(() => import('features/auth/pages/forgot'));
 const ResetPassword = lazy(() => import('features/auth/pages/reset'));
 const RegisterPage = lazy(() => import('features/auth/pages/register'));
 const TwoFaPage = lazy(() => import('features/auth/pages/twofa'));
+// const Ekyc = lazy(() => import('features/auth/pages/ekyc'));
 export const authRoutes = [
   {
     path: '/login',
@@ -30,4 +31,9 @@ export const authRoutes = [
     exact: true,
     component: TwoFaPage,
   },
+  // {
+  //   path: '/ekyc',
+  //   exact: true,
+  //   component: Ekyc,
+  // },
 ];

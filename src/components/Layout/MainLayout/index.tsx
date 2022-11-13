@@ -12,7 +12,7 @@ import {
 import styles from './style.module.scss';
 import { getPathKey } from 'helper/generate';
 import { lazy, useEffect, useState } from 'react';
-import { Link, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
+import { Link, Route, Switch, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { NotFound } from 'components/Common';
 import { useTranslation } from 'react-i18next';
 import authApi from 'apis/auth';
@@ -22,6 +22,7 @@ import { Footer } from 'antd/lib/layout/layout';
 import { setUserInfo, setIsGetMe } from 'app/slices/userSlice';
 import Header from './Header';
 import { KEY_SIDE_BAR } from 'enum';
+import Logo from 'assets/images/logo_1.png'
 const { Content, Sider } = Layout;
 const Dashboard = lazy(() => import('features/dashboard/pages'));
 const Invest = lazy(() => import('features/invest/pages'));
@@ -31,7 +32,9 @@ const Settings = lazy(() => import('features/settings/pages'));
 const Profile = lazy(() => import('features/profile/pages'));
 const Transactions = lazy(() => import('features/transactions/pages'));
 const TransactionDetail = lazy(() => import('features/transactions/pages/id'));
+const Ekyc = lazy(() => import('features/auth/pages/ekyc'));
 export default function MainLayout() {
+  const history = useHistory();
   const { t } = useTranslation();
   const location = useLocation();
   const match = useRouteMatch();
@@ -52,6 +55,9 @@ export default function MainLayout() {
       if (data) {
         dispatch(setIsGetMe(false));
         dispatch(setUserInfo(data));
+        // if (!data.is_verify) {
+        //   history.push('/ekyc');
+        // }
       }
     } catch (error) {}
   };
@@ -136,57 +142,59 @@ export default function MainLayout() {
       setCollapsible(true);
       setcollapsed(false);
     }
-  }, [window.innerWidth]);
+  }, []);
 
-  return (
-    userInfo && (
-      <Layout style={{ minHeight: '100vh' }}>
-        <Sider
-          className="site-layout-background"
-          collapsible={collapsible}
-          collapsed={collapsed}
-          onCollapse={onCollapse}
-          theme="light"
-        >
-          <div className={styles.title}>
-            <Link to={'/'}>Ticop</Link>
-          </div>
-          {key ? (
-            <Menu defaultSelectedKeys={[key]} mode="inline">
-              {menuSidebar.map((item: any) => (
-                <Menu.Item key={`${item.key}`} icon={item.icon}>
-                  <Link to={item.link}>{item.text}</Link>
-                </Menu.Item>
-              ))}
-            </Menu>
-          ) : (
-            <Menu mode="inline">
-              <Menu.Item key="99" icon={<CalculatorOutlined />}>
-                <Link to={`${match.path}/interest-tool`}>{t('common.home')}</Link>
+  return userInfo ? (
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sider
+        className="site-layout-background"
+        collapsible={collapsible}
+        collapsed={collapsed}
+        onCollapse={onCollapse}
+        theme="light"
+      >
+        <div className={styles.title}>
+          <Link to={'/'}><img width={100} height={55} src={Logo}/></Link>
+        </div>
+        {key ? (
+          <Menu defaultSelectedKeys={[key]} mode="inline">
+            {menuSidebar.map((item: any) => (
+              <Menu.Item key={`${item.key}`} icon={item.icon}>
+                <Link to={item.link}>{item.text}</Link>
               </Menu.Item>
-            </Menu>
-          )}
-        </Sider>
-        <Layout className="site-layout">
-          <Header avatar={userInfo.avatar} />
-          <Content style={{ margin: '1rem' }}>
-            <Switch>
-              <Route path={`/dashboard`} component={Dashboard} exact />
-              <Route path={`/invest`} component={Invest} />
-              <Route path={`/funds`} component={Funds} exact />
-              <Route path={`/interest-tool`} component={InterestTool} exact />
-              <Route path={`/transactions`} component={Transactions} exact />
-              <Route path={`/transactions/:id`} component={TransactionDetail} exact />
-              <Route path={`/profile`} component={Profile} exact />
-              <Route path={`/settings`} component={Settings} exact />
-              <Route component={NotFound} />
-            </Switch>
-          </Content>
-          <Footer className={styles['custom-padding']} style={{ textAlign: 'center' }}>
-            Ant Design ©2018 Created by Ant UED
-          </Footer>
-        </Layout>
+            ))}
+          </Menu>
+        ) : (
+          <Menu mode="inline">
+            <Menu.Item key="99" icon={<CalculatorOutlined />}>
+              <Link to={`${match.path}/interest-tool`}>{t('common.home')}</Link>
+            </Menu.Item>
+          </Menu>
+        )}
+      </Sider>
+      <Layout className="site-layout">
+        <Header avatar={userInfo.avatar} />
+        <Content style={{ margin: '1rem' }}>
+          <Switch>
+            <Route path={`/dashboard`} component={Dashboard} exact />
+            <Route path={`/invest`} component={Invest} />
+            <Route path={`/funds`} component={Funds} exact />
+            <Route path={`/interest-tool`} component={InterestTool} exact />
+            <Route path={`/transactions`} component={Transactions} exact />
+            <Route path={`/transactions/:id`} component={TransactionDetail} exact />
+            <Route path={`/profile`} component={Profile} exact />
+            <Route path={`/settings`} component={Settings} exact />
+            <Route component={NotFound} />
+          </Switch>
+        </Content>
+        <Footer className={styles['custom-padding']} style={{ textAlign: 'center' }}>
+          Ant Design ©2018 Created by Ant UED
+        </Footer>
       </Layout>
-    )
+    </Layout>
+  ) : (
+    <>
+      <Route path={`/ekyc`} component={Ekyc} exact />
+    </>
   );
 }

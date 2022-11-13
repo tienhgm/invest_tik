@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { errorMes, successMes } from 'helper/notify';
 import { RegisterPayload } from 'model';
 import AuthLayout from 'components/Layout/AuthLayout';
-import { REGEX_CHECK_EMAIL } from 'helper/regex';
+import { REGEX_CHECK_EMAIL, REGEX_PASSWORD } from 'helper/regex';
 import styles from './style.module.scss';
 import authApi from 'apis/auth';
 import { useState } from 'react';
@@ -45,19 +45,25 @@ export default function RegisterPage() {
       ],
       childComponent: <Input />,
     },
-    {
-      label: t('common.username'),
-      name: 'name',
-      rules: [
-        { required: true, message: t('validate.username_required') },
-        { max: 60, message: t('validate.username_maxLength') },
-      ],
-      childComponent: <Input />,
-    },
+    // {
+    //   label: t('common.username'),
+    //   name: 'name',
+    //   rules: [
+    //     { required: true, message: t('validate.username_required') },
+    //     { max: 60, message: t('validate.username_maxLength') },
+    //   ],
+    //   childComponent: <Input />,
+    // },
     {
       label: t('common.password'),
       name: 'password',
-      rules: [{ required: true, message: t('validate.password_required') }],
+      rules: [
+        { required: true, message: t('validate.password_required') },
+        {
+          pattern: REGEX_PASSWORD,
+          message: 'Hãy nhập mật khẩu ít nhất 8 kí tự và bao gồm kí tự đặc biệt sau @$!%*#?&',
+        },
+      ],
       childComponent: <Input.Password />,
     },
     {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Avatar, Badge, Dropdown, Menu } from 'antd';
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, useRouteMatch } from 'react-router-dom';

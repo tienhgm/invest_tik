@@ -38,7 +38,9 @@ function InvestPage() {
         <div className="invest__block">
           <div className="invest__block--title">Tổng quan</div>
           <br />
-          <div className="invest__currency">{formatCurrency(assetInvest?.balance)} đ</div>
+          <div className="invest__currency">
+            {assetInvest?.balance ? formatCurrency(assetInvest?.balance) + ' đ' : '-'}
+          </div>
           <div className="invest__block__method">
             <div className="invest__block__method--recharge">
               <div className="invest__btn" onClick={() => onGoToLink('/invest/recharge')}>
@@ -86,12 +88,14 @@ function InvestPage() {
               <div>
                 <div className="invest__info__child--title">Tổng đầu tư</div>
                 <div className="invest__info__child--num">
-                  {formatCurrency(assetInvest.total_invest)} đ
+                  {assetInvest.total_invest ? formatCurrency(assetInvest.total_invest) + ' đ' : '-'}
                 </div>
               </div>
               <div>
                 <div className="invest__info__child--title">Ngày bắt đầu</div>
-                <div className="invest__info__child--num">2022/12/12</div>
+                <div className="invest__info__child--num">
+                  {assetInvest.started_at ? assetInvest.started_at : '-'}
+                </div>
               </div>
             </div>
             <div className="invest__info__child">
@@ -103,12 +107,12 @@ function InvestPage() {
                   }
                   style={{ color: 'red' }}
                 >
-                  {formatCurrency(assetInvest.profit)} đ
+                  {assetInvest.profit ? formatCurrency(assetInvest.profit) + ' đ' : '-'}
                 </div>
               </div>
               <div>
                 <div className="invest__info__child--title">Đã rút</div>
-                <div className="invest__info__child--num">-33,000 đ</div>
+                <div className="invest__info__child--num">{'-'}</div>
               </div>
             </div>
           </div>
@@ -118,8 +122,11 @@ function InvestPage() {
       )}
       {assetInvest && assetInvest.packages ? (
         <div className="invest__package">
-          <div className="invest__package--title">Các gói đầu tư</div>
-          {/* @ts-ignore */}
+          {assetInvest.packages.length ? (
+            <div className="invest__package--title">Các gói đầu tư</div>
+          ) : (
+            <></>
+          )}
           {assetInvest.packages.map((item: any, key: any) => (
             <Card
               key={key}

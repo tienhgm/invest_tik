@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import authApi from './auth';
-// import configs from '../config';x
+// import configs from '../config';
 // import { history } from '../index';
 const axiosInstance = Axios.create({
   timeout: 3 * 60 * 1000,
@@ -60,8 +60,8 @@ export const sendUploadAvt = (url: string, file: any) => {
   formData.append('image', file);
   return axiosInstance.post(url, formData).then((res) => res.data);
 };
-export const sendUploadLogo = (url: string, file: any) => {
-  let formData = new FormData();
-  formData.append('logo', file);
-  return axiosInstance.put(url, formData).then((res) => res.data);
-};
+// export const sendUploadEkyc = (url: string, file: any) => {
+//   let formData = new FormData();
+//   formData.append('im', file);
+//   return axiosInstance.put(url, formData).then((res) => res.data);
+// };

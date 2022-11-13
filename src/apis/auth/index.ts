@@ -5,7 +5,7 @@ import {
   ResetPasswordPayload,
   VerifyPayload,
 } from 'model/index';
-import { sendPost, sendGet, sendDelete, sendPut } from 'apis/axios';
+import { sendPost, sendGet, sendDelete, sendPut, sendUploadAvt } from 'apis/axios';
 // export const handleGetCsrfToken = () => sendGet('/csrf-cookie');
 // export const handleRegister = (account: LoginPayload) => sendPost('/register', account);
 // export const handleLogin = (account: LoginPayload) => sendPost('/login', account);
@@ -88,6 +88,18 @@ const authApi = {
   changePassword(payload: any): Promise<any> {
     const url = '/auth/user/password';
     return sendPut(url, { current_password: payload.current_password, password: payload.password });
+  },
+  uploadFrontImg(file: any): Promise<any> {
+    const url = '/me/kyc/identity_image_front';
+    return sendUploadAvt(url, file);
+  },
+  uploadBackImg(file: any): Promise<any> {
+    const url = '/me/kyc/identity_image_back';
+    return sendUploadAvt(url, file);
+  },
+  verifyImgUpload(): Promise<any> {
+    const url = '/me/kyc/verify';
+    return sendPost(url);
   },
 };
 export default authApi;

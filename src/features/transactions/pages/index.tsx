@@ -92,10 +92,10 @@ function Transactions() {
       <div className="transactions__title">
         <h3>Lịch sử giao dịch</h3>
         <div>
-          {' '}
           <Select
             style={{ width: 120 }}
             placeholder={'Sắp xếp'}
+            value={sort}
             onChange={handleChange}
             options={[
               {

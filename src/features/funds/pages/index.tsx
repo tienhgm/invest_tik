@@ -51,7 +51,10 @@ export default function Funds() {
           return {
             ...item,
             navCurrent: item.navCurrent + ' vnd',
-            percent: +((data[index].navCurrent - data[0].navCurrent) / 100).toFixed(2),
+            percent: +(
+              ((data[index].navCurrent - data[0].navCurrent) / data[0].navCurrent) *
+              100
+            ).toFixed(2),
           };
         });
         setDetailHistoryFund(convertData);
