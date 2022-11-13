@@ -154,7 +154,7 @@ export default function MainLayout() {
         theme="light"
       >
         <div className={styles.title}>
-          <Link to={'/'}><img width={100} height={55} src={Logo}/></Link>
+          <Link to={'/'}><img width={!collapsed ? 100: 65} height={!collapsed ? 55 : 45} src={Logo}/></Link>
         </div>
         {key ? (
           <Menu defaultSelectedKeys={[key]} mode="inline">

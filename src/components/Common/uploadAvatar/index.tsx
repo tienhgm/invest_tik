@@ -2,6 +2,7 @@ import { Upload } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { notify } from 'helper/notify';
+import { removeString } from 'helper/generate';
 interface IUploadAvatar {
   disabled: boolean;
   previewImg: string;
@@ -18,7 +19,7 @@ export default function UploadAvatar({
   function beforeUpload(file: any) {
     const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
-      notify('error', 'Image must smaller than 2MB!', null);
+      notify('error', 'Ảnh cần có dung lượng nhỏ hơn 2MB!', null);
     }
     return isLt2M;
   }
@@ -50,7 +51,7 @@ export default function UploadAvatar({
         disabled={disabled}
       >
         {imageUrl ? (
-          <img src={`${imageUrl}`} alt="avatar" style={{ width: '100%' }} />
+          <img src={`${removeString(imageUrl, '/api')}`} alt="avatar" style={{ width: '120px', height: '120px' }} />
         ) : (
           uploadButton
         )}

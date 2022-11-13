@@ -1,4 +1,4 @@
-import { Progress } from 'antd';
+import { Progress, Spin } from 'antd';
 import AuthLayout from 'components/Layout/AuthLayout';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -16,6 +16,7 @@ function Ekyc() {
   let userInfo = useAppSelector((state) => state.user.userInfo);
   const [formUpload, setFormUpload] = useState<any>({ imgFront: null, imgBack: null });
   const [progress, setProgress] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [imgFront, setImgFront] = useState<any>(null);
   const [imgBack, setImgBack] = useState<any>(null);
   const refImgFront = useRef<any>(null);
@@ -93,11 +94,18 @@ function Ekyc() {
         setProgress(50);
       } else {
         await authApi.uploadBackImg(formUpload.imgBack);
-        await authApi.verifyImgUpload();
-        setProgress(100);
-        successMes('Bạn đã xác thực thành công!');
-        dispatch(setIsGetMe(true));
-        history.push('/dashboard');
+        try {
+          setLoading(true);
+          await authApi.verifyImgUpload();
+          setProgress(100);
+          successMes('Bạn đã xác thực thành công!');
+          setLoading(false);
+          dispatch(setIsGetMe(true));
+          history.push('/dashboard');
+        } catch (error) {
+          setLoading(false);
+          errorMes('Bạn đã xác thực thất bại');
+        }
       }
     } catch (error) {
       errorMes('Tải ảnh lên thất bại!');
@@ -149,7 +157,7 @@ function Ekyc() {
         </div>
       ) : (
         <div className="circle_success">
-          <CheckCircleOutlined />
+          {!loading ? <CheckCircleOutlined /> : <Spin size="large" />}
         </div>
       )}
       <div className="bottom">

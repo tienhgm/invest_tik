@@ -1,6 +1,8 @@
 import { KEY_SIDE_BAR } from './../enum/index';
-import { GENDER, STATUS_ACCOUNT } from 'enum';
-
+import { STATUS_ACCOUNT } from 'enum';
+import dayjs from 'dayjs';
+var customParseFormat = require('dayjs/plugin/customParseFormat');
+dayjs.extend(customParseFormat);
 export const getPathKey = (value: any) => {
   switch (value) {
     case 'dashboard':
@@ -37,22 +39,19 @@ export const getColorStatusAccount = (status: any) => {
 export const getNameStatusAccount = (status: any) => {
   switch (status) {
     case STATUS_ACCOUNT.ACTIVE:
-      return 'ACTIVE';
+      return 'ĐÃ KÍCH HOẠT';
     case STATUS_ACCOUNT.INACTIVE:
-      return 'IN ACTIVE';
+      return 'CHƯA KÍCH HOẠT';
     default:
       return '';
   }
 };
-export const getNameGender = (gender: any) => {
-  switch (gender) {
-    case GENDER.MALE:
-      return 'Male';
-    case GENDER.FEMALE:
-      return 'Female';
-    case GENDER.OTHER:
-      return 'Other';
-    default:
-      return '';
-  }
+export const removeString = (str: string, removeStr: string) => {
+  return str.replace(removeStr, '');
+};
+export const formatDateVN = (date: any) => {
+  return dayjs(date, 'DD/MM/YYYY').format('DD-MM-YYYY');
+};
+export const formatDate = (date: any) => {
+  return dayjs(date).format('DD-MM-YYYY');
 };

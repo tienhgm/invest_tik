@@ -7,6 +7,7 @@ import authApi from 'apis/auth';
 import { authActions } from 'app/slices/authSlice';
 import styles from './style.module.scss';
 import { useTranslation } from 'react-i18next';
+import { removeString } from 'helper/generate';
 // import socketClient from 'helper/socketClient';
 interface IHeader {
   avatar: string;
@@ -74,7 +75,7 @@ function Header({ avatar }: IHeader) {
         {!avatar ? (
           <Avatar size={40} icon={<UserOutlined />} className={styles.dropAvt} />
         ) : (
-          <img src={avatar} className={styles.imgAvatar} alt="avt" />
+          <img src={removeString(avatar, '/api')} className={styles.imgAvatar} alt="avt" />
         )}
       </Dropdown>
     </div>
