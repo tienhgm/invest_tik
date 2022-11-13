@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Avatar, Badge, Dropdown, Menu } from 'antd';
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, useRouteMatch } from 'react-router-dom';
@@ -8,7 +8,8 @@ import { authActions } from 'app/slices/authSlice';
 import styles from './style.module.scss';
 import { useTranslation } from 'react-i18next';
 import { removeString } from 'helper/generate';
-// import socketClient from 'helper/socketClient';
+import socketClient from 'helper/socketClient';
+
 interface IHeader {
   avatar: string;
 }
@@ -25,7 +26,7 @@ function Header({ avatar }: IHeader) {
     try {
       await authApi.logout();
       dispatch(authActions.logout());
-    } catch (error) {}
+    } catch (error) { }
   };
   const menuNavbar = (
     <Menu style={{ minWidth: '10rem' }}>
@@ -51,18 +52,16 @@ function Header({ avatar }: IHeader) {
         ))}
     </Menu>
   );
-  // const getBroadcastingAuth = async () => {
-  //   await authApi.broadcastingAuth();
-  // };
-  // useEffect(() => {
-  //   const channel = socketClient.private(`notification.${2}`);
-  //   console.log(channel);
 
-  //   channel.listen('.notification.new', (e: any) => {
-  //     console.log(e);
-  //   });
-  //   return () => {};
-  // }, []);
+  useEffect(() => {
+    const channel = socketClient.private(`notification.${1}`);
+    console.log(channel);
+
+    channel.listen('.notification.new', (e: any) => {
+      console.log(e);
+    });
+    return () => {};
+  }, []);
 
   return (
     <div className={styles.headerPage}>

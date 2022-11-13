@@ -4,7 +4,7 @@ import authApi from './auth';
 // import { history } from '../index';
 const axiosInstance = Axios.create({
   timeout: 3 * 60 * 1000,
-  // baseURL: configs.BASE_URL
+  baseURL: '/api'
 });
 axiosInstance.interceptors.request.use(
   (config) => {

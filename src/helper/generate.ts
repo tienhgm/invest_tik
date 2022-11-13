@@ -47,6 +47,7 @@ export const getNameStatusAccount = (status: any) => {
   }
 };
 export const removeString = (str: string, removeStr: string) => {
+  if(removeStr === "/api") return str;
   return str.replace(removeStr, '');
 };
 export const formatDateVN = (date: any) => {
