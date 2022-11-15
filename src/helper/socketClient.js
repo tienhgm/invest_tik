@@ -8,11 +8,11 @@ const socketClient = (window.echo = new Echo({
     authEndpoint: '/broadcasting/auth',
     client: io,
     transports: ["websocket"],
-    auth: {
-        headers: {
-            'X-CSRF-TOKEN': document?.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
-        },
-    },
+    // auth: {
+    //     headers: {
+    //         'X-CSRF-TOKEN': document?.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
+    //     },
+    // },
 }));
 
 export default socketClient;

@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { Avatar, Badge, Dropdown, Menu } from 'antd';
 import { BellOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { useAppDispatch } from 'app/hooks';
 import authApi from 'apis/auth';
 import { authActions } from 'app/slices/authSlice';
 import styles from './style.module.scss';
 import { useTranslation } from 'react-i18next';
 import { removeString } from 'helper/generate';
 import socketClient from 'helper/socketClient';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 
 interface IHeader {
   avatar: string;
@@ -16,12 +16,14 @@ interface IHeader {
 function Header({ avatar }: IHeader) {
   const match = useRouteMatch();
   const dispatch = useAppDispatch();
+  let userInfo = useAppSelector((state) => state.user.userInfo);
   const { t } = useTranslation();
   const listNotify = [
     { key: '0', name: 'Noti 1' },
     { key: '1', name: 'Noti 2' },
     { key: '2', name: 'Noti 3' },
   ];
+
   const handleLogout = async () => {
     try {
       await authApi.logout();
@@ -54,13 +56,15 @@ function Header({ avatar }: IHeader) {
   );
 
   useEffect(() => {
-    const channel = socketClient.private(`notification.${1}`);
+    const channel = socketClient.private(`notification.${userInfo.id}`);
     console.log(channel);
 
     channel.listen('.notification.new', (e: any) => {
       console.log(e);
+      console.log('zo');
+      
     });
-    return () => {};
+    return () => { };
   }, []);
 
   return (
