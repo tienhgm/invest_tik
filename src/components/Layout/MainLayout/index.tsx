@@ -109,12 +109,12 @@ export default function MainLayout() {
       link: `/transactions`,
       text: t('common.history_transaction'),
     },
-    {
-      key: KEY_SIDE_BAR.NOTIFY,
-      icon: <BellOutlined />,
-      link: `/interest-tool`,
-      text: t('common.notify'),
-    },
+    // {
+    //   key: KEY_SIDE_BAR.NOTIFY,
+    //   icon: <BellOutlined />,
+    //   link: `/interest-tool`,
+    //   text: t('common.notify'),
+    // },
     {
       key: KEY_SIDE_BAR.PROFILE,
       icon: <ProfileOutlined />,

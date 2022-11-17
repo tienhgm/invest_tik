@@ -13,7 +13,7 @@
   .dropAvt {
     cursor: pointer;
   }
-  .notify {
+  .notifyBell {
     font-size: 1.6rem;
     font-weight: 500;
     color: #fff;
@@ -25,4 +25,29 @@
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
+}
+.notify{
+  display: flex;
+  // padding: 1rem 1rem 0 1rem;
+  border-radius: 0 0 4px 4px;
+  &__block{
+    cursor: pointer;
+    width: 100%;
+    padding: 1.5rem 0.6rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    &__text{
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+      flex-grow: 1;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;      
+    }
+    &:hover{
+      background-color: #F0F2F5;
+      opacity: 0.8;
+    }
+  }
 }

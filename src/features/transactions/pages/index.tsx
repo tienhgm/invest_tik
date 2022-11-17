@@ -45,8 +45,22 @@ function Transactions() {
       title: 'Trạng thái',
       key: '',
       render: (_, record: any) => (
-        <Tag color={record.payment_status ? '#87d068' : '#f50'} key={record.name}>
-          {record.payment_status ? 'Thành công' : 'Thất bại'}
+        <Tag color={ 
+          record.payment_status === 1
+          ? '#87d068'
+          : record.payment_status === -1
+          ? '#f50'
+          : !record.payment_status
+          ? '#f9bf57'
+          : ''} key={record.name
+          }>
+           { record.payment_status === 1
+              ? 'Thành công'
+              : record.payment_status === -1
+              ? 'Thất bại'
+              : !record.payment_status
+              ? 'Đang chờ'
+              : ''}
         </Tag>
       ),
     },

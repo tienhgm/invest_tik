@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
-import { Avatar, Badge, Dropdown, Menu } from 'antd';
-import { BellOutlined, UserOutlined } from '@ant-design/icons';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { useAppDispatch } from 'app/hooks';
+import React, { useEffect, useState } from 'react';
+import { Avatar, Badge, Dropdown, Menu, Tooltip } from 'antd';
+import { BellOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
+import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import authApi from 'apis/auth';
 import { authActions } from 'app/slices/authSlice';
 import styles from './style.module.scss';
 import { useTranslation } from 'react-i18next';
 import { removeString } from 'helper/generate';
 import socketClient from 'helper/socketClient';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import notiApi from 'apis/notification';
 
 interface IHeader {
   avatar: string;
@@ -16,16 +17,26 @@ interface IHeader {
 function Header({ avatar }: IHeader) {
   const match = useRouteMatch();
   const dispatch = useAppDispatch();
+  const [count, setCount] = useState(0);
+  const history = useHistory();
+  const [listNoti, setListNoti] = useState<any>(null);
+  let userInfo = useAppSelector((state) => state.user.userInfo);
   const { t } = useTranslation();
-  const listNotify = [
-    { key: '0', name: 'Noti 1' },
-    { key: '1', name: 'Noti 2' },
-    { key: '2', name: 'Noti 3' },
-  ];
+  const onGoToNotiDetail = (link: string) => {
+    history.push(link)
+  }
   const handleLogout = async () => {
     try {
       await authApi.logout();
       dispatch(authActions.logout());
+    } catch (error) { }
+  };
+  const onToggleNotify = async () => {
+    try {
+     const {data} = await notiApi.getNotification();
+     if(data){
+       setListNoti(data)
+     }
     } catch (error) { }
   };
   const menuNavbar = (
@@ -43,31 +54,39 @@ function Header({ avatar }: IHeader) {
     </Menu>
   );
   const notifyNavbar = (
-    <Menu style={{ minWidth: '20rem' }}>
-      {listNotify &&
-        listNotify.map((item: any) => (
-          <Menu.Item key={item.key} style={{ padding: '1.3rem 0.4rem' }}>
-            {item.name}
-          </Menu.Item>
+    <div style={{ width: '22rem', maxHeight: '40rem', overflow: 'scroll', backgroundColor: '#fff' }}>
+      {listNoti &&
+        listNoti.map((item: any) => (
+          <div className={styles.notify} key={item.id} onClick={() => onGoToNotiDetail(item.related_url)}>
+            <div className={styles.notify__block} >
+            <MailOutlined style={{fontSize: '2rem'}} />
+            <div className={styles.notify__block__text}><Tooltip title={item.message} placement="topLeft">
+           {item.message}
+          </Tooltip></div>
+            <Badge color="green" />
+            </div>
+          </div>
         ))}
-    </Menu>
+    </div>
   );
 
   useEffect(() => {
-    const channel = socketClient.private(`notification.${1}`);
+    const channel = socketClient.private(`notification.${userInfo.id}`);
     console.log(channel);
 
     channel.listen('.notification.new', (e: any) => {
       console.log(e);
+      setCount((prevState) => prevState + 1);
+      
     });
-    return () => {};
+    return () => { };
   }, []);
 
   return (
     <div className={styles.headerPage}>
-      <Dropdown overlay={notifyNavbar} trigger={['click']}>
-        <Badge count={2}>
-          <BellOutlined className={styles.notify} />
+      <Dropdown overlay={notifyNavbar} trigger={['click']}  arrow={true}>
+        <Badge count={count}>
+          <BellOutlined className={styles.notifyBell} onClick={onToggleNotify} />
         </Badge>
       </Dropdown>
       <Dropdown overlay={menuNavbar} trigger={['click']}>
