@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { ColumnsType } from 'antd/es/table';
-import { Button, Tag, Select, Input, Tooltip, Modal } from 'antd';
-import { getColorStatusAccount, getNameStatusAccount, formatDate } from 'helper/generate';
+import { Button, Tag, Select, Input, Tooltip, Modal, Skeleton } from 'antd';
+import { getColorStatusAccount, getNameStatusAccount, formatDate, getNameStatusEKYC, getColorEKYC } from 'helper/generate';
 import TableUser from 'features/admin/components/TableUser';
 import { useHistory } from 'react-router-dom';
 import {
@@ -12,7 +12,6 @@ import './index.scss';
 import adminApi from 'apis/admin';
 import { errorMes, successMes } from 'helper/notify';
 import { useAppSelector } from 'app/hooks';
-
 function Users() {
     const columns: ColumnsType<any> = [
         {
@@ -59,6 +58,15 @@ function Users() {
             </div>,
         },
         {
+            title: 'Xác minh eKYC',
+            key: 'id',
+            render: (user: any) => <div className="actions">
+                <Tag color={getColorEKYC(Boolean(user?.is_verify))}>
+                    {getNameStatusEKYC(Boolean(user?.is_verify))}
+                </Tag>
+            </div>,
+        },
+        {
             title: 'Ngày tạo tài khoản',
             key: 'created_at',
             render: (user: any) => <div>
@@ -82,6 +90,7 @@ function Users() {
         per_page: 10,
         name: null,
         total: 0,
+        page: 1,
         email: null
     });
     let userInfo = useAppSelector((state: any) => state.user.userInfo);
@@ -144,7 +153,7 @@ function Users() {
             errorMes('Đã có lỗi xảy ra, vui lòng thử lại sau!')
         }
     }
-    const onSelectper_page = (value: string) => {
+    const onSelectPerPage = (value: string) => {
         setFilter((prevState: any) => ({ ...prevState, per_page: value }));
     };
     const onChangeFilterName = (e: any) => {
@@ -154,13 +163,12 @@ function Users() {
         setFilter((prevState: any) => ({ ...prevState, email: e.target.value }));
     };
     const onChangePage = (value: any) => {
-        console.log(value);
-        
+        setFilter((prevState: any) => ({ ...prevState, page: value }));
     }
     const onResetFilter = () => {
         setFilter({
             sort_by: 'desc',
-            total: 0,
+            page: 1,
             per_page: 10,
             name: null,
             email: null
@@ -209,11 +217,13 @@ function Users() {
     }
     useEffect(() => {
         setSelectedRowKeys([])
-        onGetListUsers();
+        const getData = setTimeout(() => {
+            onGetListUsers();
+        }, 500)
         return () => {
-
+            clearTimeout(getData)
         }
-    }, [filter.per_page, filter.name, filter.email, filter.sort_by])
+    }, [filter.per_page, filter.sort_by, filter.page, filter.name, filter.email])
 
     return (
         <>
@@ -249,7 +259,7 @@ function Users() {
                         style={{ width: 100 }}
                         placeholder={'Số bản ghi'}
                         value={filter.per_page}
-                        onChange={onSelectper_page}
+                        onChange={onSelectPerPage}
                         options={[
                             {
                                 value: 10,
@@ -268,9 +278,9 @@ function Users() {
                 </div>
             </div>
             {
-                listUser && <div>
-                    <TableUser data={listUser} columns={columns} rowSelection={rowSelection} loading={loading} perPage={filter.per_page} total={filter.total} onChangePage={onChangePage} />
-                </div>
+                listUser ? <div>
+                    <TableUser data={listUser} columns={columns} rowSelection={rowSelection} loading={loading} perPage={filter.per_page} page={filter.page} total={filter.total} onChangePage={onChangePage} />
+                </div> : <Skeleton active/>
             }
 
         </>

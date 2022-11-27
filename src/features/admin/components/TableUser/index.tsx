@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { Table } from 'antd'
+import { Table, Pagination } from 'antd'
 
-function TableUser({ rowSelection, columns, data, loading, perPage, total, onChangePage }: any) {
+function TableUser({ rowSelection, columns, data, loading, perPage, page, total, onChangePage }: any) {
     return (
-        <Table rowSelection={rowSelection} columns={columns} dataSource={data} loading={loading} pagination={{ pageSize: perPage, total: total }} />
+        <>
+            <Table rowSelection={rowSelection} columns={columns} dataSource={data} loading={loading} pagination={false} />
+            <br/>
+            <Pagination current={page} total={total} onChange={onChangePage} pageSize={perPage}  hideOnSinglePage/>
+        </>
+
 
     );
 }

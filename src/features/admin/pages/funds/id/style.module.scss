@@ -1,0 +1,31 @@
+.link {
+    cursor: pointer;
+    transition: all 0.25s;
+    &:hover {
+        color: #4caf50;
+    }
+}
+.funds {
+    box-sizing: border-box;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: nowrap;
+    &__rest {
+        box-sizing: border-box;
+        height: 85vh;
+        max-height: 85vh;
+        padding: 1rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+        &--title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #ddd;
+        }
+        &--description {
+            margin-top: 0.4rem;
+        }
+    }
+}

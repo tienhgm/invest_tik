@@ -16,6 +16,9 @@ const Users = lazy(() => import('features/admin/pages/users'));
 const DetailUser = lazy(() => import('features/admin/pages/users/id'));
 const CreatelUser = lazy(() => import('features/admin/pages/users/create'));
 const FundManagement = lazy(() => import('features/admin/pages/funds'));
+const FundDetail = lazy(() => import('features/admin/pages/funds/id'));
+const TransactionManagement = lazy(() => import('features/admin/pages/transactions'));
+
 export const authRoutes = [
   {
     path: '/login',
@@ -98,16 +101,14 @@ export const adminRoutes = [
   },
   {
     path: '/admin/funds', 
-    exact: false, 
+    exact: true, 
     component: FundManagement
   },
-  
   {
-    path: '/admin/transactions', 
-    exact: false, 
-    component: Transactions
+    path: '/admin/funds/:id', 
+    exact: true, 
+    component: FundDetail
   },
-  
   {
     path: '/admin/users', 
     exact: true, 
@@ -127,5 +128,10 @@ export const adminRoutes = [
     path: '/admin/profile', 
     exact: true, 
     component: Profile
+  },
+  {
+    path: '/admin/transactions', 
+    exact: true, 
+    component: TransactionManagement
   },
 ]

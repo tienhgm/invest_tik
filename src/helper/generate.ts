@@ -52,12 +52,32 @@ export const getColorStatusAccount = (status: any) => {
       return '';
   }
 };
+export const getColorEKYC = (status: any) => {
+  switch (status) {
+    case STATUS_ACCOUNT.ACTIVE:
+      return '#87d068';
+    case STATUS_ACCOUNT.INACTIVE:
+      return 'orange';
+    default:
+      return '';
+  }
+};
 export const getNameStatusAccount = (status: any) => {
   switch (status) {
     case STATUS_ACCOUNT.ACTIVE:
       return 'ĐÃ KÍCH HOẠT';
     case STATUS_ACCOUNT.INACTIVE:
       return 'CHƯA KÍCH HOẠT';
+    default:
+      return '';
+  }
+};
+export const getNameStatusEKYC = (status: any) => {
+  switch (status) {
+    case STATUS_ACCOUNT.ACTIVE:
+      return 'ĐÃ XÁC MINH';
+    case STATUS_ACCOUNT.INACTIVE:
+      return 'CHƯA XÁC MINH';
     default:
       return '';
   }
@@ -72,3 +92,13 @@ export const formatDateVN = (date: any) => {
 export const formatDate = (date: any) => {
   return dayjs(date).format('DD-MM-YYYY');
 };
+export const getNameStatusNotify = (value: any) => {
+  switch(value){
+    case 0:
+      return 'Đã xem';
+    case 1: 
+      return 'Chưa xem'
+    default:
+      return 'Đã xem';
+  }
+}

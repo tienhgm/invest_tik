@@ -23,7 +23,7 @@ function Header({ avatar }: IHeader) {
   let userInfo = useAppSelector((state) => state.user.userInfo);
   const { t } = useTranslation();
   const onGoToNotiDetail = (link: string) => {
-    history.push(link)
+    history.push(link ? link : '/')
   }
   const handleLogout = async () => {
     try {
@@ -36,19 +36,22 @@ function Header({ avatar }: IHeader) {
       setCount(0);
       const { data } = await notiApi.getNotification();
       if (data) {
-        setListNoti(data)
+        setListNoti(data.data)
       }
     } catch (error) { }
   };
   const menuNavbar = (
     <Menu style={{ minWidth: '10rem' }}>
-      <Menu.Item key="10">
+      {!userInfo.role ? <><Menu.Item key="10">
         <Link to={`${match.path}/profile`}>{t('common.profile')}</Link>
       </Menu.Item>
-      <Menu.Item key="11">
-        <Link to={`${match.path}/profile`}>{t('common.setting')}</Link>
-      </Menu.Item>
-      <Menu.Divider />
+        <Menu.Item key="11">
+          <Link to={`${match.path}/profile`}>{t('common.setting')}</Link>
+        </Menu.Item>
+        <Menu.Divider />
+      </> : <></>
+      }
+
       <Menu.Item key="111" onClick={() => handleLogout()}>
         {t('common.logout')}
       </Menu.Item>
@@ -68,9 +71,9 @@ function Header({ avatar }: IHeader) {
             </div>
           </div>
         ))
-        : <div style={{padding: '1rem 1rem 0 1rem', fontWeight: 600}}>Không có thông báo</div>
+        : <div style={{ padding: '1rem 1rem 0 1rem', fontWeight: 600 }}>Không có thông báo</div>
       }
-          
+
     </div>
   );
 

@@ -57,16 +57,10 @@ export default function MainLayout() {
       link: `/admin/users`,
       text: 'Quản lý người dùng',
     },
-    {
-      key: KEY_SIDE_BAR_ADMIN.PROFILE,
-      icon: <ProfileOutlined />,
-      link: `/admin/profile`,
-      text: 'Thông tin cá nhân',
-    },
   ]);
   const dispatch = useAppDispatch();
-  let userInfo = useAppSelector((state) => state.user.userInfo);
-  let isGetMe = useAppSelector((state) => state.user.isGetMe);
+  let userInfo = useAppSelector((state: any) => state.user.userInfo);
+  let isGetMe = useAppSelector((state : any) => state.user.isGetMe);
   const onCollapse = () => {
     setcollapsed(!collapsed);
   };
