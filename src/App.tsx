@@ -8,6 +8,7 @@ import authApi from 'apis/auth';
 import { authRoutes } from 'routes';
 import Verify from 'features/auth/pages/verify';
 import { useAppSelector } from 'app/hooks';
+import AdminLayout from 'components/Layout/AdminLayout';
 const MainLayout = lazy(() => import('components/Layout/MainLayout'));
 function App() {
   const location = useLocation();
@@ -38,6 +39,7 @@ function App() {
             component={element.component}
           />
         ))}
+        <GuardRoute path={'/admin'} component={AdminLayout}></GuardRoute>
         <GuardRoute path={'/'} component={MainLayout}></GuardRoute>
         <Route component={NotFound}></Route>
       </Switch>

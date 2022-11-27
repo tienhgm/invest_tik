@@ -1,5 +1,6 @@
-import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { Breadcrumb, Card, Skeleton } from 'antd';
+import { CheckCircleOutlined, CloseCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Breadcrumb, Card, Skeleton, Table } from 'antd';
+import { formatDate } from 'helper/generate';
 import transactionApi from 'apis/transaction';
 import { STATUS_TRANSACTION, TRANSACTION_TYPE } from 'enum';
 import { formatCurrency, formatDateTime } from 'helper/common';
@@ -19,12 +20,44 @@ function TransactionDetail() {
       if (data) {
         setDetail(data);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     getDetailTransaction(match.params.id);
   }, [match.params.id]);
-
+  const columns: ColumnsType<DataType> = [
+    {
+      title: 'Ngày giao dịch',
+      dataIndex: 'created_at',
+      key: 'created_at',
+      render: (text: any) => <div style={{ fontWeight: 'bold' }}>{formatDate(text)}</div>,
+    },
+    {
+      title: 'Số tham chiếu',
+      dataIndex: 'transaction_id',
+      key: 'transaction_id',
+    },
+    {
+      title: 'Số tiền giao dịch',
+      dataIndex: 'price',
+      key: 'price',
+      render: (value: any) => (
+        <div style={{ fontWeight: 'bold' }}>
+          {value?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') ? value?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0} đ
+        </div>
+      ),
+    },
+    {
+      title: 'Số lượng CCCQ',
+      dataIndex: 'volume',
+      key: 'volume',
+      render: (value: any) => (
+        <div style={{ fontWeight: 'bold' }}>
+          {value ? value : 0}
+        </div>
+      ),
+    },
+  ];
   return (
     <>
       <Breadcrumb>
@@ -37,51 +70,62 @@ function TransactionDetail() {
       </Breadcrumb>
       <br />
       {detail ? (
-        <Card title="Thông tin giao dịch" className="transaction_detail">
-          <div className="transaction_detail__info">
-            {detail.status === STATUS_TRANSACTION.SUCCESS ? (
-              <CheckCircleOutlined className="icon-success" />
-            ) : (
-              <CloseCircleOutlined className="icon-failed" />
-            )}
-            <div
-              className={
-                detail.status === STATUS_TRANSACTION.SUCCESS ? 'payment-success' : 'payment-failed'
-              }
-            >
-              <div>
-                {detail.status === STATUS_TRANSACTION.SUCCESS
-                  ? 'Nạp tiền thành công'
-                  : 'Nạp tiền thất bại'}
-              </div>
-
-              {detail.status === STATUS_TRANSACTION.SUCCESS && (
+        <>
+          <Card title="Thông tin giao dịch" className="transaction_detail">
+            <div className="transaction_detail__info">
+              {detail.status === STATUS_TRANSACTION.SUCCESS ? (
+                <CheckCircleOutlined className="icon-success" />
+              ) : detail.status === STATUS_TRANSACTION.FAILED ? (
+                <CloseCircleOutlined className="icon-failed" />
+              ) : detail.status === STATUS_TRANSACTION.PENDING ? (
+                <ExclamationCircleOutlined className="icon-pending" />
+              ) : ""}
+              <div
+                className={
+                  detail.status === STATUS_TRANSACTION.SUCCESS ? 'payment-success' : detail.status === STATUS_TRANSACTION.FAILED ? 'payment-failed' : detail.status === STATUS_TRANSACTION.PENDING ? 'payment-pending' : ''
+                }
+              >
                 <div>
-                  {detail.type === TRANSACTION_TYPE.DEPOSIT
-                    ? '+'
-                    : TRANSACTION_TYPE.WITHDRAWAL
-                    ? '-'
-                    : ''}
-                  {formatCurrency(detail.amount)}đ
+                  {detail.status === STATUS_TRANSACTION.SUCCESS
+                    ? 'Nạp tiền thành công'
+                    : detail.status === STATUS_TRANSACTION.FAILED ? 'Nạp tiền thất bại' :
+                      detail.status === STATUS_TRANSACTION.PENDING ? detail.type === 2 ? 'Đang tạo lệnh rút' : detail.type === 0 ? 'Đang chờ thanh toán' : '' : ''
+                  }
                 </div>
-              )}
+
+                {detail.status === STATUS_TRANSACTION.SUCCESS && (
+                  <div>
+                    {detail.type === TRANSACTION_TYPE.DEPOSIT
+                      ? '+'
+                      : TRANSACTION_TYPE.WITHDRAWAL
+                        ? '-'
+                        : ''}
+                    {formatCurrency(detail.amount)}đ
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-          <div className="transaction_detail__child">
-            <div>Mã giao dịch:</div>
-            <div>{detail.id}</div>
-          </div>
-          <div className="transaction_detail__child">
-            <div>Số tiền:</div>
-            <div style={{ fontWeight: 'bold', color: '#4caf50' }}>
-              {formatCurrency(detail.amount)}đ
+            <div className="transaction_detail__child">
+              <div>Mã giao dịch:</div>
+              <div>{detail.id}</div>
             </div>
-          </div>
-          <div className="transaction_detail__child">
-            <div>Thời gian:</div>
-            <div>{formatDateTime(detail.created_at)}</div>
-          </div>
-        </Card>
+            <div className="transaction_detail__child">
+              <div>Số tiền:</div>
+              <div style={{ fontWeight: 'bold', color: '#4caf50' }}>
+                {formatCurrency(detail.amount)}đ
+              </div>
+            </div>
+            <div className="transaction_detail__child">
+              <div>Thời gian:</div>
+              <div>{formatDateTime(detail.created_at)}</div>
+            </div>
+          </Card>
+          {detail.detail &&
+            <>
+              <Table columns={columns} dataSource={detail.detail} pagination={false} />
+            </>
+          }
+        </>
       ) : (
         <Skeleton active />
       )}

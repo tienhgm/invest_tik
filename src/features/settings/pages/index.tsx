@@ -31,6 +31,7 @@ function Settings() {
       name: 'current_password',
       rules: [
         { required: true, message: 'Hãy nhập mật khẩu hiện tại' },
+        { max: 100, message: t('validate.password_maxLength') },
         {
           pattern: REGEX_PASSWORD,
           message: 'Hãy nhập mật khẩu ít nhất 8 kí tự và bao gồm kí tự đặc biệt sau @$!%*#?&',
@@ -43,6 +44,7 @@ function Settings() {
       name: 'new_password',
       rules: [
         { required: true, message: 'Hãy nhập mật khẩu mới' },
+        { max: 100, message: t('validate.password_maxLength') },
         {
           pattern: REGEX_PASSWORD,
           message: 'Hãy nhập mật khẩu ít nhất 8 kí tự và bao gồm kí tự đặc biệt sau @$!%*#?&',
@@ -203,7 +205,7 @@ function Settings() {
 
   useEffect(() => {
     getSettings();
-    return () => {};
+    return () => { };
   }, []);
 
   return (
@@ -239,14 +241,14 @@ function Settings() {
                 <div>Bạn đang thay đổi phương thức xác thực hai bước.</div>
                 <div>Vui lòng nhập mật khẩu của bạn để thay đổi xác thực hai bước.</div>
                 <br />
-                <Input type="password" value={password} onChange={onChangePassword} />
+                <Input type="password" maxLength={100} value={password} onChange={onChangePassword} />
               </>
             )}
             {step === 2 && qr && (
               <div className={styles.step2Box}>
                 <div>Từ ứng dụng đã tải xuống, hãy quét mã QR.</div>
                 <div dangerouslySetInnerHTML={{ __html: qr }}></div>
-                <div>Nhập mã gồm 6 chữ số được hiển thị trong Google Authenticator và ấn "Ok".</div>
+                <div>Nhập mã gồm 6 chữ số được hiển thị trong Google Authenticator và ấn "Xác nhận".</div>
                 <OtpInput
                   shouldAutoFocus
                   className={styles.otpInput}
@@ -276,7 +278,8 @@ function Settings() {
             <br />
             <br />
             <Input
-              placeholder="password"
+              maxLength={100}
+              placeholder="Nhập mật khẩu"
               type={'Password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}

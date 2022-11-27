@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Card, Skeleton } from 'antd';
+import { Breadcrumb, Card } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import './index.scss';
@@ -72,17 +72,11 @@ function CustomPackage() {
                 <img src={item.avatar} className="customize__title-img" alt="title_recharge" />
               }
             >
-              <div className="customize__info">
-                <span className="invest">Đã đầu tư:</span>
-                <span className="currency">{item.investment_amount} đ</span>
-              </div>
-              <br />
               <div className="customize__detail" onClick={() => onGoToDetailPackage(item.id)}>
                 Nạp tiền {'>'}
               </div>
             </Card>
           ))}
-        {listPackages && !listPackages.length && <Skeleton active />}
       </div>
     </div>
   );

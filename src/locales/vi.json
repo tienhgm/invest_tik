@@ -37,7 +37,7 @@
     "confirm": "Xác nhận",
     "intro_funds": "Hiện nay KLTN có 4 loại quỹ đầu tư cho KH lựa chọn, mỗi quỹ phù hợp với một nhu cầu đầu tư khác nhau.",
     "title_custom_packages": "Gói linh hoạt",
-    "title_default_packages": "Các gói gói gợi ý",
+    "title_default_packages": "Các gói gợi ý",
     "invest": "Đầu tư",
     "recharge": "Nạp tiền",
     "default": "Các gói cơ bản",
@@ -55,9 +55,11 @@
   "validate": {
     "email_invalid": "Email không hợp lệ!",
     "email_required": "Vui lòng nhập Email!",
+    "email_maxLength": "Hãy nhập Email trong vòng 100 kí tự!",
     "username_required": "Vui lòng nhập tên người dùng!",
     "password_required": "Vui lòng nhập mật khẩu!",
     "password_not_match": "Mật khẩu xác nhận không đúng với mật khẩu!",
+    "password_maxLength": "Hãy nhập mật khẩu trong vòng 100 kí tự!",
     "username_maxLength": "Hãy nhập tên người dùng trong vòng 60 kí tự!"
   }
 }

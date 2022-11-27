@@ -28,5 +28,10 @@ const packageApi = {
     const url = `/packages/${id}/clone`;
     return sendPost(url);
   },
+  withdrawMoney(payload: any) : Promise<any> {
+    const {id, bank_id, bank_account_id, amount} = payload;
+    const url = `/packages/${payload.id}/withdraw`
+    return sendPost(url, {bank_id,bank_account_id, amount })
+  }
 };
 export default packageApi;

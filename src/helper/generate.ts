@@ -1,4 +1,4 @@
-import { KEY_SIDE_BAR } from './../enum/index';
+import { KEY_SIDE_BAR, KEY_SIDE_BAR_ADMIN } from './../enum/index';
 import { STATUS_ACCOUNT } from 'enum';
 import dayjs from 'dayjs';
 var customParseFormat = require('dayjs/plugin/customParseFormat');
@@ -23,6 +23,22 @@ export const getPathKey = (value: any) => {
       return KEY_SIDE_BAR.PROFILE;
     case 'settings':
       return KEY_SIDE_BAR.SETTING;
+  }
+};
+export const getPathKeyAdmin = (value: any) => {
+  switch (value) {
+    case 'dashboard':
+      return KEY_SIDE_BAR_ADMIN.DASHBOARD;
+    case undefined:
+      return KEY_SIDE_BAR_ADMIN.DASHBOARD;
+    case 'funds':
+      return KEY_SIDE_BAR_ADMIN.FUND;
+    case 'transactions':
+      return KEY_SIDE_BAR_ADMIN.TRANSACTIONS;
+    case 'users':
+      return KEY_SIDE_BAR_ADMIN.USER;
+    case 'profile':
+      return KEY_SIDE_BAR_ADMIN.PROFILE;
   }
 };
 

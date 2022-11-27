@@ -82,7 +82,11 @@ function Ekyc() {
     };
     reader.readAsDataURL(file);
   };
-  const onBackProgress0 = () => {
+  const onBackProgress0 = async() => {
+    if(progress === 0){
+      await authApi.logout();
+      window.location.reload();
+    }
     if (progress === 50) {
       setProgress(0);
     }
@@ -162,7 +166,7 @@ function Ekyc() {
       )}
       <div className="bottom">
         <div className="bottom__prev" onClick={onBackProgress0}>
-          {progress === 50 ? 'Trở về' : ''}
+          {progress === 50 ? 'Trở về' : 'Đăng xuất'}
         </div>
         <div
           className={!formUpload.imgFront ? 'bottom__next disabled' : 'bottom__next'}

@@ -1,0 +1,16 @@
+.actions{
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.funds{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    &__filter{
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+}

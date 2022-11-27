@@ -37,11 +37,19 @@ export default function TwoFaPage() {
       errorMes(error?.data?.message);
     }
   };
+  const onLogout = async () => {
+    try {
+      await authApi.logout();
+      history.push('/login')
+      window.location.reload();
+    } catch (error) {
+    }
+  }
   useEffect(() => {
     if (!isGoto2fa) {
       history.push('/login');
     }
-    return () => {};
+    return () => { };
   }, []);
 
   useEffect(() => {
@@ -64,6 +72,7 @@ export default function TwoFaPage() {
       />
 
       <div className={styles.toSignUp}>
+        <br />
         <Button onClick={onConfirm} loading={loading} disabled={disabled} type="primary">
           {t('common.confirm')}
         </Button>

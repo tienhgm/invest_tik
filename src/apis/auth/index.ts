@@ -87,7 +87,7 @@ const authApi = {
   },
   changePassword(payload: any): Promise<any> {
     const url = '/auth/user/password';
-    return sendPut(url, { current_password: payload.current_password, password: payload.password });
+    return sendPut(url, { current_password: payload.current_password, password: payload.password, password_confirmation: payload.password });
   },
   uploadFrontImg(file: any): Promise<any> {
     const url = '/me/kyc/identity_image_front';

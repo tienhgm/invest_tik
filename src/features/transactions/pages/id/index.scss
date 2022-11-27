@@ -8,11 +8,17 @@
 
 .transaction_detail {
   width: 100%;
+  margin-bottom: 2rem;
   &__info {
     text-align: center;
   }
   .icon-success {
     color: #4caf50;
+    font-size: 2.5rem;
+    margin-bottom: 0.7rem;
+  }
+  .icon-pending {
+    color: #f9bf57;
     font-size: 2.5rem;
     margin-bottom: 0.7rem;
   }
@@ -27,6 +33,10 @@
   }
   .payment-failed {
     color: #f50;
+    font-weight: 500;
+  }
+  .payment-pending {
+    color: #f9bf57;
     font-weight: 500;
   }
   &__child {

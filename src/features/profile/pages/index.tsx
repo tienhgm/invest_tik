@@ -99,11 +99,11 @@ function Profile() {
             <div className="profile__block--content">
               <div style={{ width: '100%' }}>
                 Họ và tên
-                <Input disabled placeholder="User name" value={userInfo?.name} />
+                <Input disabled placeholder="Họ và tên" value={userInfo?.name} />
               </div>{' '}
               <div style={{ width: '100%' }}>
                 Số điện thoại
-                <Input disabled placeholder="Phone number" value={userInfo?.phone_number} />
+                <Input disabled placeholder="Số điện thoại" value={userInfo?.phone_number} />
               </div>
             </div>
             <div className="profile__block--content">
@@ -118,12 +118,12 @@ function Profile() {
                     { max: 50, message: t('validate.max_length_email') },
                   ]}
                 >
-                  <Input />
+                  <Input placeholder="Email" disabled />
                 </Form.Item>
               </div>
               <div style={{ width: '100%' }}>
                 Giới tính
-                <Input disabled placeholder="Gender" value={userInfo?.gender} />
+                <Input disabled placeholder="Giới tính" value={userInfo?.gender} />
               </div>
             </div>
             <div className="profile__block--content">
@@ -134,7 +134,7 @@ function Profile() {
                   name={'address'}
                   rules={[{ max: 255, message: t('validate.max_length_address') }]}
                 >
-                  <Input placeholder="Address" />
+                  <Input disabled placeholder="Địa chỉ" />
                 </Form.Item>
               </div>
             </div>
@@ -144,7 +144,7 @@ function Profile() {
             <div className="profile__block--content">
               <div style={{ width: '100%' }}>
                 Số CCCD
-                <Input disabled placeholder="User name" value={userInfo?.identity_number} />
+                <Input disabled placeholder="Số CCCD" value={userInfo?.identity_number} />
               </div>
               <div style={{ width: '100%' }}>
                 Sinh nhật
@@ -164,7 +164,7 @@ function Profile() {
             <div className="profile__block--content">
               <div style={{ width: '100%' }}>
                 Địa điểm
-                <Input disabled placeholder="User name" value={userInfo?.issue_place} />
+                <Input disabled placeholder="Địa điểm làm CCCD" value={userInfo?.issue_place} />
               </div>
             </div>
             <div className="profile__block--content">

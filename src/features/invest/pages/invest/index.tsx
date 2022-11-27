@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Card, Skeleton } from 'antd';
 import './index.scss';
 import { useHistory } from 'react-router-dom';
-import { ArrowDownOutlined, PlusOutlined } from '@ant-design/icons';
+import { ArrowDownOutlined, WalletOutlined } from '@ant-design/icons';
 import authApi from 'apis/auth';
 import tempPackage from 'assets/images/temp_package.svg';
 import { formatCurrency, formatDateTime } from 'helper/common';
+import { formatDate } from 'helper/generate';
 function InvestPage() {
   const history = useHistory();
   const onGoToLink = (link: string) => {
@@ -44,7 +45,7 @@ function InvestPage() {
           <div className="invest__block__method">
             <div className="invest__block__method--recharge">
               <div className="invest__btn" onClick={() => onGoToLink('/invest/recharge')}>
-                <PlusOutlined
+                <WalletOutlined
                   className="invest__btn"
                   style={{
                     padding: '0.8rem',
@@ -57,22 +58,7 @@ function InvestPage() {
                   }}
                 />
               </div>
-              <div className="text-medium">Nạp tiền</div>
-            </div>
-            <div className="invest__block__method--recharge">
-              <div className="invest__btn">
-                <ArrowDownOutlined
-                  style={{
-                    padding: '0.8rem',
-                    fontSize: '1.2rem',
-                    borderRadius: '50%',
-                    backgroundColor: '#fff',
-                    border: '1.5px solid #ddd',
-                    cursor: 'pointer',
-                  }}
-                />
-              </div>
-              <div className="text-medium">Rút tiền</div>
+              <div className="text-medium">Đầu tư</div>
             </div>
           </div>
           <br />
@@ -94,7 +80,7 @@ function InvestPage() {
               <div>
                 <div className="invest__info__child--title">Ngày bắt đầu</div>
                 <div className="invest__info__child--num">
-                  {assetInvest.started_at ? assetInvest.started_at : '-'}
+                  {assetInvest.started_at ? formatDate(assetInvest.started_at) : '-'}
                 </div>
               </div>
             </div>

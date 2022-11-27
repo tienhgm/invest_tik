@@ -39,7 +39,7 @@ export default function LoginPage() {
     }
   };
 
-  const onFinishFailed = (errorInfo: any) => {};
+  const onFinishFailed = (errorInfo: any) => { };
 
   const handleGoToPage = (route: string) => {
     history.push(route);
@@ -49,7 +49,7 @@ export default function LoginPage() {
       successMes(t('notify.account_active'));
       localStorage.removeItem('verify');
     }
-    return () => {};
+    return () => { };
   }, []);
 
   const listFormLogin = [
@@ -58,6 +58,7 @@ export default function LoginPage() {
       name: 'email',
       rules: [
         { required: true, message: t('validate.email_required') },
+        { max: 100, message: t('validate.email_maxLength') },
         { pattern: REGEX_CHECK_EMAIL, message: t('validate.email_invalid') },
       ],
       childComponent: <Input />,
@@ -65,7 +66,7 @@ export default function LoginPage() {
     {
       label: t('common.password'),
       name: 'password',
-      rules: [{ required: true, message: t('validate.password_required') }],
+      rules: [{ required: true, message: t('validate.password_required') }, { max: 100, message: t('validate.password_maxLength') },],
       childComponent: <Input.Password />,
     },
   ];

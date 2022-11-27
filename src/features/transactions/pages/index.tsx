@@ -44,20 +44,34 @@ function Transactions() {
     {
       title: 'Trạng thái',
       key: '',
-      render: (_, record: any) => (
-        <Tag color={record.payment_status ? '#87d068' : '#f50'} key={record.name}>
-          {record.payment_status ? 'Thành công' : 'Thất bại'}
+      render: (_ :any, record: any) => (
+        <Tag color={ 
+          record.payment_status === 1
+          ? '#87d068'
+          : record.payment_status === -1
+          ? '#f50'
+          : !record.payment_status
+          ? '#f9bf57'
+          : ''} key={record.name
+          }>
+           { record.payment_status === 1
+              ? 'Thành công'
+              : record.payment_status === -1
+              ? 'Thất bại'
+              : !record.payment_status
+              ? 'Đang chờ'
+              : ''}
         </Tag>
       ),
     },
     {
       title: 'Thao tác',
       key: 'action',
-      render: (_, record: any) => (
+      render: (_: any, record: any) => (
         <Space size="middle">
           <div
             style={{ cursor: 'pointer', color: '#32c610' }}
-            onClick={() => onGoToDetail(`transactions/${record.reference_number}`)}
+            onClick={() => onGoToDetail(`/transactions/${record.reference_number}`)}
           >
             Chi tiết {record.name}
           </div>

@@ -1,0 +1,53 @@
+.title {
+    text-align: center;
+  }
+  .headerPage {
+    padding: 1.05rem 2.5rem;
+    background-color: #058f48d5;
+    max-height: 3.6rem;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 2.5rem;
+    align-items: center;
+    .dropAvt {
+      cursor: pointer;
+    }
+    .notifyBell {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+  .imgAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .notify{
+    display: flex;
+    // padding: 1rem 1rem 0 1rem;
+    border-radius: 0 0 4px 4px;
+    &__block{
+      cursor: pointer;
+      width: 100%;
+      padding: 1.5rem 0.6rem;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      &__text{
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        flex-grow: 1;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;      
+      }
+      &:hover{
+        background-color: #F0F2F5;
+        opacity: 0.8;
+      }
+    }
+  }

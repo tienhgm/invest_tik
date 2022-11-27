@@ -129,6 +129,7 @@ function CreateCustomizePackage() {
         <div className="create_customize__title">Tên gói</div>
         <br />
         <Input
+          maxLength={100}
           size="large"
           placeholder="Tên gói"
           value={name}

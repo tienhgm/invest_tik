@@ -69,10 +69,10 @@ export default function Funds() {
     Promise.all([onGetDetailFundById(selectFund), onGetDetailFundHistoryById(selectFund, keyTime)]);
   }, [selectFund, keyTime]);
   const listTabTime = [
-    { name: '1 Month', key: '1' },
-    { name: '3 Month', key: '3' },
-    { name: '6 Month', key: '6' },
-    { name: '1 Year', key: '12' },
+    { name: '1 Tháng', key: '1' },
+    { name: '3 Tháng', key: '3' },
+    { name: '6 Tháng', key: '6' },
+    { name: '1 Năm', key: '12' },
   ];
   return (
     <Card title={t('common.funds')} bordered={false}>
@@ -111,7 +111,7 @@ export default function Funds() {
                 <div
                   style={{
                     flexGrow: 1,
-                    height: 400,
+                    height: 350,
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'flex-end',

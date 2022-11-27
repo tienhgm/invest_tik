@@ -19,7 +19,7 @@ function LineChart({ data }: ILineChart) {
     yField: 'percent',
     smooth: true,
     autoFit: 'height',
-    height: 400,
+    height: 300,
     color: '#2b906d',
     xAxis: {
       // type: 'timeCat',

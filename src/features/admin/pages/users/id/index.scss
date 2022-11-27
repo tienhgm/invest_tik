@@ -1,0 +1,23 @@
+.link {
+  cursor: pointer;
+  transition: all 0.25s;
+  &:hover {
+    color: #4caf50;
+  }
+}
+.profile {
+  width: 100%;
+  &__block {
+    &--title {
+      font-size: 1.2rem;
+      border-bottom: 1px solid #ddd;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    &--content {
+      display: flex;
+      margin-top: 2rem;
+      gap: 2rem;
+    }
+  }
+}

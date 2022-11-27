@@ -1,5 +1,5 @@
 export default function Dashboard() {
   return (
-    <div>dashboard</div>
+    <div>Bảng điều khiển</div>
   );
 }

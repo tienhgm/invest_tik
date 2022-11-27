@@ -53,6 +53,7 @@ export default function ForgotPasswordPage() {
           name="email"
           rules={[
             { required: true, message: 'Hãy nhập email!' },
+            { max: 100, message: t('validate.email_maxLength') },
             { pattern: REGEX_CHECK_EMAIL, message: 'Email không đúng định dạng' },
           ]}
         >

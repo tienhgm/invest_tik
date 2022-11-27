@@ -41,24 +41,17 @@ export default function RegisterPage() {
       name: 'email',
       rules: [
         { required: true, message: t('validate.email_required') },
+        { max: 100, message: t('validate.email_maxLength') },
         { pattern: REGEX_CHECK_EMAIL, message: t('validate.email_invalid') },
       ],
       childComponent: <Input />,
     },
-    // {
-    //   label: t('common.username'),
-    //   name: 'name',
-    //   rules: [
-    //     { required: true, message: t('validate.username_required') },
-    //     { max: 60, message: t('validate.username_maxLength') },
-    //   ],
-    //   childComponent: <Input />,
-    // },
     {
       label: t('common.password'),
       name: 'password',
       rules: [
         { required: true, message: t('validate.password_required') },
+        { max: 100, message: t('validate.password_maxLength') },
         {
           pattern: REGEX_PASSWORD,
           message: 'Hãy nhập mật khẩu ít nhất 8 kí tự và bao gồm kí tự đặc biệt sau @$!%*#?&',
