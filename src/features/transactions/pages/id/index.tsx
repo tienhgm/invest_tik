@@ -65,7 +65,7 @@ function TransactionDetail() {
             : record.status === -1
               ? 'Thất bại'
               : !record.status
-                ? 'Đang chờ'
+                ? 'Đang chờ đặt lệnh'
                 : ''}
         </Tag>
       ),

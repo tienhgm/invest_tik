@@ -233,7 +233,7 @@ function CustomizeId() {
             : record.status === -1
               ? 'Thất bại'
               : !record.status
-                ? 'Đang chờ'
+                ? 'Đang chờ đặt lệnh'
                 : ''}
         </Tag>
       ),
@@ -292,14 +292,18 @@ function CustomizeId() {
             <br />
             <div className="customize-detail__currency">
               {formatCurrency(detailCustomize.balance)} đ
-              <div
-                className={
-                  'customize-detail__currency' + (detailCustomize?.profit < 0 ? 'is_down' : 'is-up')
-                }
-                style={{ color: 'red' }}
-              >
-                ({detailCustomize.profit ? formatCurrency(detailCustomize.profit) + ' đ' : '-'})
-              </div>
+              {
+                detailCustomize.profit ? <div
+                  className={
+                    'customize-detail__currency' + (detailCustomize?.profit < 0 ? 'is_down' : 'is-up')
+                  }
+                  style={{ color: 'red' }}
+                >
+                  ({detailCustomize.profit ? formatCurrency(detailCustomize.profit) + ' đ' : '-'})
+                </div>
+                  : <></>
+              }
+
             </div>
 
             <div className="customize-detail__block__method">
