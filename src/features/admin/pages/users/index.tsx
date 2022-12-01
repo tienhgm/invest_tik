@@ -20,14 +20,17 @@ function Users() {
         },
         {
             title: 'Email',
+            width: 100,
             dataIndex: 'email',
         },
         {
             title: 'Họ và tên',
+            width: 100,
             dataIndex: 'name',
         },
         {
             title: 'Phân quyền',
+            width: 150,
             key: 'updated_at',
             render: (user: any) => <>
                 <Select

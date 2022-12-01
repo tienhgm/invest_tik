@@ -124,7 +124,6 @@ function DefaultPackageId() {
               />
               <br />
               <div className="package__block--title">{packageDetail.name}</div>
-              <div className="package__block--repair">Sửa tên gói</div>
               <br />
               <div className="package__block--content">
                 Phù hợp với những nhà đầu tư muốn thêm kênh sinh lời ổn định, với mức độ rủi ro thấp

@@ -1,5 +1,5 @@
 import { CheckCircleOutlined, CloseCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Breadcrumb, Card, Skeleton, Table } from 'antd';
+import { Breadcrumb, Card, Skeleton, Table, Tag } from 'antd';
 import { formatDate } from 'helper/generate';
 import transactionApi from 'apis/transaction';
 import { STATUS_TRANSACTION, TRANSACTION_TYPE } from 'enum';
@@ -39,12 +39,35 @@ function TransactionDetail() {
     },
     {
       title: 'Số tiền giao dịch',
-      dataIndex: 'price',
-      key: 'price',
+      dataIndex: 'amount',
+      key: 'amount',
       render: (value: any) => (
         <div style={{ fontWeight: 'bold' }}>
           {value?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') ? value?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0} đ
         </div>
+      ),
+    },
+    {
+      title: 'Trạng thái',
+      key: '',
+      render: (_: any, record: any) => (
+        <Tag color={
+          record.status === 1
+            ? '#87d068'
+            : record.status === -1
+              ? '#f50'
+              : !record.status
+                ? '#f9bf57'
+                : ''} key={record.name
+                }>
+          {record.status === 1
+            ? 'Thành công'
+            : record.status === -1
+              ? 'Thất bại'
+              : !record.status
+                ? 'Đang chờ'
+                : ''}
+        </Tag>
       ),
     },
     {
@@ -122,7 +145,7 @@ function TransactionDetail() {
           </Card>
           {detail.detail &&
             <>
-              <Table columns={columns} dataSource={detail.detail} pagination={false} />
+              <Table locale={{ emptyText: 'Không có dữ liệu' }} columns={columns} dataSource={detail.detail} pagination={false} />
             </>
           }
         </>

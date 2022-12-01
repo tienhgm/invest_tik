@@ -112,6 +112,7 @@ function DetailUser() {
     useEffect(() => {
         onResetFilterTs()
         onResetFilter()
+        onResetFilterPk()
         switch (keyTab) {
             case '1':
                 onGetDetailUser();
@@ -690,7 +691,7 @@ function DetailUser() {
                                 },
                             ]}
                         />
-                        <Input value={filterPk.name} onChange={onChangeFilterNamePk} placeholder="Tìm theo tên gói" />
+                        <Input value={filterPk.package_name} onChange={onChangeFilterNamePk} placeholder="Tìm theo tên gói" />
                     </div>
                 </div>
                 <TablePackages data={listPackages} columns={columnsPackages} loading={loading} perPage={filterPk.per_page} page={filterPk.page} total={filterPk.total} onChangePage={onChangePagePk} />

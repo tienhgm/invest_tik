@@ -8,5 +8,5 @@ export const formatDateTime = (value: any) => {
 };
 export const formatCurrency = (value: any) => {
   if (!value) return 0;
-  return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return String(value.toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };

@@ -1,5 +1,5 @@
 import { ArrowDownOutlined, PlusOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Form, InputNumber, Input, Skeleton, Table, Select } from 'antd';
+import { Breadcrumb, Button, Form, InputNumber, Input, Skeleton, Table, Select, Tag } from 'antd';
 import DonutChartPackage from 'features/invest/components/DonutChartPackage';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +15,8 @@ import { errorMes, successMes } from 'helper/notify';
 import bankApi from 'apis/bank'
 import authApi from 'apis/auth'
 import packageApi from 'apis/packages'
+import { getColorStatusAccount } from 'helper/generate';
+import { TRANSACTION_TYPE } from 'enum';
 import { delay } from 'lodash'
 function CustomizeId() {
   const [detailCustomize, setDetailCustomize] = useState<any>(null);
@@ -30,6 +32,8 @@ function CustomizeId() {
   const [password, setPassword] = useState<any>(null)
   const [infoWithdrawal, setInfoWithdrawal] = useState<any>(null)
   const [amountWithdraw, setAmountWithdraw] = useState<any>(null)
+  const [isExistBank, setIsExistBank] = useState(false)
+  const [infoExistBank, setInfoExistBank] = useState<any>(null)
   const [form] = Form.useForm<any>();
   const match = useRouteMatch<any>();
   const { t } = useTranslation();
@@ -70,6 +74,8 @@ function CustomizeId() {
     setStepWithdrawal(1);
     setPassword(null);
     setAmountWithdraw(null);
+    setIsExistBank(false)
+    setInfoExistBank(null)
     form.resetFields();
   };
   const confirmModal = () => {
@@ -86,23 +92,26 @@ function CustomizeId() {
   };
   const confirmPassword = async (password: any) => {
     try {
-      setLoading(true);
-      const result = await authApi.confirmPassword({ password });
-      if (result) {
-        await onWithdrawMoney();
-      }
+      await authApi.confirmPassword({ password });
+      await onWithdrawMoney();
     } catch (error: any) {
-      errorMes(error?.data?.message);
+      errorMes('Mật khẩu không đúng hoặc đã có lỗi xảy ra!');
     }
   };
   const onWithdrawMoney = async () => {
     try {
-      const payload = { id: match.params.id, bank_id: bankId, bank_account_id: bankNumber, amount: amountWithdraw }
+      let payload = {}
+      if (!isExistBank) {
+        payload = { id: match.params.id, bank_id: bankId, bank_account_id: bankNumber, amount: amountWithdraw }
+      } else {
+        payload = { id: match.params.id, bank_id: infoExistBank.bank_id, bank_account_id: infoExistBank.account_number, amount: amountWithdraw }
+      }
       await packageApi.withdrawMoney(payload)
+      getListCustomizePackage()
       successMes('Bạn đã tạo lệnh rút tiền thành công!');
       cancelModaWithdrawal(false);
     } catch (error: any) {
-      errorMes(error.data.message)
+      errorMes(error?.data?.message)
     }
   }
   const onFinish = async (values: any) => {
@@ -130,11 +139,14 @@ function CustomizeId() {
     switch (stepWithdrawal) {
       case 1:
         setAmountWithdraw(values?.amountWithdraw)
-        setStepWithdrawal(2);
+        onCheckExistBank();
         break;
       case 2:
-        onGetUserInfoByBank(bankId, bankNumber)
-        // setStepWithdrawal(3)
+        if (!isExistBank) {
+          onGetUserInfoByBank(bankId, bankNumber)
+        } else {
+          setStepWithdrawal(3)
+        }
         break;
       case 3:
         // cancelModaPayment(false)
@@ -142,6 +154,18 @@ function CustomizeId() {
         break;
     }
   };
+  const onCheckExistBank = async () => {
+    try {
+      const { data } = await bankApi.getBankUsed();
+      if (Object.keys(data).length) {
+        setIsExistBank(true)
+        setInfoExistBank(data)
+      }
+      setStepWithdrawal(2);
+    }
+    catch (error) {
+    }
+  }
   const onGetUserInfoByBank = async (bank_id: any, account_id: any) => {
     try {
       const payload = {
@@ -159,6 +183,7 @@ function CustomizeId() {
       errorMes(error?.data?.message)
     }
   }
+
   const columns: ColumnsType<DataType> = [
     {
       title: 'Ngày giao dịch',
@@ -172,9 +197,18 @@ function CustomizeId() {
       key: 'transaction_id',
     },
     {
+      title: 'Loại giao dịch',
+      key: 'type',
+      render: (record: any) => <div className="actions">
+        <Tag color={getColorStatusAccount(!Boolean(record?.type))}>
+          {record.type === TRANSACTION_TYPE.DEPOSIT ? 'NẠP TIỀN' : 'RÚT TIỀN'}
+        </Tag>
+      </div>,
+    },
+    {
       title: 'Số tiền giao dịch',
-      dataIndex: 'price',
-      key: 'price',
+      dataIndex: 'amount',
+      key: 'amount',
       render: (value) => (
         <div style={{ fontWeight: 'bold' }}>
           {value?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') ? value?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0} đ
@@ -182,7 +216,30 @@ function CustomizeId() {
       ),
     },
     {
-      title: 'Số lượng CCCQ',
+      title: 'Trạng thái',
+      key: '',
+      render: (_: any, record: any) => (
+        <Tag color={
+          record.status === 1
+            ? '#87d068'
+            : record.status === -1
+              ? '#f50'
+              : !record.status
+                ? '#f9bf57'
+                : ''} key={record.name
+                }>
+          {record.status === 1
+            ? 'Thành công'
+            : record.status === -1
+              ? 'Thất bại'
+              : !record.status
+                ? 'Đang chờ'
+                : ''}
+        </Tag>
+      ),
+    },
+    {
+      title: 'Số lượng CCQ',
       dataIndex: 'volume',
       key: 'volume',
       render: (value) => (
@@ -234,8 +291,17 @@ function CustomizeId() {
             <img src={detailCustomize.avatar} className="customize-detail__title-img" alt="" />
             <br />
             <div className="customize-detail__currency">
-              {formatCurrency(detailCustomize.investment_amount)} đ
+              {formatCurrency(detailCustomize.balance)} đ
+              <div
+                className={
+                  'customize-detail__currency' + (detailCustomize?.profit < 0 ? 'is_down' : 'is-up')
+                }
+                style={{ color: 'red' }}
+              >
+                ({detailCustomize.profit ? formatCurrency(detailCustomize.profit) + ' đ' : '-'})
+              </div>
             </div>
+
             <div className="customize-detail__block__method">
               <div className="customize-detail__block__method--recharge">
                 <div className="customize-detail__btn" onClick={() => setOpenModal(true)}>
@@ -282,7 +348,7 @@ function CustomizeId() {
               <div className="customize-detail__block">
                 <div className="customize-detail__block--title">Lịch sử giao dịch</div>
               </div>
-              <Table columns={columns} dataSource={detailCustomize.transactions} pagination={false} />
+              <Table locale={{ emptyText: 'Không có dữ liệu' }} columns={columns} dataSource={detailCustomize.transactions} pagination={false} />
             </>
           }
         </div>
@@ -358,7 +424,7 @@ function CustomizeId() {
             type="primary"
             htmlType="submit"
           >
-            {stepWithdrawal === 1 ? 'Rút tiền' : stepWithdrawal === 2 ? 'Kiểm tra' : stepWithdrawal === 3 ? 'Xác nhận' : ''}
+            {stepWithdrawal === 1 ? 'Rút tiền' : stepWithdrawal === 2 ? !isExistBank ? 'Kiểm tra' : 'Xác nhận' : stepWithdrawal === 3 ? 'Xác nhận' : ''}
           </Button>,
         ]}
       >
@@ -383,7 +449,7 @@ function CustomizeId() {
               />
             </Form.Item>
           </Form>
-          {stepWithdrawal === 2 && <>
+          {stepWithdrawal === 2 && !isExistBank && <>
             <h5>Chọn ngân hàng</h5>
             <Select
               style={{ width: '100%', marginBottom: '2rem' }}
@@ -401,6 +467,14 @@ function CustomizeId() {
             </> : <></>}
           </>
           }
+          {stepWithdrawal === 2 && isExistBank && <>
+            <h5>Ngân hàng</h5>
+            <Input value={infoExistBank.bank_name_vn} style={{ marginBottom: '2rem' }} disabled />
+            <h5>Số tài khoản</h5>
+            <Input value={infoExistBank.account_number} style={{ marginBottom: '2rem' }} disabled />
+            <h5>Chủ tài khoản</h5>
+            <Input value={infoExistBank.name} disabled />
+          </>}
           {stepWithdrawal === 3 && <>
             <h5>Nhập mật khẩu để tiến hành rút tiền</h5>
             <Input type="password" value={password} onChange={onChangePassword} />

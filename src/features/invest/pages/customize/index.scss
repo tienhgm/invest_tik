@@ -48,3 +48,18 @@
 .my-package {
   margin-bottom: 1rem;
 }
+.is_up.customize-detail__currency {
+  // color: '#32c610';
+  &:before {
+    font-size: 0.8rem;
+    margin-right: 0.3rem;
+    content: '▲';
+  }
+}
+.is_down.customize-detail__currency {
+  &:before {
+    font-size: 0.8rem;
+    margin-right: 0.3rem;
+    content: '▼';
+  }
+}

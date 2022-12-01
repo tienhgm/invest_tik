@@ -3,6 +3,8 @@ import type { ColumnsType } from 'antd/es/table';
 import transactionApi from 'apis/transaction';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { getColorStatusAccount } from 'helper/generate';
+import { TRANSACTION_TYPE } from 'enum';
 import './index.scss';
 interface DataType {
   key: string;
@@ -24,7 +26,7 @@ function Transactions() {
       title: 'Ngày giao dịch',
       dataIndex: 'created_at',
       key: 'created_at',
-      render: (text) => <div style={{ fontWeight: 'bold' }}>{text}</div>,
+      render: (text: any) => <div style={{ fontWeight: 'bold' }}>{text}</div>,
     },
     {
       title: 'Số tham chiếu',
@@ -44,23 +46,23 @@ function Transactions() {
     {
       title: 'Trạng thái',
       key: '',
-      render: (_ :any, record: any) => (
-        <Tag color={ 
+      render: (_: any, record: any) => (
+        <Tag color={
           record.payment_status === 1
-          ? '#87d068'
-          : record.payment_status === -1
-          ? '#f50'
-          : !record.payment_status
-          ? '#f9bf57'
-          : ''} key={record.name
-          }>
-           { record.payment_status === 1
-              ? 'Thành công'
-              : record.payment_status === -1
+            ? '#87d068'
+            : record.payment_status === -1
+              ? '#f50'
+              : !record.payment_status
+                ? '#f9bf57'
+                : ''} key={record.name
+                }>
+          {record.payment_status === 1
+            ? 'Thành công'
+            : record.payment_status === -1
               ? 'Thất bại'
               : !record.payment_status
-              ? 'Đang chờ'
-              : ''}
+                ? 'Đang chờ'
+                : ''}
         </Tag>
       ),
     },
@@ -124,7 +126,7 @@ function Transactions() {
           />
         </div>
       </div>
-      <Table columns={columns} dataSource={dataList} loading={loading} />
+      <Table locale={{ emptyText: 'Không có dữ liệu' }} columns={columns} dataSource={dataList} loading={loading} />
     </div>
   );
 }
